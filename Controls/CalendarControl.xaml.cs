@@ -78,14 +78,6 @@ namespace KurosukeInfoBoard.Controls
             }
         }
 
-        private void rootGrid_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //calendarCanvas.CanvasWidth = e.NewSize.Width;
-            //calendarCanvas.CanvasHeight = e.NewSize.Height;
-            //calendarCanvas.Height = e.NewSize.Height;
-            //calendarCanvas.Width = e.NewSize.Width;
-        }
-
         private void EnableTouchWritingToggle_Click(object sender, RoutedEventArgs e)
         {
             if (toggleButton.IsChecked == true)
@@ -95,6 +87,18 @@ namespace KurosukeInfoBoard.Controls
             else
             {
                 calendarCanvas.InkPresenter.InputDeviceTypes &= ~CoreInputDeviceTypes.Touch;
+            }
+        }
+
+        private void DisableCanvasToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (disableCanvasToggleButton.IsChecked == true)
+            {
+                calendarCanvas.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                calendarCanvas.Visibility = Visibility.Visible;
             }
         }
     }

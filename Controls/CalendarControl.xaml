@@ -12,7 +12,7 @@
     d:DesignWidth="1280">
 
     <Grid>
-        <Grid x:Name="rootGrid" SizeChanged="rootGrid_SizeChanged">
+        <Grid x:Name="rootGrid">
             <Grid.Resources>
                 <ResourceDictionary>
                     <Style x:Key="CalendarHeaderStyle" TargetType="TextBlock">
@@ -54,17 +54,6 @@
             <TextBlock Grid.Row="0" Grid.Column="5" Text="Fri" Style="{StaticResource CalendarHeaderStyle}"/>
             <TextBlock Grid.Row="0" Grid.Column="6" Text="Sat" Style="{StaticResource CalendarHeaderStyle}" Foreground="#FF4B75FF" />
 
-            <!--
-            <GridView Grid.Row="1" Grid.ColumnSpan="7" x:Name="DaysGridView">
-                <GridView.ItemTemplate>
-                    <DataTemplate>
-                        <local:CalendarItemControl CalendarDay="{Binding}"/>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-            -->
-
-            <!--Height="{Binding ActualWidth, RelativeSource={RelativeSource Mode=Self}}" Style="{StaticResource CalendarContentContainerStyle}"-->
             <Grid Grid.Row="1" Grid.Column="0">
                 <local:CalendarItemControl/>
             </Grid>
@@ -184,6 +173,9 @@
                 <InkToolbar Grid.Row="0" TargetInkCanvas="{x:Bind calendarCanvas}">
                     <InkToolbarCustomToggleButton x:Name="toggleButton" Click="EnableTouchWritingToggle_Click" ToolTipService.ToolTip="Touch Writing">
                         <SymbolIcon Symbol="{x:Bind TouchWritingIcon}"/>
+                    </InkToolbarCustomToggleButton>
+                    <InkToolbarCustomToggleButton Margin="50,0,0,0" x:Name="disableCanvasToggleButton" Click="DisableCanvasToggle_Click" ToolTipService.ToolTip="Disable canvas">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF1F;"/>
                     </InkToolbarCustomToggleButton>
                 </InkToolbar>
             </Grid>
