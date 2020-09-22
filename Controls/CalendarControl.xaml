@@ -172,7 +172,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <InkCanvas x:Name="calendarCanvas" Grid.Row="1"/>
-                <InkToolbar Grid.Row="0" TargetInkCanvas="{x:Bind calendarCanvas}">
+                <InkToolbar Grid.Row="0" x:Name="inkToolbar" TargetInkCanvas="{x:Bind calendarCanvas}">
                     <InkToolbarCustomToggleButton x:Name="toggleButton" Click="EnableTouchWritingToggle_Click" ToolTipService.ToolTip="Touch Writing">
                         <SymbolIcon Symbol="{x:Bind TouchWritingIcon}"/>
                     </InkToolbarCustomToggleButton>
