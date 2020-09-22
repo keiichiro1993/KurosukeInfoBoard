@@ -8,6 +8,9 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Title="Add account">
+    <ContentDialog.Resources>
+        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+    </ContentDialog.Resources>
 
     <Grid>
         <Frame x:Name="contentFrame"></Frame>

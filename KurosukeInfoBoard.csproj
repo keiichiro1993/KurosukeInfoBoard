@@ -125,6 +125,9 @@
     <Compile Include="Controls\CalendarItemControl.xaml.cs">
       <DependentUpon>CalendarItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NatureRemoApplianceControl.xaml.cs">
+      <DependentUpon>NatureRemoApplianceControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Auth\NatureRemoToken.cs" />
     <Compile Include="Models\Auth\NatureRemoUser.cs" />
     <Compile Include="Models\CalendarDay.cs" />
@@ -201,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CalendarItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NatureRemoApplianceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,7 +10,9 @@
     mc:Ignorable="d"
     d:DesignHeight="1000"
     d:DesignWidth="1280">
-
+    <UserControl.Resources>
+        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+    </UserControl.Resources>
     <Grid>
         <Grid x:Name="rootGrid">
             <Grid.Resources>

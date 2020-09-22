@@ -20,20 +20,37 @@ namespace KurosukeInfoBoard.Models.Auth
 
         public static async Task<UserBase> AcquireUserFromToken(TokenBase token)
         {
-            switch (token.UserType)
+            try
             {
-                case UserType.Google:
-                    var googleClient = new GoogleClient(token);
-                    return await googleClient.GetUserData();
-                case UserType.Microsoft:
-                    break;
-                case UserType.MicrosoftOrg:
-                    break;
-                case UserType.NatureRemo:
-                    var remoClient = new NatureRemoClient(token); 
-                    return await remoClient.GetUserDataAsync();
-                default:
-                    break;
+                switch (token.UserType)
+                {
+                    case UserType.Google:
+                        var googleClient = new GoogleClient(token);
+                        return await googleClient.GetUserData();
+                    case UserType.Microsoft:
+                        break;
+                    case UserType.MicrosoftOrg:
+                        break;
+                    case UserType.NatureRemo:
+                        var remoClient = new NatureRemoClient(token);
+                        return await remoClient.GetUserDataAsync();
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugHelper.WriteErrorLog("Exception occured on acquiring user info. Type=" + token.UserType.ToString(), ex);
+                //var message = new MessageDialog("Type=" + token.UserType.ToString() + " Exception=" + ex.Message, "Exception occured on acquiring user info.");
+                //await message.ShowAsync();
+
+                var user = new UserBase();
+                user.Token = token;
+                user.UserType = token.UserType;
+                user.UserName = "Failed to get user info.";
+                user.ProfilePictureUrl = "/Assets/Square150x150Logo.scale-200.png";
+                user.Id = token.Id;
+                return user;
             }
             return null;
         }

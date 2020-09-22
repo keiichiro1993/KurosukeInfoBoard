@@ -15,6 +15,8 @@ namespace KurosukeInfoBoard.Models.Auth
         public string RefreshToken { get; set; }
         public DateTime TokenExpiration { get; set; }
 
+        public string Id { get; set; }
+
         public bool IsTokenExpired()
         {
             if (TokenExpiration == null) return true;

@@ -50,5 +50,30 @@ namespace KurosukeInfoBoard.Views.Settings
                 contentFrame.Navigate(page.Page);
             }
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            var item = pages.First();
+            mainNavigation.SelectedItem = mainNavigation.MenuItems.First();
+            contentFrame.Navigate(item.Page);
+
+            if (Frame.CanGoBack)
+            {
+                mainNavigation.IsBackEnabled = true;
+                mainNavigation.BackRequested += MainNavigation_BackRequested;
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+            mainNavigation.BackRequested -= MainNavigation_BackRequested;
+        }
+
+        private void MainNavigation_BackRequested(muxc.NavigationView sender, muxc.NavigationViewBackRequestedEventArgs args)
+        {
+            Frame.GoBack();
+        }
     }
 }

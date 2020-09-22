@@ -1,0 +1,39 @@
+﻿<UserControl
+    x:Class="KurosukeInfoBoard.Controls.NatureRemoApplianceControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:KurosukeInfoBoard.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="300">
+    <UserControl.Resources>
+        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Button SizeChanged="Ellipse_SizeChanged" Click="Button_Click" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <Grid>
+                <Ellipse  Stroke="Gray" StrokeThickness="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="applianceTypeTextBlock">TV</TextBlock>
+                        <TextBlock>:</TextBlock>
+                        <TextBlock x:Name="applianceNameTextBlock">LivingRoom TV</TextBlock>
+                    </StackPanel>
+                    <FontIcon Margin="0,10,0,0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E8;"/>
+                </StackPanel>
+            </Grid>
+        </Button>
+        <controls:Loading x:Name="LoadingControl">
+            <controls:Loading.Background>
+                <SolidColorBrush Color="Black" Opacity="0.7" />
+            </controls:Loading.Background>
+            <StackPanel Orientation="Horizontal">
+                <ProgressRing/>
+            </StackPanel>
+        </controls:Loading>
+    </Grid>
+</UserControl>

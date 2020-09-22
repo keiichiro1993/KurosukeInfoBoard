@@ -32,13 +32,30 @@ namespace KurosukeInfoBoard.Utils
 
         public async Task<List<Appliance>> GetAppliancesAsync()
         {
-            return await GetAsyncWithType<List<Appliance>>(endpoint + "/1/appliances");
+            var appliances = await GetAsyncWithType<List<Appliance>>(endpoint + "/1/appliances");
+            foreach (var item in appliances)
+            {
+                item.Token = this.token;
+            }
+            return appliances;
         }
 
         public async Task<List<Device>> GetDevicesAsync()
         {
             return await GetAsyncWithType<List<Device>>(endpoint + "/1/devices");
         }
+
+        public async Task PostSignal(string signalId)
+        {
+            await PostAsync(endpoint + "/1/signals/" + signalId + "/send", null);
+        }
+
+        public async Task PostButton(string applianceId, string applianceType, string buttonName)
+        {
+            var content = new FormUrlEncodedContent(new Dictionary<string, string> { { "button", buttonName } });
+            await PostAsync(endpoint + "/1/appliances/" + applianceId + "/" + applianceType, content);
+        }
+
 
         private async Task<T> GetAsyncWithType<T>(string url)
         {

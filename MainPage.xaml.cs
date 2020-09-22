@@ -57,7 +57,18 @@ namespace KurosukeInfoBoard
         {
             base.OnNavigatedTo(e);
 
-            AppGlobalVariables.Users = new ObservableCollection<UserBase>(await AccountManager.GetAuthorizedUserList());
+            try
+            {
+                var users = await AccountManager.GetAuthorizedUserList();
+                AppGlobalVariables.Users = new ObservableCollection<UserBase>(users);
+            }
+            catch (Exception ex)
+            {
+                DebugHelper.WriteErrorLog("Error occured while getting user info on MainPage.", ex);
+                var message = new MessageDialog(ex.Message, "Error occured while getting user info");
+                await message.ShowAsync();
+                AppGlobalVariables.Users = new ObservableCollection<UserBase>();
+            }
 
             mainNavigation.SelectedItem = mainNavigation.MenuItems[0];
             contentFrame.Navigate(typeof(DashboardPage));

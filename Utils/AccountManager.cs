@@ -55,6 +55,7 @@ namespace KurosukeInfoBoard.Utils
         {
             var token = new TokenBase();
             token.UserType = type;
+            token.Id = cred.UserName;
             if (type == UserType.NatureRemo)
             {
                 token.AccessToken = cred.Password;
