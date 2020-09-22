@@ -12,8 +12,6 @@ namespace KurosukeInfoBoard.Utils
 {
     public class NatureRemoClient : HTTPClientBase
     {
-        private string tokenString = "qNpo86Ye9JamK3Vpf1mLRpGslML7BjGPksw5E7YD-Xc.evjqGrRD7AGyDBFAfzGE_jxy1B7i7BcvArEA-7Lp5Kg";
-
         private string userInfoEndpoint = "https://api.nature.global/1/users/me";
         private string endpoint = "https://api.nature.global";
 
