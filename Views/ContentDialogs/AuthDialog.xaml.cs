@@ -23,58 +23,15 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
 {
     public sealed partial class AuthDialog : ContentDialog
     {
-        public AuthDialogViewModel viewModel { get; set; } = new AuthDialogViewModel();
         public AuthDialog()
         {
             this.InitializeComponent();
-            this.Closing += ContentDialog_Closing;
-        }
-        private async void Google_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.IsButtonAvailable = false;
-            viewModel.IsLoading = true;
-            try
-            {
-                await registerGoogleToken();
-            }
-            catch (Exception ex)
-            {
-                DebugHelper.WriteErrorLog("Error in registering Google token on AuthDialog.", ex);
-            }
-            this.Hide();
+            this.Loaded += AuthDialog_Loaded;
         }
 
-        private static async Task registerGoogleToken()
+        private void AuthDialog_Loaded(object sender, RoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(GoogleAuthClient.GenerateAuthURI());
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            await Task.Delay(1000);
-            await Task.Run(() =>
-            {
-                while (AppGlobalVariables.GoogleAuthResultUri == null || string.IsNullOrEmpty(AppGlobalVariables.GoogleAuthResultUri.AbsoluteUri))
-                {
-                    if (stopwatch.Elapsed > new TimeSpan(0, 5, 0))
-                    {
-                        stopwatch.Stop();
-                        return;
-                    } // 5 mins for auth timeout.
-                }
-            });
-            var user = await GoogleAuthClient.GetUserAndTokenFromUri(AppGlobalVariables.GoogleAuthResultUri);
-            DebugHelper.WriteDebugLog("Token:" + user.Token.AccessToken);
-            AccountManager.SaveUserToVault(user);
-            AppGlobalVariables.Users.Add(user);
-
-            AppGlobalVariables.GoogleAuthResultUri = null;//reset
-        }
-
-        void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
-        {
-            if (!viewModel.IsLoading)
-            {
-                args.Cancel = true;
-            }
+            contentFrame.Navigate(typeof(AuthDialogMain), this);
         }
     }
 }

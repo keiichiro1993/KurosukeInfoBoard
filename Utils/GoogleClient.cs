@@ -12,11 +12,10 @@ using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Utils
 {
-    public class GoogleClient
+    public class GoogleClient : HTTPClientBase
     {
         string userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
         string calendarEndpoint = "https://www.googleapis.com/calendar/v3";
-        private TokenBase token;
 
         /// <summary>
         /// This class enables you to retrieve data from Google APIs.
@@ -70,29 +69,5 @@ namespace KurosukeInfoBoard.Utils
                 return JsonSerializer.Deserialize<EventList>(jsonString);
             }
         }
-
-        private async Task<string> GetAsync(string url)
-        {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.AccessToken);
-                var response = await client.GetAsync(url);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                    {
-                        DebugHelper.WriteDebugLog("Get Async failed. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ".");
-                        return null;
-                    }
-                    throw new InvalidOperationException("HTTP request was not successful. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + ". HTTP Status=" + response.StatusCode + ". Reason=" + response.ReasonPhrase);
-                }
-
-                DebugHelper.WriteDebugLog("Get Async succeeded. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ".");
-                return await response.Content.ReadAsStringAsync();
-            }
-        }
-
-
     }
 }

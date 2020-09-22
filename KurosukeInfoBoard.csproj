@@ -125,6 +125,8 @@
     <Compile Include="Controls\CalendarItemControl.xaml.cs">
       <DependentUpon>CalendarItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Auth\NatureRemoToken.cs" />
+    <Compile Include="Models\Auth\NatureRemoUser.cs" />
     <Compile Include="Models\CalendarDay.cs" />
     <Compile Include="Models\CalendarMonth.cs" />
     <Compile Include="Models\Google\Event.cs" />
@@ -133,6 +135,8 @@
     <Compile Include="Models\Auth\TokenBase.cs" />
     <Compile Include="Models\Auth\UserBase.cs" />
     <Compile Include="Models\Google\Calendar.cs" />
+    <Compile Include="Models\NatureRemo\Appliance.cs" />
+    <Compile Include="Models\NatureRemo\Device.cs" />
     <Compile Include="Utils\AccountManager.cs" />
     <Compile Include="Utils\AppGlobalVariables.cs" />
     <Compile Include="Utils\DebugHelper.cs" />
@@ -142,12 +146,21 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\GoogleClient.cs" />
+    <Compile Include="Utils\HTTPClientBase.cs" />
+    <Compile Include="Utils\NatureRemoClient.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialog.xaml.cs" />
+    <Compile Include="Views\ContentDialogs\AuthDialogMain.xaml.cs">
+      <DependentUpon>AuthDialogMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentDialogs\AuthDialogRemo.xaml.cs">
+      <DependentUpon>AuthDialogRemo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
@@ -163,7 +176,12 @@
     <Content Include="Assets\Icons\google_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\microsoft_button.png" />
+    <Content Include="Assets\Icons\microsoft_button.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Icons\nature_remo_logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -193,6 +211,14 @@
     <Page Include="Views\ContentDialogs\AuthDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ContentDialogs\AuthDialogMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ContentDialogs\AuthDialogRemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DashboardPage.xaml">
       <SubType>Designer</SubType>

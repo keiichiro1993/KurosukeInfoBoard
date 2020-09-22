@@ -19,7 +19,7 @@ namespace KurosukeInfoBoard.Utils
             foreach (var type in Enum.GetValues(typeof(UserType)).Cast<UserType>())
             {
                 IReadOnlyList<PasswordCredential> credentialList = null;
-                var vault = new Windows.Security.Credentials.PasswordVault();
+                var vault = new PasswordVault();
                 try
                 {
                     credentialList = vault.FindAllByResource(ResourceNamePrefix + type.ToString());
@@ -46,7 +46,7 @@ namespace KurosukeInfoBoard.Utils
 
         public static void DeleteUser(UserBase user)
         {
-            var vault = new Windows.Security.Credentials.PasswordVault();
+            var vault = new PasswordVault();
             var cred = vault.Retrieve(ResourceNamePrefix + user.UserType.ToString(), user.Id);
             vault.Remove(cred);
         }
@@ -54,17 +54,31 @@ namespace KurosukeInfoBoard.Utils
         private static async Task acquireAndAddUser(List<UserBase> userList, UserType type, Windows.Security.Credentials.PasswordCredential cred)
         {
             var token = new TokenBase();
-            token.RefreshToken = cred.Password;
             token.UserType = type;
-            token = await token.AcquireNewToken();
+            if (type == UserType.NatureRemo)
+            {
+                token.AccessToken = cred.Password;
+            }
+            else
+            {
+                token.RefreshToken = cred.Password;
+                token = await token.AcquireNewToken();
+            }
             userList.Add(await UserBase.AcquireUserFromToken(token));
         }
 
         public static void SaveUserToVault(UserBase user)
         {
             var resourceName = ResourceNamePrefix + user.UserType.ToString();
-            var vault = new Windows.Security.Credentials.PasswordVault();
-            vault.Add(new Windows.Security.Credentials.PasswordCredential(resourceName, user.Id, user.Token.RefreshToken));
+            var vault = new PasswordVault();
+            if (user.UserType == UserType.NatureRemo)
+            {
+                vault.Add(new PasswordCredential(resourceName, user.Id, user.Token.AccessToken));
+            }
+            else
+            {
+                vault.Add(new PasswordCredential(resourceName, user.Id, user.Token.RefreshToken));
+            }
         }
     }
 }

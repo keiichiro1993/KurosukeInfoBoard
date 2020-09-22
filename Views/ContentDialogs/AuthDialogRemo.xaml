@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="KurosukeInfoBoard.Views.ContentDialogs.AuthDialogRemo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:KurosukeInfoBoard.Views.ContentDialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="AUTO"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center">Click</TextBlock>
+            <HyperlinkButton Content="HERE" NavigateUri="https://home.nature.global/" VerticalAlignment="Center" Margin="5,0"/>
+            <TextBlock VerticalAlignment="Center"> to acquire Nature Remo token and paste it to the textbox below.</TextBlock>
+        </StackPanel>
+
+        <TextBox Grid.Row="1" Margin="0,10" PlaceholderText="Paste token here." Text="{x:Bind viewModel.TokenString, Mode=TwoWay}"/>
+
+        <Button Grid.Row="2" Content="OK" HorizontalAlignment="Stretch" Click="{x:Bind viewModel.OKButton_Click}" IsEnabled="{x:Bind viewModel.IsButtonEnabled, Mode=OneWay}"/>
+    </Grid>
+</Page>

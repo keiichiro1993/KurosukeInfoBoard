@@ -10,54 +10,6 @@
     Title="Add account">
 
     <Grid>
-        <Grid.Resources>
-            <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
-        </Grid.Resources>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="41"/>
-                <RowDefinition Height="41"/>
-                <RowDefinition Height="41"/>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Background="#4285F4" Padding="0" Click="Google_Click">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Source="/Assets/Icons/google_button.png"/>
-                    <TextBlock Grid.Column="1" Foreground="White" Margin="10,0" VerticalAlignment="Center">Sign in with Google</TextBlock>
-                </Grid>
-            </Button>
-            <Button Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Background="#2F2F2F" Padding="0" Margin="0,1,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Source="/Assets/Icons/microsoft_button.png" Margin="12,0"/>
-                    <TextBlock Grid.Column="1" Foreground="White" Margin="10,0" VerticalAlignment="Center">Sign in with Microsoft Account (Personal)</TextBlock>
-                </Grid>
-            </Button>
-            <Button Grid.Row="2" IsEnabled="{x:Bind viewModel.IsButtonAvailable, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Background="#2F2F2F" Padding="0" Margin="0,1,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Source="/Assets/Icons/microsoft_button.png" Margin="12,0"/>
-                    <TextBlock Grid.Column="1" Foreground="White" Margin="10,0" VerticalAlignment="Center">Sign in with Microsoft Account (Organization)</TextBlock>
-                </Grid>
-            </Button>
-        </Grid>
-        <controls:Loading x:Name="LoadingControl" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
-            <controls:Loading.Background>
-                <SolidColorBrush Color="Black" Opacity="0.7" />
-            </controls:Loading.Background>
-            <StackPanel Orientation="Horizontal">
-                <ProgressRing/>
-                <TextBlock Text="Acquiring token..."/>
-            </StackPanel>
-        </controls:Loading>
+        <Frame x:Name="contentFrame"></Frame>
     </Grid>
 </ContentDialog>
