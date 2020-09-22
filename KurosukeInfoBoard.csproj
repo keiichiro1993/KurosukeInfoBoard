@@ -128,6 +128,9 @@
     <Compile Include="Controls\NatureRemoApplianceControl.xaml.cs">
       <DependentUpon>NatureRemoApplianceControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NatureRemoDeviceControl.xaml.cs">
+      <DependentUpon>NatureRemoDeviceControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Auth\NatureRemoToken.cs" />
     <Compile Include="Models\Auth\NatureRemoUser.cs" />
     <Compile Include="Models\CalendarDay.cs" />
@@ -153,6 +156,7 @@
     <Compile Include="Utils\NatureRemoClient.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
+    <Compile Include="ViewModels\RemoteControlPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
@@ -166,6 +170,9 @@
     </Compile>
     <Compile Include="Views\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RemoteControlPage.xaml.cs">
+      <DependentUpon>RemoteControlPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\AccountSettingsPage.xaml.cs" />
     <Compile Include="Views\Settings\SettingsPage.xaml.cs" />
@@ -211,6 +218,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\NatureRemoDeviceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -228,6 +239,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RemoteControlPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -48,6 +48,9 @@ namespace KurosukeInfoBoard
                     case "DashboardPage":
                         contentFrame.Navigate(typeof(DashboardPage), args.RecommendedNavigationTransitionInfo);
                         break;
+                    case "RemoteControlPage":
+                        contentFrame.Navigate(typeof(RemoteControlPage), args.RecommendedNavigationTransitionInfo);
+                        break;
                 }
                 //NavView_Navigate(navItemTag, args.RecommendedNavigationTransitionInfo);
             }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -48,26 +49,37 @@ namespace KurosukeInfoBoard.Controls
         private void Ellipse_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             var width = e.NewSize.Width;
-            (sender as Ellipse).Height = width;
+            (sender as Windows.UI.Xaml.Controls.Button).Height = width;
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            switch (Appliance.type)
+            this.IsEnabled = false;
+            loadingControl.IsLoading = true;
+            try
             {
-                case "IR":
-                    this.IsEnabled = false;
-                    if (Appliance.signals.Count == 1)
-                    {
-                        var client = new NatureRemoClient(Appliance.Token);
-                        await client.PostSignal(Appliance.signals.First().id);
-                    }
-                    else
-                    { 
-                        //リモコンポップアップする
-                    }
-                    break;
+                switch (Appliance.type)
+                {
+                    case "IR":
+                        if (Appliance.signals.Count == 1)
+                        {
+                            var client = new NatureRemoClient(Appliance.Token);
+                            await client.PostSignal(Appliance.signals.First().id);
+                        }
+                        else
+                        {
+                            //リモコンポップアップする
+                        }
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                DebugHelper.WriteErrorLog("Error occured while retrieving remo info.", ex);
+                await new MessageDialog(ex.Message, "Error occured while retrieving remo info.").ShowAsync();
+            }
+            loadingControl.IsLoading = false;
+            this.IsEnabled = true;
         }
     }
 }

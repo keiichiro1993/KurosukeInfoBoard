@@ -14,7 +14,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button SizeChanged="Ellipse_SizeChanged" Click="Button_Click" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <Button SizeChanged="Ellipse_SizeChanged" MinWidth="150" Click="Button_Click" Padding="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <Grid>
                 <Ellipse  Stroke="Gray" StrokeThickness="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
@@ -27,7 +27,7 @@
                 </StackPanel>
             </Grid>
         </Button>
-        <controls:Loading x:Name="LoadingControl">
+        <controls:Loading x:Name="loadingControl">
             <controls:Loading.Background>
                 <SolidColorBrush Color="Black" Opacity="0.7" />
             </controls:Loading.Background>
