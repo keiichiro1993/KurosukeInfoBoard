@@ -30,7 +30,7 @@
                     <RowDefinition Height="AUTO"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Margin="10,20,10,10" FontSize="30">Home status</TextBlock>
+                <TextBlock Margin="10" FontSize="30">Home status</TextBlock>
                 <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
                 <GridView Grid.Row="1" ItemsSource="{x:Bind viewModel.Devices, Mode=OneWay}">
                     <GridView.ItemTemplate>
