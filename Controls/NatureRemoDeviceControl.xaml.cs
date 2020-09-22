@@ -43,9 +43,11 @@ namespace KurosukeInfoBoard.Controls
             cc.temparatureTextBlock.Text = device.newest_events.te.val.ToString();
         }
 
+        public event RoutedEventHandler Clicked;
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            Clicked?.Invoke(this, e);
         }
     }
 }

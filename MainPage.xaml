@@ -11,7 +11,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <muxc:NavigationView x:Name="mainNavigation" PaneDisplayMode="Top" ItemInvoked="mainNavigation_ItemInvoked" IsBackButtonVisible="Collapsed">
+        <muxc:NavigationView x:Name="mainNavigation" PaneDisplayMode="Top" IsPaneOpen="False" ItemInvoked="mainNavigation_ItemInvoked" IsBackButtonVisible="Collapsed">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Dashboard" Tag="DashboardPage">
                     <muxc:NavigationViewItem.Icon>
@@ -34,6 +34,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="mainNavigation.PaneDisplayMode" Value="Auto" />
+                        <Setter Target="mainNavigation.IsPaneOpen" Value="False" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

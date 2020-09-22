@@ -6,10 +6,84 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:customcontrols="using:KurosukeInfoBoard.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:remomodels="using:KurosukeInfoBoard.Models.NatureRemo"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <customcontrols:CalendarControl CalendarMonth="{x:Bind viewModel.CalendarMonth, Mode=OneWay}"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <customcontrols:CalendarControl x:Name="calendarControl" CalendarMonth="{x:Bind viewModel.CalendarMonth, Mode=OneWay}"/>
+
+            <Grid Grid.ColumnSpan="2" x:Name="statusGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10,20,10,10" FontSize="30">Home status</TextBlock>
+                <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
+                <GridView Grid.Row="1" ItemsSource="{x:Bind viewModel.Devices, Mode=OneWay}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="remomodels:Device">
+                            <customcontrols:NatureRemoDeviceControl Device="{x:Bind}" Clicked="NatureRemoDeviceControl_Clicked"/>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+
+                <TextBlock Grid.Row="2" Margin="10,20,10,10" FontSize="30">Memo</TextBlock>
+                <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="0,0,0,2"/>
+                <controls:InfiniteCanvas Grid.Row="3"/>
+            </Grid>
+
+
+        </Grid>
+        <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
+            <controls:Loading.Background>
+                <SolidColorBrush Color="Black" Opacity="0.7" />
+            </controls:Loading.Background>
+            <StackPanel Orientation="Horizontal">
+                <ProgressRing IsActive="True"/>
+                <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}"></TextBlock>
+            </StackPanel>
+        </controls:Loading>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="calendarControl.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="calendarControl.(Grid.Row)" Value="0"/>
+
+                        <Setter Target="statusGrid.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="statusGrid.(Grid.Row)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="WideView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1200"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="calendarControl.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="calendarControl.(Grid.Column)" Value="0"/>
+
+                        <Setter Target="statusGrid.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="statusGrid.(Grid.Column)" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups >
     </Grid>
 </Page>

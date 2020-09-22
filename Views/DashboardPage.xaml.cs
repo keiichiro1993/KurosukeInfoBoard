@@ -34,5 +34,10 @@ namespace KurosukeInfoBoard.Views
             base.OnNavigatedTo(e);
             viewModel.Init();
         }
+
+        private void NatureRemoDeviceControl_Clicked(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(RemoteControlPage));
+        }
     }
 }
