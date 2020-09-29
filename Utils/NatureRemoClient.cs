@@ -50,18 +50,26 @@ namespace KurosukeInfoBoard.Utils
             await PostAsync(endpoint + "/1/signals/" + signalId + "/send", null);
         }
 
-        public async Task PostButton(string applianceId, string applianceType, string buttonName)
+        public async Task<string> PostButton(string applianceId, string applianceType, string buttonName)
         {
             var content = new FormUrlEncodedContent(new Dictionary<string, string> { { "button", buttonName } });
-            await PostAsync(endpoint + "/1/appliances/" + applianceId + "/" + applianceType, content);
+            return await PostAsync(endpoint + "/1/appliances/" + applianceId + "/" + applianceType, content);
         }
 
-
-        private async Task<T> GetAsyncWithType<T>(string url)
+        public async Task<Settings> PostAirConSettings(string applianceId, Settings settings)
         {
-            var jsonString = await GetAsync(url);
-            return JsonSerializer.Deserialize<T>(jsonString);
-        }
+            var dict = new Dictionary<string, string>
+            {
+                {"temperature", settings.temp},
+                {"air_volume", settings.vol},
+                {"air_direction", settings.dir},
+                {"operation_mode", settings.mode},
+                {"button", settings.button}
+            };
 
+            var content = new FormUrlEncodedContent(dict);
+            var result = await PostAsync(endpoint + "/1/appliances/" + applianceId + "/aircon_settings", content);
+            return JsonSerializer.Deserialize<Settings>(result);
+        }
     }
 }

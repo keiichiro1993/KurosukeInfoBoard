@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Utils
@@ -12,6 +13,13 @@ namespace KurosukeInfoBoard.Utils
     public class HTTPClientBase
     {
         protected TokenBase token;
+
+        protected async Task<T> GetAsyncWithType<T>(string url)
+        {
+            var jsonString = await GetAsync(url);
+            return JsonSerializer.Deserialize<T>(jsonString);
+        }
+
         protected async Task<string> GetAsync(string url, int retry = 1)
         {
             DebugHelper.WriteDebugLog("Get Async called. Request URL=" + url + " Available retry=" + retry + ".");

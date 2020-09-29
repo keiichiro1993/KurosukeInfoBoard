@@ -43,25 +43,16 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public string dirh { get; set; }
         public string button { get; set; }
         public DateTime updated_at { get; set; }
+        public bool IsOn
+        {
+            get
+            {
+                return button == "power-on";
+            }
+        }
     }
 
-    public class Cool
-    {
-        public List<string> temp { get; set; }
-        public List<string> dir { get; set; }
-        public List<string> dirh { get; set; }
-        public List<string> vol { get; set; }
-    }
-
-    public class Dry
-    {
-        public List<string> temp { get; set; }
-        public List<string> dir { get; set; }
-        public List<string> dirh { get; set; }
-        public List<string> vol { get; set; }
-    }
-
-    public class Warm
+    public class Mode
     {
         public List<string> temp { get; set; }
         public List<string> dir { get; set; }
@@ -71,9 +62,19 @@ namespace KurosukeInfoBoard.Models.NatureRemo
 
     public class Modes
     {
-        public Cool cool { get; set; }
-        public Dry dry { get; set; }
-        public Warm warm { get; set; }
+        public Mode cool { get; set; }
+        public Mode dry { get; set; }
+        public Mode warm { get; set; }
+        public List<string> ModeList
+        {
+            get
+            {
+                var list = (from prop in this.GetType().GetProperties()
+                            select prop.Name).ToList();
+                list.Remove("ModeList");
+                return list;
+            }
+        }
     }
 
     public class Range

@@ -25,6 +25,13 @@
                     </StackPanel>
                     <FontIcon Margin="0,10,0,0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE7E8;"/>
                 </StackPanel>
+                <Grid.ContextFlyout>
+                    <Flyout x:Name="buttonsFlyout">
+                        <Grid>
+                            <local:NatureRemoAirConControl Appliance="{x:Bind Appliance, Mode=OneWay}"/>
+                        </Grid>
+                    </Flyout>
+                </Grid.ContextFlyout>
             </Grid>
         </Button>
         <controls:Loading x:Name="loadingControl">

@@ -69,7 +69,14 @@ namespace KurosukeInfoBoard.Controls
                         else
                         {
                             //リモコンポップアップする
+                            buttonsFlyout.ShowAt(this, new FlyoutShowOptions { Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft });
                         }
+                        break;
+                    case "TV":
+                        buttonsFlyout.ShowAt(this, new FlyoutShowOptions { Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft });
+                        break;
+                    case "AC":
+                        buttonsFlyout.ShowAt(this, new FlyoutShowOptions { Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft });
                         break;
                 }
             }
