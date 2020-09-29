@@ -30,8 +30,8 @@ namespace KurosukeInfoBoard.Models.Auth
                 case UserType.Google:
                     var newToken = await GoogleAuthClient.AcquireNewTokenWithRefreshToken(RefreshToken);
                     AccessToken = newToken.AccessToken;
-                    RefreshToken = newToken.RefreshToken;
                     TokenExpiration = TokenExpiration;
+                    newToken.RefreshToken = RefreshToken;
                     return newToken;
                 case UserType.Microsoft:
                     break;
