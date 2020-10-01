@@ -32,7 +32,7 @@ namespace KurosukeInfoBoard.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            viewModel.Init();
+            viewModel.Init(DateTime.Now);
         }
 
         private void NatureRemoDeviceControl_Clicked(object sender, RoutedEventArgs e)

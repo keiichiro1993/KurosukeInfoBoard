@@ -58,41 +58,47 @@ namespace KurosukeInfoBoard.Controls
             {
                 //save only if more than 2 secs from last modification
 
-                Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-
-                try
-                {
-                    var file = await localFolder.CreateFileAsync(CalendarMonth.Month.ToString("yyyy-MM") + ".png", Windows.Storage.CreationCollisionOption.ReplaceExisting);
-                    Windows.Storage.CachedFileManager.DeferUpdates(file);
-                    using (IRandomAccessStream stream = await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
-                    {
-                        using (IOutputStream outputStream = stream.GetOutputStreamAt(0))
-                        {
-                            await calendarCanvas.InkPresenter.StrokeContainer.SaveAsync(outputStream);
-                            await outputStream.FlushAsync();
-                        }
-                    }
-
-                    // Finalize write so other apps can update file.
-                    Windows.Storage.Provider.FileUpdateStatus status = await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
-
-                    if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
-                    {
-                        DebugHelper.WriteDebugLog("Calendar ink saved.");
-                    }
-                    else
-                    {
-                        throw new Exception("Calendar ink couldn't be saved. Status=" + status.ToString() + ".");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    DebugHelper.WriteErrorLog("Error occured while saving calendar canvas.", ex);
-                    await new MessageDialog(ex.Message, "Error occured while saving calendar canvas.").ShowAsync();
-                }
+                await SaveCalendarInk();
             }
         }
 
+        private async Task SaveCalendarInk()
+        {
+            Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            try
+            {
+                var file = await localFolder.CreateFileAsync(_CalendarMonth.Month.ToString("yyyy-MM") + ".png", Windows.Storage.CreationCollisionOption.ReplaceExisting);
+                Windows.Storage.CachedFileManager.DeferUpdates(file);
+                using (IRandomAccessStream stream = await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
+                {
+                    using (IOutputStream outputStream = stream.GetOutputStreamAt(0))
+                    {
+                        await calendarCanvas.InkPresenter.StrokeContainer.SaveAsync(outputStream);
+                        await outputStream.FlushAsync();
+                    }
+                }
+
+                // Finalize write so other apps can update file.
+                Windows.Storage.Provider.FileUpdateStatus status = await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+
+                if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
+                {
+                    DebugHelper.WriteDebugLog("Calendar ink saved.");
+                }
+                else
+                {
+                    throw new Exception("Calendar ink couldn't be saved. Status=" + status.ToString() + ".");
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugHelper.WriteErrorLog("Error occured while saving calendar canvas.", ex);
+                await new MessageDialog(ex.Message, "Error occured while saving calendar canvas.").ShowAsync();
+            }
+        }
+
+        private CalendarMonth _CalendarMonth;
         public CalendarMonth CalendarMonth
         {
             get => (CalendarMonth)GetValue(CalendarDayProperty);
@@ -101,12 +107,20 @@ namespace KurosukeInfoBoard.Controls
 
         public static readonly DependencyProperty CalendarDayProperty =
           DependencyProperty.Register(nameof(CalendarMonth), typeof(CalendarMonth),
-            typeof(CalendarControl), new PropertyMetadata(null, new PropertyChangedCallback(OnCalendarDayChanged)));
+            typeof(CalendarControl), new PropertyMetadata(null, new PropertyChangedCallback(OnCalendarMonthChanged)));
 
-        private async static void OnCalendarDayChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private async static void OnCalendarMonthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             CalendarControl cc = d as CalendarControl;
             var month = (CalendarMonth)e.NewValue;
+
+            if (cc._CalendarMonth != null)
+            {
+                await cc.SaveCalendarInk();
+            }
+
+            cc._CalendarMonth = month;
+
             for (var i = 0; i < month.CalendarDays.Count; i++)
             {
                 cc.itemControls[i].CalendarDay = month.CalendarDays[i];

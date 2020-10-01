@@ -21,9 +21,22 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <customcontrols:CalendarControl x:Name="calendarControl" CalendarMonth="{x:Bind viewModel.CalendarMonth, Mode=OneWay}"/>
+            <Grid x:Name="calendarGrid">
+                <customcontrols:CalendarControl CalendarMonth="{x:Bind viewModel.CalendarMonth, Mode=OneWay}" Margin="0,20,0,0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,0">
+                    <Button Click="{x:Bind viewModel.MonthBackButton_Clicked}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE973;" FontSize="40"/>
+                    </Button>
+                    <TextBlock Text="{x:Bind viewModel.CalendarMonth.Month.Year, Mode=OneWay}" FontSize="35" Margin="5,0,5,7" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="/" FontSize="31" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+                    <TextBlock Text="{x:Bind viewModel.CalendarMonth.Month.Month, Mode=OneWay}" FontSize="49" Margin="5,0,5,5"/>
+                    <Button Click="{x:Bind viewModel.MonthForwardButton_Clicked}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE974;" FontSize="40"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
 
-            <Grid Grid.ColumnSpan="2" x:Name="statusGrid">
+            <Grid x:Name="statusGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="AUTO"/>
                     <RowDefinition Height="AUTO"/>
@@ -63,8 +76,8 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="calendarControl.(Grid.ColumnSpan)" Value="2"/>
-                        <Setter Target="calendarControl.(Grid.Row)" Value="0"/>
+                        <Setter Target="calendarGrid.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="calendarGrid.(Grid.Row)" Value="0"/>
 
                         <Setter Target="statusGrid.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="statusGrid.(Grid.Row)" Value="1"/>
@@ -76,8 +89,8 @@
                         <AdaptiveTrigger MinWindowWidth="1200"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="calendarControl.(Grid.RowSpan)" Value="2"/>
-                        <Setter Target="calendarControl.(Grid.Column)" Value="0"/>
+                        <Setter Target="calendarGrid.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="calendarGrid.(Grid.Column)" Value="0"/>
 
                         <Setter Target="statusGrid.(Grid.RowSpan)" Value="2"/>
                         <Setter Target="statusGrid.(Grid.Column)" Value="1"/>

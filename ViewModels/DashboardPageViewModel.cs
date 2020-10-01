@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.ViewModels
 {
@@ -35,7 +36,7 @@ namespace KurosukeInfoBoard.ViewModels
             }
         }
 
-        public async void Init()
+        public async void Init(DateTime datetime)
         {
             IsLoading = true;
             if (AppGlobalVariables.Users.Count > 0)
@@ -55,7 +56,7 @@ namespace KurosukeInfoBoard.ViewModels
                             {
                                 foreach (var item in calendars.items)
                                 {
-                                    var tmp = await googleClient.GetEventList(item, DateTime.Now);
+                                    var tmp = await googleClient.GetEventList(item, datetime);
                                     if (tmp != null)
                                     {
                                         events.AddRange(tmp.items);
@@ -77,10 +78,19 @@ namespace KurosukeInfoBoard.ViewModels
                     }
                 }
 
-                CalendarMonth = new CalendarMonth(DateTime.Now, events);
+                CalendarMonth = new CalendarMonth(datetime, events);
                 Devices = devices;
             }
             IsLoading = false;
+        }
+
+        public void MonthBackButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            Init(CalendarMonth.Month.AddMonths(-1));
+        }
+        public void MonthForwardButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            Init(CalendarMonth.Month.AddMonths(1));
         }
     }
 }
