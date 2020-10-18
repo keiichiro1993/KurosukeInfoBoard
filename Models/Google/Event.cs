@@ -210,7 +210,7 @@ namespace KurosukeInfoBoard.Models.Google
 
             var startDateTime = start.date == new DateTime(1,1,1) ? start.dateTime : start.date;
             var endDateTime = end.date == new DateTime(1, 1, 1) ? end.dateTime : end.date;
-            return startDateTime.Date == date.Date || endDateTime.Date == date.Date;
+            return (startDateTime <= date && endDateTime > date) || (startDateTime.Date == date.Date);
         }
     }
 
