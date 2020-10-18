@@ -39,7 +39,12 @@ namespace KurosukeInfoBoard.Controls
         {
             CalendarItemControl cc = d as CalendarItemControl;
             var day = (CalendarDay)e.NewValue;
-            if (day.Date.Year != 1)
+            if (day.Date.Year == 1)
+            {
+                cc.DateTextBlock.Text = "";
+                cc.EventsListView.ItemsSource = null;
+            }
+            else
             {
                 cc.DateTextBlock.Text = day.Date.Day.ToString();
                 cc.EventsListView.ItemsSource = day.Events;

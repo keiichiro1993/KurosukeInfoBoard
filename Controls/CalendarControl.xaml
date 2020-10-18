@@ -8,7 +8,7 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:models="using:KurosukeInfoBoard.Models"
     mc:Ignorable="d"
-    d:DesignHeight="1000"
+    d:DesignHeight="1280"
     d:DesignWidth="1280">
     <UserControl.Resources>
         <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
@@ -31,6 +31,7 @@
             </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
+                <RowDefinition Height="AUTO"/>
                 <RowDefinition Height="AUTO"/>
                 <RowDefinition Height="AUTO"/>
                 <RowDefinition Height="AUTO"/>
@@ -166,7 +167,29 @@
                 <local:CalendarItemControl/>
             </Grid>
 
-            <Grid Grid.Row="0" Grid.RowSpan="6" Grid.ColumnSpan="7">
+            <Grid Grid.Row="6" Grid.Column="0">
+                <local:CalendarItemControl/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="1">
+                <local:CalendarItemControl/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="2">
+                <local:CalendarItemControl/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="3">
+                <local:CalendarItemControl/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="4">
+                <local:CalendarItemControl/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="5">
+                <local:CalendarItemControl/>
+            </Grid>
+            <Grid Grid.Row="6" Grid.Column="6">
+                <local:CalendarItemControl/>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.RowSpan="7" Grid.ColumnSpan="7">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="AUTO"/>
                     <RowDefinition Height="*"/>

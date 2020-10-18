@@ -41,6 +41,11 @@ namespace KurosukeInfoBoard.Models
                     CalendarDays.Insert(0, new CalendarDay());
                 }
             }
+
+            while (CalendarDays.Count < 42)
+            {
+                CalendarDays.Add(new CalendarDay());
+            }
         }
     }
 }
