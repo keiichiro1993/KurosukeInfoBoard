@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KurosukeInfoBoard.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -208,9 +209,25 @@ namespace KurosukeInfoBoard.Models.Google
                 return false;
             }
 
-            var startDateTime = start.date == new DateTime(1,1,1) ? start.dateTime : start.date;
+            var startDateTime = start.date == new DateTime(1, 1, 1) ? start.dateTime : start.date;
             var endDateTime = end.date == new DateTime(1, 1, 1) ? end.dateTime : end.date;
             return (startDateTime <= date && endDateTime > date) || (startDateTime.Date == date.Date);
+        }
+
+        public Color EventColor
+        {
+            get
+            {
+                var property = AppGlobalVariables.Colors.@event.GetType().GetProperty("color" + colorId);
+                if (property != null)
+                {
+                    return property.GetValue(AppGlobalVariables.Colors.@event) as Color;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
     }
 

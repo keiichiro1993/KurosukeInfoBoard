@@ -51,6 +51,12 @@ namespace KurosukeInfoBoard.ViewModels
                         {
                             LoadingMessage = "Retrieving calendar events...";
                             var googleClient = new GoogleClient(user.Token);
+
+                            if (AppGlobalVariables.Colors == null)
+                            {
+                                AppGlobalVariables.Colors = await googleClient.GetColors();
+                            }
+
                             var calendars = await googleClient.GetCalendarList();
                             if (calendars.items.Count > 0)
                             {

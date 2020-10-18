@@ -69,5 +69,12 @@ namespace KurosukeInfoBoard.Utils
                 return JsonSerializer.Deserialize<EventList>(jsonString);
             }
         }
+
+        public async Task<Colors> GetColors()
+        {
+            var url = "https://www.googleapis.com/calendar/v3/colors";
+            var jsonString = await GetAsync(url);
+            return JsonSerializer.Deserialize<Colors>(jsonString);
+        }
     }
 }

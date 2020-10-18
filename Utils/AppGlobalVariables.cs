@@ -1,4 +1,5 @@
 ﻿using KurosukeInfoBoard.Models.Auth;
+using KurosukeInfoBoard.Models.Google;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,5 +13,6 @@ namespace KurosukeInfoBoard.Utils
     {
         public static Uri GoogleAuthResultUri;
         public static ObservableCollection<UserBase> Users;
+        public static Colors Colors;
     }
 }
