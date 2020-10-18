@@ -19,10 +19,10 @@ using Windows.UI.Xaml.Navigation;
 
 namespace KurosukeInfoBoard.Controls
 {
-    public sealed partial class NatureRemoAirConControl : UserControl
+    public sealed partial class NatureRemoTVControl : UserControl
     {
-        public NatureRemoAirConControlViewModel viewModel { get; set; } = new NatureRemoAirConControlViewModel();
-        public NatureRemoAirConControl()
+        public NatureRemoTVControlViewModel viewModel { get; set; } = new NatureRemoTVControlViewModel();
+        public NatureRemoTVControl()
         {
             this.InitializeComponent();
         }
@@ -35,13 +35,13 @@ namespace KurosukeInfoBoard.Controls
 
         public static readonly DependencyProperty ApplianceProperty =
           DependencyProperty.Register(nameof(Appliance), typeof(Appliance),
-            typeof(NatureRemoAirConControl), new PropertyMetadata(null, new PropertyChangedCallback(OnApplianceChanged)));
+            typeof(NatureRemoTVControl), new PropertyMetadata(null, new PropertyChangedCallback(OnApplianceChanged)));
 
         private static void OnApplianceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cc = d as NatureRemoAirConControl;
+            var cc = d as NatureRemoTVControl;
             var appliance = (Appliance)e.NewValue;
-            if (appliance.type == "AC")
+            if (appliance.type == "TV")
             {
                 cc.Visibility = Visibility.Visible;
                 cc.viewModel.Init(appliance);

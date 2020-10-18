@@ -71,5 +71,16 @@ namespace KurosukeInfoBoard.Utils
             var result = await PostAsync(endpoint + "/1/appliances/" + applianceId + "/aircon_settings", content);
             return JsonSerializer.Deserialize<Settings>(result);
         }
+
+        public async Task PostTvButton(string applianceId, string buttonName)
+        {
+            var dict = new Dictionary<string, string>
+            {
+                {"button", buttonName}
+            };
+
+            var content = new FormUrlEncodedContent(dict);
+            await PostAsync(endpoint + "/1/appliances/" + applianceId + "/tv", content);
+        }
     }
 }

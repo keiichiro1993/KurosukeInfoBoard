@@ -28,7 +28,8 @@
                 <Grid.ContextFlyout>
                     <Flyout x:Name="buttonsFlyout">
                         <Grid>
-                            <local:NatureRemoAirConControl Appliance="{x:Bind Appliance, Mode=OneWay}"/>
+                            <local:NatureRemoAirConControl Appliance="{x:Bind Appliance, Mode=OneWay}" Visibility="Collapsed"/>
+                            <local:NatureRemoTVControl Appliance="{x:Bind Appliance, Mode=OneWay}" Visibility="Collapsed"/>
                         </Grid>
                     </Flyout>
                 </Grid.ContextFlyout>

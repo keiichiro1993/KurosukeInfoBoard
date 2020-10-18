@@ -134,6 +134,9 @@
     <Compile Include="Controls\NatureRemoDeviceControl.xaml.cs">
       <DependentUpon>NatureRemoDeviceControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\NatureRemoTVControl.xaml.cs">
+      <DependentUpon>NatureRemoTVControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Auth\NatureRemoToken.cs" />
     <Compile Include="Models\Auth\NatureRemoUser.cs" />
     <Compile Include="Models\CalendarDay.cs" />
@@ -160,6 +163,7 @@
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
     <Compile Include="ViewModels\NatureRemoAirConControlViewModel.cs" />
+    <Compile Include="ViewModels\NatureRemoTVControlViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
@@ -227,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\NatureRemoDeviceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NatureRemoTVControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
