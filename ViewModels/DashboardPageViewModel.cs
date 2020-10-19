@@ -25,6 +25,17 @@ namespace KurosukeInfoBoard.ViewModels
             }
         }
 
+        private DateTime _SelectedMonth;
+        public DateTime SelectedMonth
+        {
+            get { return _SelectedMonth; }
+            set
+            {
+                _SelectedMonth = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private List<Device> _Devices;
         public List<Device> Devices
         {
@@ -41,6 +52,8 @@ namespace KurosukeInfoBoard.ViewModels
             IsLoading = true;
             if (AppGlobalVariables.Users.Count > 0)
             {
+                SelectedMonth = datetime;
+
                 var events = new List<Event>();
                 var devices = new List<Device>();
                 foreach (var user in AppGlobalVariables.Users)
@@ -92,11 +105,26 @@ namespace KurosukeInfoBoard.ViewModels
 
         public void MonthBackButton_Clicked(object sender, RoutedEventArgs e)
         {
-            Init(CalendarMonth.Month.AddMonths(-1));
+            SelectedMonth = SelectedMonth.AddMonths(-1);
+
+            ChangeMonth(SelectedMonth);
         }
         public void MonthForwardButton_Clicked(object sender, RoutedEventArgs e)
         {
-            Init(CalendarMonth.Month.AddMonths(1));
+            SelectedMonth = SelectedMonth.AddMonths(1);
+
+            ChangeMonth(SelectedMonth);
+        }
+
+        private DateTime lastMonthChange;
+        private async void ChangeMonth(DateTime datetime)
+        {
+            lastMonthChange = DateTime.Now;
+            await Task.Delay(1000);
+            if (DateTime.Now - lastMonthChange > new TimeSpan(0, 0, 1))
+            {
+                Init(datetime);
+            }
         }
     }
 }

@@ -27,9 +27,9 @@
                     <Button Click="{x:Bind viewModel.MonthBackButton_Clicked}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE973;" FontSize="40"/>
                     </Button>
-                    <TextBlock Text="{x:Bind viewModel.CalendarMonth.Month.Year, Mode=OneWay}" FontSize="35" Margin="5,0,5,7" VerticalAlignment="Bottom"/>
+                    <TextBlock Text="{x:Bind viewModel.SelectedMonth.Year, Mode=OneWay}" FontSize="35" Margin="5,0,5,7" VerticalAlignment="Bottom"/>
                     <TextBlock Text="/" FontSize="31" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
-                    <TextBlock Text="{x:Bind viewModel.CalendarMonth.Month.Month, Mode=OneWay}" FontSize="49" Margin="5,0,5,5"/>
+                    <TextBlock Text="{x:Bind viewModel.SelectedMonth.Month, Mode=OneWay}" FontSize="49" Margin="5,0,5,5"/>
                     <Button Click="{x:Bind viewModel.MonthForwardButton_Clicked}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE974;" FontSize="40"/>
                     </Button>
