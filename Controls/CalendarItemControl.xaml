@@ -39,6 +39,6 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <Border BorderThickness="1" BorderBrush="Gray" VerticalAlignment="Top" Margin="10,0"/>
+        <Border x:Name="topBorder" BorderThickness="1" BorderBrush="Gray" VerticalAlignment="Top" Margin="10,0"/>
     </Grid>
 </UserControl>

@@ -161,6 +161,7 @@
     <Compile Include="Utils\GoogleClient.cs" />
     <Compile Include="Utils\HTTPClientBase.cs" />
     <Compile Include="Utils\NatureRemoClient.cs" />
+    <Compile Include="Utils\UIHelper\ColorConverter.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
     <Compile Include="ViewModels\NatureRemoAirConControlViewModel.cs" />
