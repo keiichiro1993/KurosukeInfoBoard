@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.Security.Credentials;
 
 namespace KurosukeInfoBoard.Utils
@@ -42,8 +43,12 @@ namespace KurosukeInfoBoard.Utils
 
             //MS token
             // TODO: リソースファイルにする
-            var msAuthClient = new MicrosoftAuthClient("bd0dd05a-5e9a-4e72-b7f1-130779a479d3", new string[] { "user.read", "Calendars.Read" }, "msalbd0dd05a-5e9a-4e72-b7f1-130779a479d3://auth", null);
+            var resource = ResourceLoader.GetForViewIndependentUse("Keys");
+            var clientID = resource.GetString("MicrosoftClientID");
+            var redirectUrl = resource.GetString("MicrosoftRedirectUrl");
+            var msAuthClient = new MicrosoftAuthClient(clientID, new string[] { "user.read", "Calendars.Read" }, redirectUrl, null);
             var msAccounts = await msAuthClient.GetCachedAccounts();
+            
             if (msAccounts != null && msAccounts.Count() > 0)
             {
                 foreach (var msAccount in msAccounts)

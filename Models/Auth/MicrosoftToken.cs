@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 
 namespace KurosukeInfoBoard.Models.Auth
 {
@@ -17,8 +18,10 @@ namespace KurosukeInfoBoard.Models.Auth
         {
             base.UserType = UserType.Microsoft;
 
-            // TODO: リソースファイルにする
-            authClient = new MicrosoftAuthClient("bd0dd05a-5e9a-4e72-b7f1-130779a479d3", new string[] { "user.read", "Calendars.Read" }, "msalbd0dd05a-5e9a-4e72-b7f1-130779a479d3://auth", account);
+            var resource = ResourceLoader.GetForViewIndependentUse("Keys");
+            var clientID = resource.GetString("MicrosoftClientID");
+            var redirectUrl = resource.GetString("MicrosoftRedirectUrl");
+            authClient = new MicrosoftAuthClient(clientID, new string[] { "user.read", "Calendars.Read" }, redirectUrl, account);
         }
 
         public async override Task<TokenBase> AcquireNewToken()
