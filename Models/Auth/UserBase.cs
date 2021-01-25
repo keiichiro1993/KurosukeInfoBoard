@@ -66,7 +66,7 @@ namespace KurosukeInfoBoard.Models.Auth
 
             if (result.Label == "Delete")
             {
-                AccountManager.DeleteUser(this);
+                await AccountManager.DeleteUser(this);
                 AppGlobalVariables.Users.Remove(this);
             }
         }

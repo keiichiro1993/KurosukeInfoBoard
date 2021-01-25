@@ -30,5 +30,10 @@ namespace KurosukeInfoBoard.Models.Auth
 
             return this;
         }
+
+        public async Task DeleteCachedAccount()
+        {
+            await authClient.DeleteCachedAccount();
+        }
     }
 }

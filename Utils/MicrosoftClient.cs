@@ -36,7 +36,9 @@ namespace KurosukeInfoBoard.Utils
                 }
             }
             catch (Exception)
-            { /*Nothing to do.*/ }
+            {
+                user.ProfilePictureUrl = "/Assets/Square150x150Logo.scale-200.png";
+            }
 
             return user;
         }

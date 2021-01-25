@@ -1,4 +1,5 @@
-﻿using KurosukeInfoBoard.Utils;
+﻿using KurosukeInfoBoard.Models.Auth;
+using KurosukeInfoBoard.Utils;
 using KurosukeInfoBoard.ViewModels.Settings;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
         {
             if (!viewModel.IsLoading)
             {
-                args.Cancel = true;
+                //args.Cancel = true;
             }
         }
 
@@ -100,6 +101,24 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
             DebugHelper.WriteDebugLog("Successfully acquired google token.");
 
             AppGlobalVariables.GoogleAuthResultUri = null;//reset
+        }
+
+        private async void Microsoft_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.IsButtonAvailable = false;
+            viewModel.IsLoading = true;
+            try
+            {
+                var token = new MicrosoftToken();
+                await token.AcquireNewToken();
+                var msClient = new MicrosoftClient(token);
+                AppGlobalVariables.Users.Add(await msClient.GetUserDataAsync());
+            }
+            catch (Exception ex)
+            {
+                DebugHelper.WriteErrorLog("Error in acquiring MS token on AuthDialog.", ex);
+            }
+            dialogHost.Hide();
         }
     }
 }

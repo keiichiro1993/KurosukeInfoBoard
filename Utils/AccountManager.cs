@@ -39,16 +39,43 @@ namespace KurosukeInfoBoard.Utils
                     }
                 }
             }
+
+            //MS token
+            // TODO: リソースファイルにする
+            var msAuthClient = new MicrosoftAuthClient("bd0dd05a-5e9a-4e72-b7f1-130779a479d3", new string[] { "user.read", "Calendars.Read" }, "msalbd0dd05a-5e9a-4e72-b7f1-130779a479d3://auth", null);
+            var msAccounts = await msAuthClient.GetCachedAccounts();
+            if (msAccounts != null && msAccounts.Count() > 0)
+            {
+                foreach (var msAccount in msAccounts)
+                {
+                    taskList.Add(acquireAndAddMsUser(userList, msAccount));
+                }
+            }
+
             await Task.WhenAll(taskList.ToArray());
             DebugHelper.WriteDebugLog("Successfully retrieved tokens for " + userList.Count + " user(s).");
             return userList;
         }
 
-        public static void DeleteUser(UserBase user)
+        private static async Task acquireAndAddMsUser(List<UserBase> userList, Microsoft.Identity.Client.IAccount msAccount)
         {
-            var vault = new PasswordVault();
-            var cred = vault.Retrieve(ResourceNamePrefix + user.UserType.ToString(), user.Id);
-            vault.Remove(cred);
+            var token = new MicrosoftToken(msAccount);
+            await token.AcquireNewToken();
+            userList.Add(await UserBase.AcquireUserFromToken(token));
+        }
+
+        public static async Task DeleteUser(UserBase user)
+        {
+            if (user.UserType == UserType.Microsoft)
+            {
+                await ((MicrosoftToken)user.Token).DeleteCachedAccount();
+            }
+            else
+            {
+                var vault = new PasswordVault();
+                var cred = vault.Retrieve(ResourceNamePrefix + user.UserType.ToString(), user.Id);
+                vault.Remove(cred);
+            }
         }
 
         private static async Task acquireAndAddUser(List<UserBase> userList, UserType type, Windows.Security.Credentials.PasswordCredential cred)

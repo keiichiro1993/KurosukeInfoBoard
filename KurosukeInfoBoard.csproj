@@ -137,6 +137,8 @@
     <Compile Include="Controls\NatureRemoTVControl.xaml.cs">
       <DependentUpon>NatureRemoTVControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Auth\MicrosoftToken.cs" />
+    <Compile Include="Models\Auth\MicrosoftUser.cs" />
     <Compile Include="Models\Auth\NatureRemoToken.cs" />
     <Compile Include="Models\Auth\NatureRemoUser.cs" />
     <Compile Include="Models\CalendarDay.cs" />
@@ -160,6 +162,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\GoogleClient.cs" />
     <Compile Include="Utils\HTTPClientBase.cs" />
+    <Compile Include="Utils\MicrosoftAuthClient.cs" />
+    <Compile Include="Utils\MicrosoftClient.cs" />
     <Compile Include="Utils\NatureRemoClient.cs" />
     <Compile Include="Utils\UIHelper\ColorConverter.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
@@ -196,6 +200,10 @@
     <Content Include="Assets\Icons\google_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\IRControls\AC.svg" />
+    <Content Include="Assets\Icons\IRControls\Light.svg" />
+    <Content Include="Assets\Icons\IRControls\Lightning.svg" />
+    <Content Include="Assets\Icons\IRControls\TV.svg" />
     <Content Include="Assets\Icons\microsoft_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -274,6 +282,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Graph">
+      <Version>3.19.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Client">
+      <Version>4.22.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
     </PackageReference>
@@ -286,9 +300,15 @@
     <PackageReference Include="System.Text.Json">
       <Version>4.7.2</Version>
     </PackageReference>
+    <PackageReference Include="TimeZoneConverter">
+      <Version>3.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Properties\Keys.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Microsoft\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
