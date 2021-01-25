@@ -26,7 +26,7 @@ namespace KurosukeInfoBoard.Utils
             this.token = token;
         }
 
-        public async Task<GoogleUser> GetUserData()
+        public async Task<GoogleUser> GetUserDataAsync()
         {
             var jsonString = await GetAsync(userInfoEndpoint);
             var userData = JsonSerializer.Deserialize<GoogleUser>(jsonString);

@@ -110,7 +110,7 @@ namespace KurosukeInfoBoard.Utils
             token.UserType = UserType.Google;
 
             var googleClient = new GoogleClient(token);
-            return await googleClient.GetUserData();
+            return await googleClient.GetUserDataAsync();
         }
 
         public static async Task<GoogleToken> AcquireNewTokenWithRefreshToken(string refreshToken)

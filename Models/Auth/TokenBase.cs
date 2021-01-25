@@ -19,11 +19,10 @@ namespace KurosukeInfoBoard.Models.Auth
 
         public bool IsTokenExpired()
         {
-            if (TokenExpiration == null) return true;
-            return !(TokenExpiration - DateTime.Now > new TimeSpan(0, 0, 10));
+            return TokenExpiration == null || TokenExpiration - DateTime.Now < new TimeSpan(0, 0, 10);
         }
 
-        public async Task<TokenBase> AcquireNewToken()
+        public virtual async Task<TokenBase> AcquireNewToken()
         {
             switch (UserType)
             {
@@ -34,8 +33,6 @@ namespace KurosukeInfoBoard.Models.Auth
                     newToken.RefreshToken = RefreshToken;
                     return newToken;
                 case UserType.Microsoft:
-                    break;
-                case UserType.MicrosoftOrg:
                     break;
                 default:
                     break;

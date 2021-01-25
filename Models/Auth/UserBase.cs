@@ -9,7 +9,7 @@ using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.Models.Auth
 {
-    public enum UserType { Google, MicrosoftOrg, Microsoft, NatureRemo }
+    public enum UserType { Google, Microsoft, NatureRemo }
     public class UserBase
     {
         public string UserName { get; set; }
@@ -26,11 +26,10 @@ namespace KurosukeInfoBoard.Models.Auth
                 {
                     case UserType.Google:
                         var googleClient = new GoogleClient(token);
-                        return await googleClient.GetUserData();
+                        return await googleClient.GetUserDataAsync();
                     case UserType.Microsoft:
-                        break;
-                    case UserType.MicrosoftOrg:
-                        break;
+                        var msClient = new MicrosoftClient(token);
+                        return await msClient.GetUserDataAsync();
                     case UserType.NatureRemo:
                         var remoClient = new NatureRemoClient(token);
                         return await remoClient.GetUserDataAsync();

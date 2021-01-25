@@ -12,7 +12,11 @@ namespace KurosukeInfoBoard.Models.Auth
         [JsonPropertyName("sub")]
         public string Sub { get; set; }
         [JsonPropertyName("name")]
-        public string GoogleName { set { base.UserName = value; } }
+        public string GoogleName
+        {
+            get { return base.UserName; }
+            set { base.UserName = value; }
+        }
         [JsonPropertyName("given_name")]
         public string GivenName { get; set; }
         [JsonPropertyName("family_name")]
