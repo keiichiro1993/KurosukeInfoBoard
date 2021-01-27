@@ -142,6 +142,10 @@ namespace KurosukeInfoBoard.Controls
                         }
                     }
                 }
+                else
+                {
+                    cc.calendarCanvas.InkPresenter.StrokeContainer.Clear();
+                }
             }
             catch (Exception ex)
             {
