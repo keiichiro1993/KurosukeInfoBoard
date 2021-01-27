@@ -12,7 +12,7 @@ namespace KurosukeInfoBoard.Models
         public List<CalendarDay> CalendarDays { get; set; } = new List<CalendarDay>();
         public DateTime Month { get; set; }
 
-        public CalendarMonth(DateTime month, List<Event> events)
+        public CalendarMonth(DateTime month, List<Common.EventBase> events)
         {
             Month = month;
             var days = DateTime.DaysInMonth(month.Year, month.Month);

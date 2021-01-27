@@ -10,7 +10,7 @@ namespace KurosukeInfoBoard.Models
     {
         public bool IsSpacer { get; set; }
         public DateTime Date { get; set; }
-        public List<Google.Event> Events { get; set; } = new List<Google.Event>();
+        public List<Common.EventBase> Events { get; set; } = new List<Common.EventBase>();
 
         public CalendarDay(DateTime date)
         {

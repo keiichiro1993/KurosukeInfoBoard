@@ -42,7 +42,6 @@ namespace KurosukeInfoBoard.Utils
             }
 
             //MS token
-            // TODO: リソースファイルにする
             var resource = ResourceLoader.GetForViewIndependentUse("Keys");
             var clientID = resource.GetString("MicrosoftClientID");
             var redirectUrl = resource.GetString("MicrosoftRedirectUrl");

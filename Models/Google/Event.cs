@@ -161,7 +161,7 @@ namespace KurosukeInfoBoard.Models.Google
         public string fileId { get; set; }
     }
 
-    public class Event
+    public class Event : Common.EventBase
     {
         public string kind { get; set; }
         public string etag { get; set; }
@@ -202,19 +202,13 @@ namespace KurosukeInfoBoard.Models.Google
         public Source source { get; set; }
         public List<Attachment> attachments { get; set; }
 
-        public bool IsEventDateMatched(DateTime date)
-        {
-            if (start == null)
-            {
-                return false;
-            }
-
-            var startDateTime = start.date == new DateTime(1, 1, 1) ? start.dateTime : start.date;
-            var endDateTime = end.date == new DateTime(1, 1, 1) ? end.dateTime : end.date;
-            return (startDateTime <= date && endDateTime > date) || (startDateTime.Date == date.Date);
-        }
-
-        public Color EventColor
+        //EventBase の実装
+        public override string Subject { get { return summary; } }
+        public override string Content { get { return description; } }
+        public override DateTime Start { get { return start.date == new DateTime(1, 1, 1) ? start.dateTime : start.date; } }
+        public override DateTime End { get { return end.date == new DateTime(1, 1, 1) ? end.dateTime : end.date; } }
+        public override bool IsAllDay { get { return start.date != new DateTime(1, 1, 1) && end.date != new DateTime(1, 1, 1); } }
+        public override Color EventColor
         {
             get
             {
@@ -228,6 +222,15 @@ namespace KurosukeInfoBoard.Models.Google
                     return null;
                 }
             }
+        }
+        public override bool IsEventDateMatched(DateTime date)
+        {
+            if (start == null)
+            {
+                return false;
+            }
+
+            return (Start <= date && End > date) || (Start.Date == date.Date);
         }
     }
 

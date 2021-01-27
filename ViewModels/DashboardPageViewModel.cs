@@ -54,7 +54,7 @@ namespace KurosukeInfoBoard.ViewModels
             {
                 SelectedMonth = datetime;
 
-                var events = new List<Event>();
+                var events = new List<Models.Common.EventBase>();
                 var devices = new List<Device>();
                 foreach (var user in AppGlobalVariables.Users)
                 {
@@ -80,6 +80,21 @@ namespace KurosukeInfoBoard.ViewModels
                                     {
                                         events.AddRange(tmp.items);
                                     }
+                                }
+                            }
+                        }
+                        else if (user.UserType == Models.Auth.UserType.Microsoft)
+                        {
+                            LoadingMessage = "Retrieving calendar events...";
+
+                            var msClient = new MicrosoftClient(user.Token);
+                            var calendars = await msClient.GetCalendarList();
+                            if (calendars.value.Count > 0)
+                            {
+                                foreach (var calendar in calendars.value)
+                                {
+                                    var msevents = await msClient.GetEventList(calendar, datetime);
+                                    events.AddRange(msevents.value);
                                 }
                             }
                         }

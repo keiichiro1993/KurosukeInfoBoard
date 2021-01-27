@@ -23,7 +23,6 @@ namespace KurosukeInfoBoard.Utils
         /// <summary>
         /// OAuth 2.0 client configuration.
         /// </summary>
-        //TODO: hold this in resw file and exclude from git.
         const string redirectURI = "net.kurosuke-coins.infob:/oauth2redirect";
         const string authorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
         const string tokenEndpoint = "https://www.googleapis.com/oauth2/v4/token";

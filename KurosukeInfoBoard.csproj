@@ -143,6 +143,7 @@
     <Compile Include="Models\Auth\NatureRemoUser.cs" />
     <Compile Include="Models\CalendarDay.cs" />
     <Compile Include="Models\CalendarMonth.cs" />
+    <Compile Include="Models\Common\IEvent.cs" />
     <Compile Include="Models\Google\Colors.cs" />
     <Compile Include="Models\Google\Event.cs" />
     <Compile Include="Models\Auth\GoogleToken.cs" />
@@ -150,6 +151,8 @@
     <Compile Include="Models\Auth\TokenBase.cs" />
     <Compile Include="Models\Auth\UserBase.cs" />
     <Compile Include="Models\Google\Calendar.cs" />
+    <Compile Include="Models\Microsoft\Calendar.cs" />
+    <Compile Include="Models\Microsoft\Event.cs" />
     <Compile Include="Models\NatureRemo\Appliance.cs" />
     <Compile Include="Models\NatureRemo\Device.cs" />
     <Compile Include="Utils\AccountManager.cs" />
@@ -307,9 +310,7 @@
   <ItemGroup>
     <PRIResource Include="Properties\Keys.resw" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Microsoft\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

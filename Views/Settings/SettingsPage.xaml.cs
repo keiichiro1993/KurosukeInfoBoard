@@ -28,9 +28,6 @@ namespace KurosukeInfoBoard.Views.Settings
             this.InitializeComponent();
         }
 
-        //TODO: 以下全部ViewModel化する
-
-
         private readonly List<(string Tag, Type Page)> pages = new List<(string Tag, Type Page)>
         {
             ("AccountSettings", typeof(AccountSettingsPage)),

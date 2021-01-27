@@ -42,5 +42,21 @@ namespace KurosukeInfoBoard.Utils
 
             return user;
         }
+
+        public async Task<Models.Microsoft.CalendarList> GetCalendarList()
+        {
+            var url = "https://graph.microsoft.com/v1.0/me/calendars";
+            return await GetAsyncWithType<Models.Microsoft.CalendarList>(url);
+        }
+
+        public async Task<Models.Microsoft.EventList> GetEventList(Models.Microsoft.Calendar calendar, DateTime month)
+        {
+            var start = new DateTime(month.Year, month.Month, 1).ToUniversalTime().ToString("yyyy-MM-ddThh:mm:ss");
+            var nextMonth = month.AddMonths(1);
+            var end = new DateTime(nextMonth.Year, nextMonth.Month, 1).ToUniversalTime().ToString("yyyy-MM-ddThh:mm:ss");
+            var url = "https://graph.microsoft.com/v1.0/me/calendars/" + calendar.id + "/events?$filter=start/dateTime ge \'" + start + "\' and start/dateTime lt \'" + end + "\'";
+
+            return await GetAsyncWithType<Models.Microsoft.EventList>(url);
+        }
     }
 }
