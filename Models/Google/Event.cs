@@ -208,18 +208,18 @@ namespace KurosukeInfoBoard.Models.Google
         public override DateTime Start { get { return start.date == new DateTime(1, 1, 1) ? start.dateTime : start.date; } }
         public override DateTime End { get { return end.date == new DateTime(1, 1, 1) ? end.dateTime : end.date; } }
         public override bool IsAllDay { get { return start.date != new DateTime(1, 1, 1) && end.date != new DateTime(1, 1, 1); } }
-        public override Color EventColor
+        public override string EventColor
         {
             get
             {
                 var property = AppGlobalVariables.Colors.@event.GetType().GetProperty("color" + colorId);
                 if (property != null)
                 {
-                    return property.GetValue(AppGlobalVariables.Colors.@event) as Color;
+                    return (property.GetValue(AppGlobalVariables.Colors.@event) as Color).background;
                 }
                 else
                 {
-                    return null;
+                    return ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString();
                 }
             }
         }

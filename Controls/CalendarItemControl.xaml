@@ -32,7 +32,7 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:EventBase">
-                        <Grid Margin="0" Padding="5,0" CornerRadius="2" Background="{x:Bind EventColor.background}">
+                        <Grid Margin="0" Padding="5,0" CornerRadius="2" Background="{x:Bind EventColor}">
                             <TextBlock Text="{x:Bind Subject}" VerticalAlignment="Center"/>
                         </Grid>
                     </DataTemplate>

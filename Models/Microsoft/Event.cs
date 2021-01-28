@@ -119,7 +119,8 @@ namespace KurosukeInfoBoard.Models.Microsoft
         public override string Content { get { return body.contentType == "html" ? body.content : "<html>" + body.content.Replace("\n", "<br/>") + "</html>"; } }
         public override DateTime Start { get { return start.dateTime.ToLocalTime(); } }
         public override DateTime End { get { return end.dateTime.ToLocalTime(); } }
-        public override Google.Color EventColor { get { return Utils.AppGlobalVariables.Colors.@event.color1; } }
+        //public override string EventColor { get { return Utils.AppGlobalVariables.Colors.@event.color1.background; } }
+        public override string EventColor { get { return ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString(); } }
 
         public override bool IsEventDateMatched(DateTime date)
         {

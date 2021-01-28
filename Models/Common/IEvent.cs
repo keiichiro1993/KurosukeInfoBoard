@@ -12,7 +12,7 @@ namespace KurosukeInfoBoard.Models.Common
         public abstract string Content { get; }
         public abstract DateTime Start { get; }
         public abstract DateTime End { get; }
-        public abstract Google.Color EventColor { get; }
+        public abstract string EventColor { get; }
         public abstract bool IsAllDay { get; }
 
         public abstract bool IsEventDateMatched(DateTime date);
