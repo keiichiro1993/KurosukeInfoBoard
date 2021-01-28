@@ -17,6 +17,7 @@ namespace KurosukeInfoBoard.Models.Auth
         public UserType UserType { get; set; }
         public string ProfilePictureUrl { get; set; }
         public string Id { get; set; }
+        public List<Common.CalendarBase> Calendars { get; set; } = new List<Common.CalendarBase>();
 
         public static async Task<UserBase> AcquireUserFromToken(TokenBase token)
         {

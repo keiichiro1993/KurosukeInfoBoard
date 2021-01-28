@@ -52,70 +52,140 @@ namespace KurosukeInfoBoard.ViewModels
             IsLoading = true;
             if (AppGlobalVariables.Users.Count > 0)
             {
-                SelectedMonth = datetime;
-
-                var events = new List<Models.Common.EventBase>();
-                var devices = new List<Device>();
-                foreach (var user in AppGlobalVariables.Users)
+                try
                 {
-                    try
+                    SelectedMonth = datetime;
+
+                    var calendarTasks = new List<Task<List<Models.Common.EventBase>>>();
+                    var remoTasks = new List<Task<List<Device>>>();
+
+                    LoadingMessage = "Retrieving calendar events and statuses...";
+
+                    foreach (var user in AppGlobalVariables.Users)
                     {
+
                         if (user.UserType == Models.Auth.UserType.Google)
                         {
-                            LoadingMessage = "Retrieving calendar events...";
-                            var googleClient = new GoogleClient(user.Token);
-
-                            if (AppGlobalVariables.Colors == null)
-                            {
-                                AppGlobalVariables.Colors = await googleClient.GetColors();
-                            }
-
-                            var calendars = await googleClient.GetCalendarList();
-                            if (calendars.items.Count > 0)
-                            {
-                                foreach (var item in calendars.items)
-                                {
-                                    var tmp = await googleClient.GetEventList(item, datetime);
-                                    if (tmp != null)
-                                    {
-                                        events.AddRange(tmp.items);
-                                    }
-                                }
-                            }
+                            calendarTasks.Add(GetGoogleEvents(datetime, user));
                         }
                         else if (user.UserType == Models.Auth.UserType.Microsoft)
                         {
-                            LoadingMessage = "Retrieving calendar events...";
 
-                            var msClient = new MicrosoftClient(user.Token);
-                            var calendars = await msClient.GetCalendarList();
-                            if (calendars.value.Count > 0)
-                            {
-                                foreach (var calendar in calendars.value)
-                                {
-                                    var msevents = await msClient.GetEventList(calendar, datetime);
-                                    events.AddRange(msevents.value);
-                                }
-                            }
+                            calendarTasks.Add(GetMicrosoftEvents(datetime, user));
                         }
                         else if (user.UserType == Models.Auth.UserType.NatureRemo)
                         {
-                            LoadingMessage = "Retrieving home status...";
-                            var remoClient = new NatureRemoClient(user.Token);
-                            devices.AddRange(await remoClient.GetDevicesAsync());
+                            remoTasks.Add(GetRemoDevices(user));
+                        }
+
+                    }
+
+                    var eventList = new List<Models.Common.EventBase>();
+                    var eventLists = await Task.WhenAll(calendarTasks);
+                    foreach (var events in eventLists) { eventList.AddRange(events); }
+
+                    var deviceList = new List<Device>();
+                    var deviceLists = await Task.WhenAll(remoTasks);
+                    foreach (var devices in deviceLists) { deviceList.AddRange(devices); }
+
+                    CalendarMonth = new CalendarMonth(datetime, eventList);
+                    Devices = deviceList;
+                }
+                catch (Exception ex)
+                {
+                    DebugHelper.WriteErrorLog("Error occured while " + LoadingMessage + ".", ex);
+                    await new MessageDialog(ex.Message, "Error occured while " + LoadingMessage).ShowAsync();
+                }
+            }
+            IsLoading = false;
+        }
+
+        private async Task<List<Device>> GetRemoDevices(Models.Auth.UserBase user)
+        {
+            var devices = new List<Device>();
+
+            try
+            {
+                var remoClient = new NatureRemoClient(user.Token);
+                devices.AddRange(await remoClient.GetDevicesAsync());
+            }
+            catch (Exception ex)
+            {
+                DebugHelper.WriteErrorLog("Error occured while retrieving Nature Remo status. User=" + user.UserName, ex);
+                await new MessageDialog(ex.Message + ". User=" + user.UserName + ".", "Error occured while retrieving Nature Remo status.").ShowAsync();
+            }
+
+            return devices;
+        }
+
+        private async Task<List<Models.Common.EventBase>> GetMicrosoftEvents(DateTime datetime, Models.Auth.UserBase user)
+        {
+            var events = new List<Models.Common.EventBase>();
+            var msClient = new MicrosoftClient(user.Token);
+
+            if (user.Calendars.Count == 0)
+            {
+                var calendars = await msClient.GetCalendarList();
+                user.Calendars.AddRange(calendars.value);
+            }
+
+            if (user.Calendars.Count > 0)
+            {
+                foreach (var calendar in user.Calendars)
+                {
+                    try
+                    {
+                        var msevents = await msClient.GetEventList(calendar.Id, datetime);
+                        events.AddRange(msevents.value);
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugHelper.WriteErrorLog("Error occured while retrieving Microsoft Events. User=" + user.UserName + ". Calendar=" + calendar.Name + ".", ex);
+                        await new MessageDialog(ex.Message + ". User=" + user.UserName + ". Calendar=" + calendar.Name + ". Please consider excluding this calendar.", "Error occured while retrieving Microsoft Events.").ShowAsync();
+                    }
+                }
+            }
+
+            return events;
+        }
+
+        private async Task<List<Models.Common.EventBase>> GetGoogleEvents(DateTime datetime, Models.Auth.UserBase user)
+        {
+            var events = new List<Models.Common.EventBase>();
+            var googleClient = new GoogleClient(user.Token);
+
+            if (AppGlobalVariables.Colors == null)
+            {
+                AppGlobalVariables.Colors = await googleClient.GetColors();
+            }
+
+            if (user.Calendars.Count == 0)
+            {
+                var calendars = await googleClient.GetCalendarList();
+                user.Calendars.AddRange(calendars.items);
+            }
+
+            if (user.Calendars.Count > 0)
+            {
+                foreach (var item in user.Calendars)
+                {
+                    try
+                    {
+                        var tmp = await googleClient.GetEventList(item.Id, datetime);
+                        if (tmp != null)
+                        {
+                            events.AddRange(tmp.items);
                         }
                     }
                     catch (Exception ex)
                     {
-                        DebugHelper.WriteErrorLog("Error occured while " + LoadingMessage + " User=" + user.UserName, ex);
-                        await new MessageDialog(ex.Message + ". User=" + user.UserName + ".", "Error occured while retrieving " + LoadingMessage).ShowAsync();
+                        DebugHelper.WriteErrorLog("Error occured while retrieving Google Events. User=" + user.UserName + ". Calendar=" + item.Name + ".", ex);
+                        await new MessageDialog(ex.Message + ". User=" + user.UserName + ". Calendar=" + item.Name + ". Please consider excluding this calendar.", "Error occured while retrieving Google Events.").ShowAsync();
                     }
                 }
-
-                CalendarMonth = new CalendarMonth(datetime, events);
-                Devices = devices;
             }
-            IsLoading = false;
+
+            return events;
         }
 
         public void MonthBackButton_Clicked(object sender, RoutedEventArgs e)

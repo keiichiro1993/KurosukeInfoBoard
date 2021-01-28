@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KurosukeInfoBoard.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,7 @@ namespace KurosukeInfoBoard.Models.Google
         public List<string> allowedConferenceSolutionTypes { get; set; }
     }
 
-    public class Calendar
+    public class Calendar : Common.CalendarBase
     {
         public string kind { get; set; }
         public string etag { get; set; }
@@ -49,6 +50,24 @@ namespace KurosukeInfoBoard.Models.Google
         public bool primary { get; set; }
         public bool deleted { get; set; }
         public ConferenceProperties conferenceProperties { get; set; }
+
+        public override string Id { get { return id; } }
+        public override string Name { get { return summary; } }
+        public override string Color
+        {
+            get
+            {
+                var property = AppGlobalVariables.Colors.@event.GetType().GetProperty("color" + colorId);
+                if (property != null)
+                {
+                    return (property.GetValue(AppGlobalVariables.Colors.@event) as Color).background;
+                }
+                else
+                {
+                    return ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString();
+                }
+            }
+        }
     }
 
     public class CalendarList

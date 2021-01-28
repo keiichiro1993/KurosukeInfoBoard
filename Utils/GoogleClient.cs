@@ -42,9 +42,9 @@ namespace KurosukeInfoBoard.Utils
             return JsonSerializer.Deserialize<CalendarList>(jsonString);
         }
 
-        public async Task<EventList> GetEventList(Calendar calendar)
+        public async Task<EventList> GetEventList(string id)
         {
-            var url = calendarEndpoint + "/calendars/" + calendar.id + "/events";
+            var url = calendarEndpoint + "/calendars/" + id + "/events";
             var jsonString = await GetAsync(url);
             if (string.IsNullOrEmpty(jsonString))
             {
@@ -56,9 +56,9 @@ namespace KurosukeInfoBoard.Utils
             }
         }
 
-        public async Task<EventList> GetEventList(Calendar calendar, DateTime month)
+        public async Task<EventList> GetEventList(string id, DateTime month)
         {
-            var url = calendarEndpoint + "/calendars/" + calendar.id + "/events?timeMin=" + new DateTime(month.Year, month.Month, 1).ToString("yyyy-MM-ddThh:mm:ssZ") + "&timeMax=" + new DateTime(month.Year, month.Month, DateTime.DaysInMonth(month.Year, month.Month)).ToString("yyyy-MM-ddThh:mm:ssZ");
+            var url = calendarEndpoint + "/calendars/" + id + "/events?timeMin=" + new DateTime(month.Year, month.Month, 1).ToString("yyyy-MM-ddThh:mm:ssZ") + "&timeMax=" + new DateTime(month.Year, month.Month, DateTime.DaysInMonth(month.Year, month.Month)).ToString("yyyy-MM-ddThh:mm:ssZ");
             var jsonString = await GetAsync(url);
             if (string.IsNullOrEmpty(jsonString))
             {

@@ -13,7 +13,7 @@ namespace KurosukeInfoBoard.Models.Microsoft
         public string address { get; set; }
     }
 
-    public class Calendar
+    public class Calendar : Common.CalendarBase
     {
         [JsonPropertyName("@odata.id")]
         public string OdataId { get; set; }
@@ -30,6 +30,10 @@ namespace KurosukeInfoBoard.Models.Microsoft
         public bool isTallyingResponses { get; set; }
         public bool isRemovable { get; set; }
         public Owner owner { get; set; }
+
+        public override string Id { get { return id; } }
+        public override string Name { get { return name; } }
+        public override string Color { get { return string.IsNullOrEmpty(hexColor) ? ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString() : hexColor; } }
     }
 
     public class CalendarList

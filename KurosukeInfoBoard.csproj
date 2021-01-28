@@ -143,6 +143,7 @@
     <Compile Include="Models\Auth\NatureRemoUser.cs" />
     <Compile Include="Models\CalendarDay.cs" />
     <Compile Include="Models\CalendarMonth.cs" />
+    <Compile Include="Models\Common\ICalendar.cs" />
     <Compile Include="Models\Common\IEvent.cs" />
     <Compile Include="Models\Google\Colors.cs" />
     <Compile Include="Models\Google\Event.cs" />
