@@ -207,6 +207,7 @@
     <Content Include="Assets\Icons\IRControls\AC.svg" />
     <Content Include="Assets\Icons\IRControls\Light.svg" />
     <Content Include="Assets\Icons\IRControls\Lightning.svg" />
+    <Content Include="Assets\Icons\IRControls\Light_new.svg" />
     <Content Include="Assets\Icons\IRControls\TV.svg" />
     <Content Include="Assets\Icons\microsoft_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

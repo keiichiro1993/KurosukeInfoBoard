@@ -25,7 +25,7 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         {
             get
             {
-                if (image == "ico_light") { return "ms-appx:///Assets/Icons/IRControls/Light.svg"; }
+                if (image == "ico_light") { return "ms-appx:///Assets/Icons/IRControls/Light_new.svg"; }
                 else if (tv != null) { return "ms-appx:///Assets/Icons/IRControls/TV.svg"; }
                 else if (aircon != null) { return "ms-appx:///Assets/Icons/IRControls/AC.svg"; }
                 else { return "ms-appx:///Assets/Icons/IRControls/Lightning.svg"; }
