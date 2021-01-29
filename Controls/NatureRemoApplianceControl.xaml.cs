@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
@@ -44,6 +45,10 @@ namespace KurosukeInfoBoard.Controls
             var appliance = (Appliance)e.NewValue;
             cc.applianceNameTextBlock.Text = appliance.nickname;
             cc.applianceTypeTextBlock.Text = appliance.type;
+
+            var image = new SvgImageSource();
+            image.UriSource = new Uri(appliance.IconImage);
+            cc.applianceIconImage.Source = image;
         }
 
         private void Ellipse_SizeChanged(object sender, SizeChangedEventArgs e)

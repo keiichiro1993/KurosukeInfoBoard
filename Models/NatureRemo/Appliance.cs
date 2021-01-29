@@ -20,6 +20,17 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public Aircon aircon { get; set; }
         public List<Signal> signals { get; set; }
         public Tv tv { get; set; }
+
+        public string IconImage
+        {
+            get
+            {
+                if (image == "ico_light") { return "ms-appx:///Assets/Icons/IRControls/Light.svg"; }
+                else if (tv != null) { return "ms-appx:///Assets/Icons/IRControls/TV.svg"; }
+                else if (aircon != null) { return "ms-appx:///Assets/Icons/IRControls/AC.svg"; }
+                else { return "ms-appx:///Assets/Icons/IRControls/Lightning.svg"; }
+            }
+        }
     }
 
     public class Model
