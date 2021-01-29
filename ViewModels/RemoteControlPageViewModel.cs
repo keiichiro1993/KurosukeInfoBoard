@@ -38,11 +38,11 @@ namespace KurosukeInfoBoard.ViewModels
             LoadingMessage = "Acquiring remo info...";
             IsLoading = true;
 
-            var accounts = (from account in AppGlobalVariables.Users
+            var accounts = from account in AppGlobalVariables.Users
                             where account.UserType == Models.Auth.UserType.NatureRemo
-                            select account).ToList();
+                            select account;
 
-            if (accounts.Count > 0)
+            if (accounts.Any())
             {
                 var devices = new List<Device>();
                 var appliances = new List<Appliance>();
