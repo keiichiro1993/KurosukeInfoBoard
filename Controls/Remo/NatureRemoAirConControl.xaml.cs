@@ -17,12 +17,12 @@ using Windows.UI.Xaml.Navigation;
 
 // ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
 
-namespace KurosukeInfoBoard.Controls
+namespace KurosukeInfoBoard.Controls.Remo
 {
-    public sealed partial class NatureRemoTVControl : UserControl
+    public sealed partial class NatureRemoAirConControl : UserControl
     {
-        public NatureRemoTVControlViewModel viewModel { get; set; } = new NatureRemoTVControlViewModel();
-        public NatureRemoTVControl()
+        public NatureRemoAirConControlViewModel viewModel { get; set; } = new NatureRemoAirConControlViewModel();
+        public NatureRemoAirConControl()
         {
             this.InitializeComponent();
         }
@@ -35,13 +35,13 @@ namespace KurosukeInfoBoard.Controls
 
         public static readonly DependencyProperty ApplianceProperty =
           DependencyProperty.Register(nameof(Appliance), typeof(Appliance),
-            typeof(NatureRemoTVControl), new PropertyMetadata(null, new PropertyChangedCallback(OnApplianceChanged)));
+            typeof(NatureRemoAirConControl), new PropertyMetadata(null, new PropertyChangedCallback(OnApplianceChanged)));
 
         private static void OnApplianceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cc = d as NatureRemoTVControl;
+            var cc = d as NatureRemoAirConControl;
             var appliance = (Appliance)e.NewValue;
-            if (appliance.type == "TV")
+            if (appliance.type == "AC")
             {
                 cc.Visibility = Visibility.Visible;
                 cc.viewModel.Init(appliance);

@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Navigation;
 
 // ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
 
-namespace KurosukeInfoBoard.Controls
+namespace KurosukeInfoBoard.Controls.Calendar
 {
     public sealed partial class CalendarItemControl : UserControl
     {

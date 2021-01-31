@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="KurosukeInfoBoard.Controls.CalendarControl"
+    x:Class="KurosukeInfoBoard.Controls.Calendar.CalendarControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:KurosukeInfoBoard.Controls"
+    xmlns:local="using:KurosukeInfoBoard.Controls.Calendar"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -201,6 +201,16 @@
                     </InkToolbarCustomToggleButton>
                     <InkToolbarCustomToggleButton Margin="50,0,0,0" x:Name="disableCanvasToggleButton" Click="DisableCanvasToggle_Click" ToolTipService.ToolTip="Disable canvas">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF1F;"/>
+                    </InkToolbarCustomToggleButton>
+                    <InkToolbarCustomToggleButton x:Name="calendarListButton" ToolTipService.ToolTip="Disable canvas">
+                        <Button Style="{StaticResource CommandBarFlyoutEllipsisButtonStyle}">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D5;"/>
+                            <Button.Flyout>
+                                <Flyout>
+                                    
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
                     </InkToolbarCustomToggleButton>
                 </InkToolbar>
             </Grid>

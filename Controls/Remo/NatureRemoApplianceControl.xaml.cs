@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Shapes;
 
 // ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
 
-namespace KurosukeInfoBoard.Controls
+namespace KurosukeInfoBoard.Controls.Remo
 {
     public sealed partial class NatureRemoApplianceControl : UserControl
     {

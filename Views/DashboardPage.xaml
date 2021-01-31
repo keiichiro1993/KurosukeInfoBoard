@@ -5,7 +5,8 @@
     xmlns:local="using:KurosukeInfoBoard.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:customcontrols="using:KurosukeInfoBoard.Controls"
+    xmlns:calendarcontrols="using:KurosukeInfoBoard.Controls.Calendar"
+    xmlns:remocontrols="using:KurosukeInfoBoard.Controls.Remo"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:remomodels="using:KurosukeInfoBoard.Models.NatureRemo"
     mc:Ignorable="d"
@@ -22,7 +23,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid x:Name="calendarGrid">
-                <customcontrols:CalendarControl CalendarMonth="{x:Bind viewModel.CalendarMonth, Mode=OneWay}" Margin="0,20,0,0"/>
+                <calendarcontrols:CalendarControl CalendarMonth="{x:Bind viewModel.CalendarMonth, Mode=OneWay}" Margin="0,20,0,0"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,0">
                     <Button Click="{x:Bind viewModel.MonthBackButton_Clicked}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE973;" FontSize="40"/>
@@ -48,7 +49,7 @@
                 <GridView Grid.Row="1" ItemsSource="{x:Bind viewModel.Devices, Mode=OneWay}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="remomodels:Device">
-                            <customcontrols:NatureRemoDeviceControl Device="{x:Bind}" Clicked="NatureRemoDeviceControl_Clicked"/>
+                            <remocontrols:NatureRemoDeviceControl Device="{x:Bind}" Clicked="NatureRemoDeviceControl_Clicked"/>
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
