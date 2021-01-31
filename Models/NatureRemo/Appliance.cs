@@ -58,7 +58,7 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         {
             get
             {
-                return button == "power-on";
+                return button != "power-off";
             }
         }
     }
