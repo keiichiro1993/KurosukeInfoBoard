@@ -68,6 +68,10 @@ namespace KurosukeInfoBoard.Models.Google
                 }
             }
         }
+
+        public override bool IsEnabled { get; set; }
+        public override string AccountType { get; set; }
+        public override string UserId { get; set; }
     }
 
     public class CalendarList

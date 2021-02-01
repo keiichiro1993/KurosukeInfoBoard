@@ -10,6 +10,10 @@ namespace KurosukeInfoBoard.Models.Common
     {
         public abstract string Id { get; }
         public abstract string Name { get; }
+        public abstract bool IsEnabled { get; set; }
         public abstract string Color { get; } //hex
+
+        public abstract string AccountType { get; set; }
+        public abstract string UserId { get; set; }
     }
 }

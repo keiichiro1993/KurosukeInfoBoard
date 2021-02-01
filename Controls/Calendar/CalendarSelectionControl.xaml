@@ -1,0 +1,44 @@
+﻿<UserControl
+    x:Class="KurosukeInfoBoard.Controls.Calendar.CalendarSelectionControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:KurosukeInfoBoard.Controls.Calendar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Name="UsersSource" Source="{x:Bind Users}" IsSourceGrouped="true" ItemsPath="Calendars" />
+    </UserControl.Resources>
+    <Grid>
+        <ListView ItemsSource="{Binding Source={StaticResource UsersSource}}" SelectionMode="None">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemExpanded}">
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <local:CalendarSelectionItemControl Calendar="{Binding}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding UserName}" Margin="10,0" FontWeight="Bold" />
+                                <TextBlock Text="(" FontWeight="Bold" />
+                                <TextBlock Text="{Binding Id}" FontWeight="Bold" />
+                                <TextBlock Text=")" FontWeight="Bold" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
+    </Grid>
+</UserControl>

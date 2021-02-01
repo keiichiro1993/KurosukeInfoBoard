@@ -34,6 +34,10 @@ namespace KurosukeInfoBoard.Models.Microsoft
         public override string Id { get { return id; } }
         public override string Name { get { return name; } }
         public override string Color { get { return string.IsNullOrEmpty(hexColor) ? ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString() : hexColor; } }
+
+        public override bool IsEnabled { get; set; }
+        public override string AccountType { get; set; }
+        public override string UserId { get; set; }
     }
 
     public class CalendarList

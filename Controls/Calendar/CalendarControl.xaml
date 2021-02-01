@@ -207,7 +207,7 @@
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D5;"/>
                             <Button.Flyout>
                                 <Flyout>
-                                    
+                                    <local:CalendarSelectionControl Users="{x:Bind Users}"/>
                                 </Flyout>
                             </Button.Flyout>
                         </Button>

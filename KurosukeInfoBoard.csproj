@@ -125,6 +125,12 @@
     <Compile Include="Controls\Calendar\CalendarItemControl.xaml.cs">
       <DependentUpon>CalendarItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Calendar\CalendarSelectionControl.xaml.cs">
+      <DependentUpon>CalendarSelectionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Calendar\CalendarSelectionItemControl.xaml.cs">
+      <DependentUpon>CalendarSelectionItemControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Remo\NatureRemoAirConControl.xaml.cs">
       <DependentUpon>NatureRemoAirConControl.xaml</DependentUpon>
     </Compile>
@@ -236,6 +242,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Calendar\CalendarItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Calendar\CalendarSelectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Calendar\CalendarSelectionItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,7 +1,10 @@
 ﻿using KurosukeInfoBoard.Models;
+using KurosukeInfoBoard.Models.Auth;
+using KurosukeInfoBoard.Models.Common;
 using KurosukeInfoBoard.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -168,6 +171,8 @@ namespace KurosukeInfoBoard.Controls.Calendar
                 FindChildren<T>(results, current);
             }
         }
+
+        public ObservableCollection<UserBase> Users { get { return AppGlobalVariables.Users; } }
 
         private void EnableTouchWritingToggle_Click(object sender, RoutedEventArgs e)
         {
