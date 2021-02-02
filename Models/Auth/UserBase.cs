@@ -43,13 +43,13 @@ namespace KurosukeInfoBoard.Models.Auth
                 DebugHelper.WriteErrorLog("Exception occured on acquiring user info. Type=" + token.UserType.ToString(), ex);
                 //var message = new MessageDialog("Type=" + token.UserType.ToString() + " Exception=" + ex.Message, "Exception occured on acquiring user info.");
                 //await message.ShowAsync();
-
                 var user = new UserBase();
                 user.Token = token;
                 user.UserType = token.UserType;
                 user.UserName = "Failed to get user info.";
                 user.ProfilePictureUrl = "/Assets/Square150x150Logo.scale-200.png";
                 user.Id = token.Id;
+
                 return user;
             }
             return null;

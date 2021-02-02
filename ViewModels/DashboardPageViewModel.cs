@@ -2,6 +2,7 @@
 using KurosukeInfoBoard.Models.Google;
 using KurosukeInfoBoard.Models.NatureRemo;
 using KurosukeInfoBoard.Utils;
+using KurosukeInfoBoard.Utils.DBHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,11 +122,14 @@ namespace KurosukeInfoBoard.ViewModels
         private async Task<List<Models.Common.EventBase>> GetMicrosoftEvents(DateTime datetime, Models.Auth.UserBase user)
         {
             var events = new List<Models.Common.EventBase>();
-            var msClient = new MicrosoftClient(user.Token);
+            var msClient = new MicrosoftClient(user);
 
             if (user.Calendars.Count == 0)
             {
                 var calendars = await msClient.GetCalendarList();
+                var calCache = new CalendarCacheHelper();
+                await calCache.Init();
+                foreach (var calendar in calendars.value) { calCache.CheckIfEnabled(calendar); }
                 user.Calendars.AddRange(calendars.value);
             }
 
@@ -133,15 +137,18 @@ namespace KurosukeInfoBoard.ViewModels
             {
                 foreach (var calendar in user.Calendars)
                 {
-                    try
+                    if (calendar.IsEnabled)
                     {
-                        var msevents = await msClient.GetEventList(calendar.Id, datetime);
-                        events.AddRange(msevents.value);
-                    }
-                    catch (Exception ex)
-                    {
-                        DebugHelper.WriteErrorLog("Error occured while retrieving Microsoft Events. User=" + user.UserName + ". Calendar=" + calendar.Name + ".", ex);
-                        await new MessageDialog(ex.Message + ". User=" + user.UserName + ". Calendar=" + calendar.Name + ". Please consider excluding this calendar.", "Error occured while retrieving Microsoft Events.").ShowAsync();
+                        try
+                        {
+                            var msevents = await msClient.GetEventList(calendar.Id, datetime);
+                            events.AddRange(msevents.value);
+                        }
+                        catch (Exception ex)
+                        {
+                            DebugHelper.WriteErrorLog("Error occured while retrieving Microsoft Events. User=" + user.UserName + ". Calendar=" + calendar.Name + ".", ex);
+                            await new MessageDialog(ex.Message + ". User=" + user.UserName + ". Calendar=" + calendar.Name + ". Please consider excluding this calendar.", "Error occured while retrieving Microsoft Events.").ShowAsync();
+                        }
                     }
                 }
             }
@@ -152,7 +159,7 @@ namespace KurosukeInfoBoard.ViewModels
         private async Task<List<Models.Common.EventBase>> GetGoogleEvents(DateTime datetime, Models.Auth.UserBase user)
         {
             var events = new List<Models.Common.EventBase>();
-            var googleClient = new GoogleClient(user.Token);
+            var googleClient = new GoogleClient(user);
 
             if (AppGlobalVariables.Colors == null)
             {
@@ -162,6 +169,10 @@ namespace KurosukeInfoBoard.ViewModels
             if (user.Calendars.Count == 0)
             {
                 var calendars = await googleClient.GetCalendarList();
+
+                var calCache = new CalendarCacheHelper();
+                await calCache.Init();
+                foreach (var calendar in calendars.items) { calCache.CheckIfEnabled(calendar); }
                 user.Calendars.AddRange(calendars.items);
             }
 
@@ -169,18 +180,21 @@ namespace KurosukeInfoBoard.ViewModels
             {
                 foreach (var item in user.Calendars)
                 {
-                    try
+                    if (item.IsEnabled)
                     {
-                        var tmp = await googleClient.GetEventList(item.Id, datetime);
-                        if (tmp != null)
+                        try
                         {
-                            events.AddRange(tmp.items);
+                            var tmp = await googleClient.GetEventList(item.Id, datetime);
+                            if (tmp != null)
+                            {
+                                events.AddRange(tmp.items);
+                            }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        DebugHelper.WriteErrorLog("Error occured while retrieving Google Events. User=" + user.UserName + ". Calendar=" + item.Name + ".", ex);
-                        await new MessageDialog(ex.Message + ". User=" + user.UserName + ". Calendar=" + item.Name + ". Please consider excluding this calendar.", "Error occured while retrieving Google Events.").ShowAsync();
+                        catch (Exception ex)
+                        {
+                            DebugHelper.WriteErrorLog("Error occured while retrieving Google Events. User=" + user.UserName + ". Calendar=" + item.Name + ".", ex);
+                            await new MessageDialog(ex.Message + ". User=" + user.UserName + ". Calendar=" + item.Name + ". Please consider excluding this calendar.", "Error occured while retrieving Google Events.").ShowAsync();
+                        }
                     }
                 }
             }

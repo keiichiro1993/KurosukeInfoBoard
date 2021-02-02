@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                <CheckBox IsChecked="{x:Bind IsEnabled, Mode=TwoWay}">
+                <CheckBox IsChecked="{x:Bind Calendar.IsEnabled, Mode=TwoWay}" Checked="CheckBox_StatusChanged" Unchecked="CheckBox_StatusChanged">
                     <TextBlock Text="{x:Bind Calendar.Name, Mode=OneWay}"/>
                 </CheckBox>
             </StackPanel>

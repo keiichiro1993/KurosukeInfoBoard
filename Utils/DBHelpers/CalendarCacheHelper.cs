@@ -46,7 +46,7 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
         /// </summary>
         /// <param name="calendar">the calendar item to check</param>
         /// <returns>True if it doens't exist on cache or exists and enabled. False if disabled.</returns>
-        public async Task<bool> CheckIfEnabled(CalendarBase calendar)
+        public bool CheckIfEnabled(CalendarBase calendar)
         {
             using (var context = new CalendarCacheContext())
             {
@@ -55,15 +55,12 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
                             select item;
                 if (match.Any())
                 {
+                    calendar.IsEnabled = match.First().IsEnabled;
                     return match.First().IsEnabled;
                 }
-                else
-                {
-                    calendar.IsEnabled = true;
-                    await SaveCalendar(calendar);
-                    return true;
-                }
             }
+            calendar.IsEnabled = true;
+            return true;
         }
 
         /// <summary>

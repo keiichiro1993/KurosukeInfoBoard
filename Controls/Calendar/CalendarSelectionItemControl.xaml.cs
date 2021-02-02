@@ -1,4 +1,5 @@
 ﻿using KurosukeInfoBoard.Models.Common;
+using KurosukeInfoBoard.Utils.DBHelpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +38,17 @@ namespace KurosukeInfoBoard.Controls.Calendar
 
         private static void OnCalendarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+        }
+
+        private async void CheckBox_StatusChanged(object sender, RoutedEventArgs e)
+        {
+            var calCache = new CalendarCacheHelper();
+            await calCache.Init();
+
+            //反映されないので
+            Calendar.IsEnabled = (bool)((CheckBox)sender).IsChecked;
+
+            await calCache.AddUpdateCalendarCache(Calendar);
         }
     }
 }

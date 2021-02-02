@@ -10,9 +10,23 @@ namespace KurosukeInfoBoard.Utils
 {
     public class MicrosoftClient : HTTPClientBase
     {
+        private UserBase user;
         public MicrosoftClient(TokenBase token)
         {
-            this.token = token;
+            var user = new UserBase();
+            user.Token = token;
+            user.UserType = token.UserType;
+            user.UserName = "Failed to get user info.";
+            user.ProfilePictureUrl = "/Assets/Square150x150Logo.scale-200.png";
+            user.Id = token.Id;
+            this.user = user;
+            this.token = user.Token;
+        }
+
+        public MicrosoftClient(UserBase user)
+        {
+            this.user = user;
+            this.token = user.Token;
         }
 
         public async Task<MicrosoftUser> GetUserDataAsync()
@@ -40,13 +54,20 @@ namespace KurosukeInfoBoard.Utils
                 user.ProfilePictureUrl = "/Assets/Square150x150Logo.scale-200.png";
             }
 
+            this.user = user;
             return user;
         }
 
         public async Task<Models.Microsoft.CalendarList> GetCalendarList()
         {
             var url = "https://graph.microsoft.com/v1.0/me/calendars";
-            return await GetAsyncWithType<Models.Microsoft.CalendarList>(url);
+            var calendars = await GetAsyncWithType<Models.Microsoft.CalendarList>(url);
+            foreach (var calendar in calendars.value)
+            {
+                calendar.AccountType = UserType.Microsoft.ToString();
+                calendar.UserId = user.Id;
+            }
+            return calendars;
         }
 
         public async Task<Models.Microsoft.EventList> GetEventList(string id, DateTime month)

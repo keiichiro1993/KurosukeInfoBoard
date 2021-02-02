@@ -17,13 +17,28 @@ namespace KurosukeInfoBoard.Utils
         string userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
         string calendarEndpoint = "https://www.googleapis.com/calendar/v3";
 
+        private UserBase user;
+
         /// <summary>
         /// This class enables you to retrieve data from Google APIs.
         /// </summary>
         /// <param name="token">OAuth2 token for Google API.</param>
         public GoogleClient(TokenBase token)
         {
-            this.token = token;
+            var user = new UserBase();
+            user.Token = token;
+            user.UserType = token.UserType;
+            user.UserName = "Failed to get user info.";
+            user.ProfilePictureUrl = "/Assets/Square150x150Logo.scale-200.png";
+            user.Id = token.Id;
+            this.user = user;
+            this.token = user.Token;
+        }
+
+        public GoogleClient(UserBase user)
+        {
+            this.user = user;
+            this.token = user.Token;
         }
 
         public async Task<GoogleUser> GetUserDataAsync()
@@ -32,14 +47,23 @@ namespace KurosukeInfoBoard.Utils
             var userData = JsonSerializer.Deserialize<GoogleUser>(jsonString);
             userData.UserType = UserType.Google;
             userData.Token = token;
+
+            this.user = userData;
+
             return userData;
         }
 
         public async Task<CalendarList> GetCalendarList()
         {
             var url = calendarEndpoint + "/users/me/calendarList";
-            var jsonString = await GetAsync(url);
-            return JsonSerializer.Deserialize<CalendarList>(jsonString);
+            var calendars = await GetAsyncWithType<CalendarList>(url);
+            foreach (var calendar in calendars.items)
+            {
+                calendar.UserId = user.Id;
+                calendar.AccountType = UserType.Google.ToString();
+            }
+
+            return calendars;
         }
 
         public async Task<EventList> GetEventList(string id)
