@@ -31,6 +31,7 @@ namespace KurosukeInfoBoard.Views.Settings
         private readonly List<(string Tag, Type Page)> pages = new List<(string Tag, Type Page)>
         {
             ("AccountSettings", typeof(AccountSettingsPage)),
+            ("CalendarSettings", typeof(CalendarSettingsPage)),
         };
         private void mainNavigation_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {

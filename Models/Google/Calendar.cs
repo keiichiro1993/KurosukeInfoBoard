@@ -53,20 +53,31 @@ namespace KurosukeInfoBoard.Models.Google
 
         public override string Id { get { return id; } }
         public override string Name { get { return summary; } }
+
+        public override string OverrideColor { get; set; }
         public override string Color
         {
             get
             {
-                var property = AppGlobalVariables.Colors.@event.GetType().GetProperty("color" + colorId);
-                if (property != null)
+                if (string.IsNullOrEmpty(OverrideColor))
                 {
-                    return (property.GetValue(AppGlobalVariables.Colors.@event) as Color).background;
+                    var property = AppGlobalVariables.Colors.@event.GetType().GetProperty("color" + colorId);
+                    if (property != null)
+                    {
+                        return (property.GetValue(AppGlobalVariables.Colors.@event) as Color).background;
+                    }
+                    else
+                    {
+                        return ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString();
+                    }
                 }
                 else
                 {
-                    return ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString();
+                    return OverrideColor;
                 }
             }
+
+            set { OverrideColor = value; }
         }
 
         public override bool IsEnabled { get; set; }

@@ -13,6 +13,7 @@
         <muxc:NavigationView IsSettingsVisible="False" x:Name="mainNavigation" ItemInvoked="mainNavigation_ItemInvoked">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Icon="Contact" Content="Accounts" Tag="AccountSettings"/>
+                <muxc:NavigationViewItem Icon="Calendar" Content="Calendars" Tag="CalendarSettings"/>
             </muxc:NavigationView.MenuItems>
             <Frame x:Name="contentFrame"/>
         </muxc:NavigationView>

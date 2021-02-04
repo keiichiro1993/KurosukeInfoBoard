@@ -12,6 +12,7 @@ namespace KurosukeInfoBoard.Utils.UIHelper
     {
         public static SolidColorBrush HexToBrush(string hex)
         {
+            if (hex.Length < 9) { hex = hex.Replace("#", "#FF"); }
             var a = (byte)System.Convert.ToUInt32(hex.Substring(1, 2), 16);
             var r = (byte)System.Convert.ToUInt32(hex.Substring(3, 2), 16);
             var g = (byte)System.Convert.ToUInt32(hex.Substring(5, 2), 16);

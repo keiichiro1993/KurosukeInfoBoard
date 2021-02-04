@@ -26,6 +26,7 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
             entity.IsEnabled = calendar.IsEnabled;
             entity.AccountType = calendar.AccountType;
             entity.UserId = calendar.UserId;
+            entity.OverrideColor = calendar.OverrideColor;
 
             return entity;
         }
@@ -56,6 +57,7 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
                 if (match.Any())
                 {
                     calendar.IsEnabled = match.First().IsEnabled;
+                    calendar.OverrideColor = match.First().OverrideColor;
                     return match.First().IsEnabled;
                 }
             }
@@ -80,6 +82,7 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
                 {
                     var entity = match.First();
                     entity.IsEnabled = calendar.IsEnabled;
+                    entity.OverrideColor = calendar.OverrideColor;
                     context.Update(entity);
 
                     await context.SaveChangesAsync();

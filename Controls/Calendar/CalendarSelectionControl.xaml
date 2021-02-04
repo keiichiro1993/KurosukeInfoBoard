@@ -30,10 +30,16 @@
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding UserName}" Margin="10,0" FontWeight="Bold" />
-                                <TextBlock Text="(" FontWeight="Bold" />
-                                <TextBlock Text="{Binding Id}" FontWeight="Bold" />
-                                <TextBlock Text=")" FontWeight="Bold" />
+                                <StackPanel.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="FontSize" Value="15"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <TextBlock Text="{Binding UserName}" Margin="10,0" />
+                                <TextBlock Text="(" />
+                                <TextBlock Text="{Binding Id}" />
+                                <TextBlock Text=")" />
                             </StackPanel>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>

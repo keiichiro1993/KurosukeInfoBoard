@@ -33,7 +33,20 @@ namespace KurosukeInfoBoard.Models.Microsoft
 
         public override string Id { get { return id; } }
         public override string Name { get { return name; } }
-        public override string Color { get { return string.IsNullOrEmpty(hexColor) ? ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString() : hexColor; } }
+        public override string OverrideColor { get; set; }
+        public override string Color
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(OverrideColor))
+                {
+                    return string.IsNullOrEmpty(hexColor) ? ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString() : hexColor;
+                }
+                else
+                { return OverrideColor; }
+            }
+            set { OverrideColor = value; }
+        }
 
         public override bool IsEnabled { get; set; }
         public override string AccountType { get; set; }

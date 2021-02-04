@@ -32,6 +32,8 @@ namespace KurosukeInfoBoard.Models.SQL
 
         [Required]
         public string UserId { get; set; }
+
+        public string OverrideColor { get; set; }
     }
 
     public class CalendarCacheContext : DbContext

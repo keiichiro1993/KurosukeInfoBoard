@@ -201,6 +201,9 @@
       <DependentUpon>RemoteControlPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\AccountSettingsPage.xaml.cs" />
+    <Compile Include="Views\Settings\CalendarSettingsPage.xaml.cs">
+      <DependentUpon>CalendarSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Settings\SettingsPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -296,6 +299,10 @@
     <Page Include="Views\Settings\AccountSettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\CalendarSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

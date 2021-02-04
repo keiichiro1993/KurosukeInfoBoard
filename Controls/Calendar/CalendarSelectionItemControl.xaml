@@ -5,6 +5,7 @@
     xmlns:local="using:KurosukeInfoBoard.Controls.Calendar"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -26,7 +27,13 @@
                     <TextBlock Text="{x:Bind Calendar.Name, Mode=OneWay}"/>
                 </CheckBox>
             </StackPanel>
-            <Rectangle Grid.Column="1" Width="50" Height="50" Fill="Blue"/>
+            <Button Grid.Column="1" Width="40" Height="40" Margin="2" x:Name="colorPickerButton">
+                <Button.Flyout>
+                    <Flyout>
+                        <muxc:ColorPicker Color="{x:Bind Calendar.Color, Mode=OneWay}" ColorChanged="ColorPicker_ColorChanged" IsAlphaEnabled="False"/>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
         </Grid>
     </Grid>
 </UserControl>

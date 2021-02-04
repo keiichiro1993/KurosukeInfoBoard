@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="KurosukeInfoBoard.Views.Settings.CalendarSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:KurosukeInfoBoard.Views.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:calendar="using:KurosukeInfoBoard.Controls.Calendar"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="20">
+                <TextBlock FontSize="20">Select calendars to show</TextBlock>
+            </Grid>
+            <calendar:CalendarSelectionControl Grid.Row="1" Users="{x:Bind Users}"/>
+        </Grid>
+    </Grid>
+</Page>
