@@ -208,29 +208,20 @@ namespace KurosukeInfoBoard.Models.Google
         public override DateTime Start { get { return start.date == new DateTime(1, 1, 1) ? start.dateTime : start.date; } }
         public override DateTime End { get { return end.date == new DateTime(1, 1, 1) ? end.dateTime : end.date; } }
         public override bool IsAllDay { get { return start.date != new DateTime(1, 1, 1) && end.date != new DateTime(1, 1, 1); } }
+        public override string OverrideColor { get; set; }
+
         public override string EventColor
         {
             get
             {
+                if (!string.IsNullOrEmpty(OverrideColor)) { return OverrideColor; }
                 var property = AppGlobalVariables.Colors.@event.GetType().GetProperty("color" + colorId);
-                if (property != null)
-                {
-                    return (property.GetValue(AppGlobalVariables.Colors.@event) as Color).background;
-                }
-                else
-                {
-                    return ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString();
-                }
+                return property != null ? (property.GetValue(AppGlobalVariables.Colors.@event) as Color).background : ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString();
             }
         }
         public override bool IsEventDateMatched(DateTime date)
         {
-            if (start == null)
-            {
-                return false;
-            }
-
-            return (Start <= date && End > date) || (Start.Date == date.Date);
+            return start == null ? false : (Start <= date && End > date) || (Start.Date == date.Date);
         }
     }
 

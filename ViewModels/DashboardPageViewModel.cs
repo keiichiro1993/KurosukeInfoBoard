@@ -141,7 +141,7 @@ namespace KurosukeInfoBoard.ViewModels
                     {
                         try
                         {
-                            var msevents = await msClient.GetEventList(calendar.Id, datetime);
+                            var msevents = await msClient.GetEventList(calendar, datetime);
                             events.AddRange(msevents.value);
                         }
                         catch (Exception ex)
@@ -184,7 +184,7 @@ namespace KurosukeInfoBoard.ViewModels
                     {
                         try
                         {
-                            var tmp = await googleClient.GetEventList(item.Id, datetime);
+                            var tmp = await googleClient.GetEventList(item, datetime);
                             if (tmp != null)
                             {
                                 events.AddRange(tmp.items);

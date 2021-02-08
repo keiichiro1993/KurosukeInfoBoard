@@ -1,4 +1,5 @@
 ﻿using KurosukeInfoBoard.Models.Auth;
+using KurosukeInfoBoard.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -70,14 +71,16 @@ namespace KurosukeInfoBoard.Utils
             return calendars;
         }
 
-        public async Task<Models.Microsoft.EventList> GetEventList(string id, DateTime month)
+        public async Task<Models.Microsoft.EventList> GetEventList(CalendarBase calendar, DateTime month)
         {
             var start = new DateTime(month.Year, month.Month, 1).ToUniversalTime().ToString("yyyy-MM-ddThh:mm:ss");
             var nextMonth = month.AddMonths(1);
             var end = new DateTime(nextMonth.Year, nextMonth.Month, 1).ToUniversalTime().ToString("yyyy-MM-ddThh:mm:ss");
-            var url = "https://graph.microsoft.com/v1.0/me/calendars/" + id + "/events?$filter=start/dateTime ge \'" + start + "\' and start/dateTime lt \'" + end + "\'";
+            var url = "https://graph.microsoft.com/v1.0/me/calendars/" + calendar.Id + "/events?$filter=start/dateTime ge \'" + start + "\' and start/dateTime lt \'" + end + "\'";
 
-            return await GetAsyncWithType<Models.Microsoft.EventList>(url);
+            var events = await GetAsyncWithType<Models.Microsoft.EventList>(url);
+            foreach (var obj in events.value) { obj.OverrideColor = calendar.Color; }
+            return events;
         }
     }
 }

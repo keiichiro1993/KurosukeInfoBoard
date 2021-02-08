@@ -16,5 +16,6 @@ namespace KurosukeInfoBoard.Models.Common
         public abstract bool IsAllDay { get; }
 
         public abstract bool IsEventDateMatched(DateTime date);
+        public abstract string OverrideColor { get; set; }
     }
 }
