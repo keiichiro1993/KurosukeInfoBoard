@@ -30,7 +30,10 @@
             <Button Grid.Column="1" Width="40" Height="40" Margin="2" x:Name="colorPickerButton">
                 <Button.Flyout>
                     <Flyout>
-                        <muxc:ColorPicker Color="{x:Bind Calendar.Color, Mode=OneWay}" ColorChanged="ColorPicker_ColorChanged" IsAlphaEnabled="False"/>
+                        <StackPanel Orientation="Vertical">
+                            <muxc:ColorPicker x:Name="colorPicker" Color="{x:Bind Calendar.Color, Mode=OneWay}" ColorChanged="ColorPicker_ColorChanged" IsAlphaEnabled="False"/>
+                            <Button Margin="0,10,0,0" Content="Default" Click="DefaultButton_Click"/>
+                        </StackPanel>
                     </Flyout>
                 </Button.Flyout>
             </Button>

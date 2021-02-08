@@ -1,4 +1,5 @@
 ﻿using KurosukeInfoBoard.Models.Common;
+using KurosukeInfoBoard.Utils;
 using KurosukeInfoBoard.Utils.DBHelpers;
 using KurosukeInfoBoard.Utils.UIHelper;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -63,11 +65,33 @@ namespace KurosukeInfoBoard.Controls.Calendar
             if (newColor != oldColor)
             {
                 Calendar.Color = args.NewColor.ToString();
+                await UpdateColor();
+
+                colorPickerButton.Background = ColorConverter.HexToBrush(Calendar.Color);
+            }
+        }
+
+        private async void DefaultButton_Click(object sender, RoutedEventArgs e)
+        {
+            Calendar.OverrideColor = null;
+            colorPickerButton.Background = ColorConverter.HexToBrush(Calendar.Color);
+            colorPicker.Color = ColorConverter.HexToColor(Calendar.Color);
+
+            await UpdateColor();
+        }
+
+        private async System.Threading.Tasks.Task UpdateColor()
+        {
+            try
+            {
                 var calCache = new CalendarCacheHelper();
                 await calCache.Init();
                 await calCache.AddUpdateCalendarCache(Calendar);
-
-                colorPickerButton.Background = ColorConverter.HexToBrush(Calendar.Color);
+            }
+            catch (Exception ex)
+            {
+                DebugHelper.WriteErrorLog("Error occured while saving calendar settings.", ex);
+                await new MessageDialog(ex.Message, "Error occured while saving calendar settings.").ShowAsync();
             }
         }
     }

@@ -12,13 +12,18 @@ namespace KurosukeInfoBoard.Utils.UIHelper
     {
         public static SolidColorBrush HexToBrush(string hex)
         {
+            Color color = HexToColor(hex);
+            return new SolidColorBrush(color);
+        }
+
+        public static Color HexToColor(string hex)
+        {
             if (hex.Length < 9) { hex = hex.Replace("#", "#FF"); }
             var a = (byte)System.Convert.ToUInt32(hex.Substring(1, 2), 16);
             var r = (byte)System.Convert.ToUInt32(hex.Substring(3, 2), 16);
             var g = (byte)System.Convert.ToUInt32(hex.Substring(5, 2), 16);
             var b = (byte)System.Convert.ToUInt32(hex.Substring(7, 2), 16);
-            Color color = Color.FromArgb(255, r, g, b);
-            return new SolidColorBrush(color);
+            return Color.FromArgb(255, r, g, b);
         }
     }
 }
