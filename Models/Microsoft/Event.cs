@@ -117,8 +117,8 @@ namespace KurosukeInfoBoard.Models.Microsoft
         public override string Subject { get { return subject; } }
         public override bool IsAllDay { get { return isAllDay; } }
         public override string Content { get { return body.contentType == "html" ? body.content : "<html>" + body.content.Replace("\n", "<br/>") + "</html>"; } }
-        public override DateTime Start { get { return start.dateTime.ToLocalTime(); } }
-        public override DateTime End { get { return end.dateTime.ToLocalTime(); } }
+        public override DateTime Start { get { return start.dateTime; } }
+        public override DateTime End { get { return end.dateTime; } }
         public override string OverrideColor { get; set; }
 
         public override string EventColor { get { return !string.IsNullOrEmpty(OverrideColor) ? OverrideColor : ((Windows.UI.Xaml.Media.SolidColorBrush)Windows.UI.Xaml.Application.Current.Resources["ApplicationPageBackgroundThemeBrush"]).Color.ToString(); } }
