@@ -7,8 +7,8 @@
     <ProjectGuid>{005A8DDF-B62F-4650-8E14-9F8A78A75609}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OpenWeatherMapClient</RootNamespace>
-    <AssemblyName>OpenWeatherMapClient</AssemblyName>
+    <RootNamespace>OpenWeatherMap</RootNamespace>
+    <AssemblyName>OpenWeatherMap</AssemblyName>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
@@ -120,10 +120,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Locations.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="OpenWeatherMapClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Cache.cs" />
     <EmbeddedResource Include="Properties\OpenWeatherMapClient.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -141,8 +143,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\TextResources\country.list.json" />
-    <None Include="Assets\TextResources\city.list.json" />
+    <EmbeddedResource Include="Assets\TextResources\country.list.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\TextResources\city.list.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <PRIResource Include="Properties\Keys.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

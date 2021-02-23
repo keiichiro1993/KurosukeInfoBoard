@@ -27,6 +27,7 @@ bld/
 .vs/
 
 Properties/Keys.resw
+OpenWeatherMapClient/Properties/Keys.resw
 
 # MSTest test Results
 [Tt]est[Rr]esult*/

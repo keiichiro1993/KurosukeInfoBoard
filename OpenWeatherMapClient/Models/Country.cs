@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace OpenWeatherMapClient.Models
+namespace OpenWeatherMap.Models
 {
     public class Country
     {

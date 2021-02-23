@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace OpenWeatherMapClient.Models
+namespace OpenWeatherMap.Models
 {
     public class Coord
     {
@@ -18,7 +18,7 @@ namespace OpenWeatherMapClient.Models
     public class City
     {
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public double Id { get; set; }
         [JsonPropertyName("name")]
         public string Name { get; set; }
         [JsonPropertyName("state")]
