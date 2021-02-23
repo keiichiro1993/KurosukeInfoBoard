@@ -234,6 +234,16 @@
     <Content Include="Assets\Icons\nature_remo_logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\Weather\broken_clouds.svg" />
+    <Content Include="Assets\Icons\Weather\clear_sky_day.svg" />
+    <Content Include="Assets\Icons\Weather\clear_sky_night.svg" />
+    <Content Include="Assets\Icons\Weather\few_clouds_day.svg" />
+    <Content Include="Assets\Icons\Weather\few_clouds_night.svg" />
+    <Content Include="Assets\Icons\Weather\mist.svg" />
+    <Content Include="Assets\Icons\Weather\rain.svg" />
+    <Content Include="Assets\Icons\Weather\scattered_clouds.svg" />
+    <Content Include="Assets\Icons\Weather\snow.svg" />
+    <Content Include="Assets\Icons\Weather\thunderstorm.svg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -367,6 +377,7 @@
       <Name>OpenWeatherMapClient</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

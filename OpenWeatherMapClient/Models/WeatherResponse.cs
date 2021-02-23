@@ -93,5 +93,52 @@ namespace OpenWeatherMap.Models
         public int Cod { get; set; }
 
         public Weather FirstWeather { get { return Weathers.FirstOrDefault(); } }
+        public string Icon
+        {
+            get
+            {
+                switch (FirstWeather.Icon)
+                {
+                    case "01d":
+                        return "/Assets/Icons/Weather/clear_sky_day.svg";
+                    case "01n":
+                        return "/Assets/Icons/Weather/clear_sky_night.svg";
+                    case "02d":
+                        return "/Assets/Icons/Weather/few_clouds_day.svg";
+                    case "02n":
+                        return "/Assets/Icons/Weather/few_clouds_night.svg";
+                    case "03d":
+                        return "/Assets/Icons/Weather/scattered_clouds.svg";
+                    case "03n":
+                        return "/Assets/Icons/Weather/scattered_clouds.svg";
+                    case "04d":
+                        return "/Assets/Icons/Weather/broken_clouds.svg";
+                    case "04n":
+                        return "/Assets/Icons/Weather/broken_clouds.svg";
+                    case "09d":
+                        return "/Assets/Icons/Weather/rain.svg";
+                    case "09n":
+                        return "/Assets/Icons/Weather/rain.svg";
+                    case "10d":
+                        return "/Assets/Icons/Weather/rain.svg";
+                    case "10n":
+                        return "/Assets/Icons/Weather/rain.svg";
+                    case "11d":
+                        return "/Assets/Icons/Weather/thunderstorm.svg";
+                    case "11n":
+                        return "/Assets/Icons/Weather/thunderstorm.svg";
+                    case "13d":
+                        return "/Assets/Icons/Weather/snow.svg";
+                    case "13n":
+                        return "/Assets/Icons/Weather/snow.svg";
+                    case "50d":
+                        return "/Assets/Icons/Weather/mist.svg";
+                    case "50n":
+                        return "/Assets/Icons/Weather/mist.svg";
+                    default:
+                        return "/Assets/Square150x150Logo.scale-200.png";
+                }
+            }
+        }
     }
 }
