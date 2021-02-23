@@ -37,6 +37,14 @@ namespace KurosukeInfoBoard.Controls.Calendar
         {
             this.InitializeComponent();
             this.Loaded += CalendarControl_Loaded;
+            this.Unloaded += CalendarControl_Unloaded;
+        }
+
+        private void CalendarControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            calendarCanvas.InkPresenter.StrokesCollected -= InkPresenter_StrokesCollected;
+            this.Loaded -= CalendarControl_Loaded;
+            this.Unloaded -= CalendarControl_Unloaded;
         }
 
         private void CalendarControl_Loaded(object sender, RoutedEventArgs e)
