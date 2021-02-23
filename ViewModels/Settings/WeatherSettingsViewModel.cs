@@ -34,7 +34,7 @@ namespace KurosukeInfoBoard.ViewModels.Settings
 
                     if (!IsLoading)
                     {
-                        SettingsHelper.Settings.CityId.SetValue(value);
+                        SettingsHelper.Settings.CityId.SetValue(value.Id);
                     }
                 }
             }
@@ -62,13 +62,17 @@ namespace KurosukeInfoBoard.ViewModels.Settings
                 {
                     _SelectedCountry = value;
                     RaisePropertyChanged();
+                    if (!IsLoading)
+                    {
+                        LoadCity();
+                    }
                 }
             }
         }
 
 
 
-        public async void Init()
+        public async Task Init()
         {
             IsLoading = true;
             Countries = await OpenWeatherMap.Locations.GetCountries();
@@ -79,8 +83,7 @@ namespace KurosukeInfoBoard.ViewModels.Settings
                 SelectedCountry = (from country in Countries
                                    where country.Alpha2 == tmpcity.Country
                                    select country).FirstOrDefault();
-                await LoadCity();
-
+                await LoadCityAsync();
                 SelectedCity = (from city in Cities
                                 where city.Id == tmpcity.Id
                                 select city).FirstOrDefault();
@@ -88,7 +91,15 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             IsLoading = false;
         }
 
-        public async Task LoadCity()
+        public async Task LoadCityAsync()
+        {
+            if (SelectedCountry != null)
+            {
+                Cities = await OpenWeatherMap.Locations.GetCities(SelectedCountry);
+            }
+        }
+
+        public async void LoadCity()
         {
             if (SelectedCountry != null)
             {

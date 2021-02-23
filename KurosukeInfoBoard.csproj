@@ -206,6 +206,9 @@
       <DependentUpon>CalendarSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsPage.xaml.cs" />
+    <Compile Include="Views\Settings\WeatherSettingsPage.xaml.cs">
+      <DependentUpon>WeatherSettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -308,6 +311,10 @@
     <Page Include="Views\Settings\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\WeatherSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

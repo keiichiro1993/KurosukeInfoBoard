@@ -34,6 +34,7 @@ namespace OpenWeatherMap
 
             return (from city in Cache.Cities
                     where city.Country == country.Alpha2
+                    orderby city.Name
                     select city).ToList();
         }
 

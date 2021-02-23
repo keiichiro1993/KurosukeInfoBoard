@@ -32,6 +32,7 @@ namespace KurosukeInfoBoard.Views.Settings
         {
             ("AccountSettings", typeof(AccountSettingsPage)),
             ("CalendarSettings", typeof(CalendarSettingsPage)),
+            ("WeatherSettings", typeof(WeatherSettingsPage)),
         };
         private void mainNavigation_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
