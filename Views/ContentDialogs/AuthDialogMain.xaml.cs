@@ -2,20 +2,10 @@
 using KurosukeInfoBoard.Utils;
 using KurosukeInfoBoard.ViewModels.Settings;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
@@ -67,7 +57,7 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Error in registering Google token on AuthDialog.", ex);
+                DebugHelper.Debugger.WriteErrorLog("Error in registering Google token on AuthDialog.", ex);
             }
             dialogHost.Hide();
         }
@@ -98,7 +88,7 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
             var user = await GoogleAuthClient.GetUserAndTokenFromUri(AppGlobalVariables.GoogleAuthResultUri);
             AccountManager.SaveUserToVault(user);
             AppGlobalVariables.Users.Add(user);
-            DebugHelper.WriteDebugLog("Successfully acquired google token.");
+            DebugHelper.Debugger.WriteDebugLog("Successfully acquired google token.");
 
             AppGlobalVariables.GoogleAuthResultUri = null;//reset
         }
@@ -116,7 +106,7 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Error in acquiring MS token on AuthDialog.", ex);
+                DebugHelper.Debugger.WriteErrorLog("Error in acquiring MS token on AuthDialog.", ex);
             }
             dialogHost.Hide();
         }

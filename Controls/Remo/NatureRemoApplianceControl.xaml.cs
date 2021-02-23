@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using DebugHelper;
 
 // ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
 
@@ -87,7 +88,7 @@ namespace KurosukeInfoBoard.Controls.Remo
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Error occured while retrieving remo info.", ex);
+                Debugger.WriteErrorLog("Error occured while retrieving remo info.", ex);
                 await new MessageDialog(ex.Message, "Error occured while retrieving remo info.").ShowAsync();
             }
             loadingControl.IsLoading = false;

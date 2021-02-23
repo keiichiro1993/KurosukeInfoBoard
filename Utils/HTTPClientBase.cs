@@ -22,15 +22,15 @@ namespace KurosukeInfoBoard.Utils
 
         protected async Task<string> GetAsync(string url, int retry = 1)
         {
-            DebugHelper.WriteDebugLog("GetAsync called. Request URL=" + url + " Available retry=" + retry + ".");
+            DebugHelper.Debugger.WriteDebugLog("GetAsync called. Request URL=" + url + " Available retry=" + retry + ".");
             var response = await GetHttpResponseAsync(url, retry);
-            DebugHelper.WriteDebugLog("GetAsync succeeded. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". ");
+            DebugHelper.Debugger.WriteDebugLog("GetAsync succeeded. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". ");
             return await response.Content.ReadAsStringAsync();
         }
 
         protected async Task<HttpResponseMessage> GetHttpResponseAsync(string url, int retry = 1)
         {
-            DebugHelper.WriteDebugLog("GetHttpResponseAsync called. Request URL=" + url + " Available retry=" + retry + ".");
+            DebugHelper.Debugger.WriteDebugLog("GetHttpResponseAsync called. Request URL=" + url + " Available retry=" + retry + ".");
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             using (var client = new HttpClient())
@@ -42,7 +42,7 @@ namespace KurosukeInfoBoard.Utils
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        DebugHelper.WriteDebugLog("GetHttpResponseAsync failed. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
+                        DebugHelper.Debugger.WriteDebugLog("GetHttpResponseAsync failed. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
                         return null;
                     }
                     else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -61,14 +61,14 @@ namespace KurosukeInfoBoard.Utils
                     throw new HttpRequestException("GetHttpResponseAsync failed.Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + ". HTTP Status=" + response.StatusCode + ". Reason=" + response.ReasonPhrase + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
                 }
 
-                DebugHelper.WriteDebugLog("GetHttpResponseAsync succeeded. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
+                DebugHelper.Debugger.WriteDebugLog("GetHttpResponseAsync succeeded. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
                 return response;
             }
         }
 
         protected async Task<string> PostAsync(string url, HttpContent content, int retry = 1)
         {
-            DebugHelper.WriteDebugLog("PostAsync called. Request URL=" + url + " Available retry=" + retry + ".");
+            DebugHelper.Debugger.WriteDebugLog("PostAsync called. Request URL=" + url + " Available retry=" + retry + ".");
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             using (var client = new HttpClient())
@@ -90,11 +90,11 @@ namespace KurosukeInfoBoard.Utils
                             throw new UnauthorizedAccessException("PostAsync failed. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
                         }
                     }
-                    DebugHelper.WriteDebugLog("HTTP request was not successful. Request URL=" + response.RequestMessage.Method + " " + response.RequestMessage.RequestUri.AbsoluteUri + ". HTTP Status=" + response.StatusCode + ". Reason=" + response.ReasonPhrase + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
+                    DebugHelper.Debugger.WriteDebugLog("HTTP request was not successful. Request URL=" + response.RequestMessage.Method + " " + response.RequestMessage.RequestUri.AbsoluteUri + ". HTTP Status=" + response.StatusCode + ". Reason=" + response.ReasonPhrase + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
                     throw new HttpRequestException("HTTP request was not successful. Request URL=" + response.RequestMessage.Method + " " + response.RequestMessage.RequestUri.AbsoluteUri + ". HTTP Status=" + response.StatusCode + ". Reason=" + response.ReasonPhrase + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
                 }
 
-                DebugHelper.WriteDebugLog("PostAsync succeeded. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
+                DebugHelper.Debugger.WriteDebugLog("PostAsync succeeded. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ". Elapsed time=" + stopwatch.Elapsed.TotalSeconds + "secs.");
                 return await response.Content.ReadAsStringAsync();
             }
         }

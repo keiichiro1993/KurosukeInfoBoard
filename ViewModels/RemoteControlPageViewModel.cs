@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using DebugHelper;
 
 namespace KurosukeInfoBoard.ViewModels
 {
@@ -56,7 +57,7 @@ namespace KurosukeInfoBoard.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        DebugHelper.WriteErrorLog("Error occured while retrieving remo info.", ex);
+                        Debugger.WriteErrorLog("Error occured while retrieving remo info.", ex);
                         await new MessageDialog(ex.Message, "Error occured while retrieving remo info.").ShowAsync();
                     }
                 }

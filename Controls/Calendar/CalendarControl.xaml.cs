@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DebugHelper;
 
 // ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
 
@@ -87,7 +88,7 @@ namespace KurosukeInfoBoard.Controls.Calendar
 
                 if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
-                    DebugHelper.WriteDebugLog("Calendar ink saved.");
+                    Debugger.WriteDebugLog("Calendar ink saved.");
                 }
                 else
                 {
@@ -96,7 +97,7 @@ namespace KurosukeInfoBoard.Controls.Calendar
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Error occured while saving calendar canvas.", ex);
+                Debugger.WriteErrorLog("Error occured while saving calendar canvas.", ex);
                 await new MessageDialog(ex.Message, "Error occured while saving calendar canvas.").ShowAsync();
             }
         }
@@ -152,7 +153,7 @@ namespace KurosukeInfoBoard.Controls.Calendar
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Error occured while loading calendar canvas.", ex);
+                Debugger.WriteErrorLog("Error occured while loading calendar canvas.", ex);
                 await new MessageDialog(ex.Message, "Error occured while loading calendar canvas.").ShowAsync();
             }
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using DebugHelper;
 
 namespace KurosukeInfoBoard.ViewModels.Settings
 {
@@ -57,7 +58,7 @@ namespace KurosukeInfoBoard.ViewModels.Settings
 
             AccountManager.SaveUserToVault(user);
             AppGlobalVariables.Users.Add(user);
-            DebugHelper.WriteDebugLog("Successfully verified Remo token.");
+            Debugger.WriteDebugLog("Successfully verified Remo token.");
 
             dialogHost.Hide();
         }

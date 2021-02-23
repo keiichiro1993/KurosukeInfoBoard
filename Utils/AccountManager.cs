@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 using Windows.Security.Credentials;
+using DebugHelper;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -27,12 +28,12 @@ namespace KurosukeInfoBoard.Utils
                 }
                 catch (Exception ex)
                 {
-                    DebugHelper.WriteErrorLog("There's no credential. Ignoring.", ex);
+                    Debugger.WriteErrorLog("There's no credential. Ignoring.", ex);
                 }
 
                 if (credentialList != null && credentialList.Count() > 0)
                 {
-                    DebugHelper.WriteDebugLog(credentialList.Count + "users found from credential vault.");
+                    Debugger.WriteDebugLog(credentialList.Count + "users found from credential vault.");
                     foreach (var cred in credentialList)
                     {
                         cred.RetrievePassword();
@@ -57,7 +58,7 @@ namespace KurosukeInfoBoard.Utils
             }
 
             await Task.WhenAll(taskList.ToArray());
-            DebugHelper.WriteDebugLog("Successfully retrieved tokens for " + userList.Count + " user(s).");
+            Debugger.WriteDebugLog("Successfully retrieved tokens for " + userList.Count + " user(s).");
             return userList;
         }
 

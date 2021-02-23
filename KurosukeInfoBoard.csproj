@@ -166,7 +166,6 @@
     <Compile Include="Utils\AccountManager.cs" />
     <Compile Include="Utils\AppGlobalVariables.cs" />
     <Compile Include="Utils\DBHelpers\CalendarCacheHelper.cs" />
-    <Compile Include="Utils\DebugHelper.cs" />
     <Compile Include="Utils\GoogleAuthClient.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -329,7 +328,7 @@
       <Version>2.4.3</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>4.7.2</Version>
+      <Version>5.0.1</Version>
     </PackageReference>
     <PackageReference Include="TimeZoneConverter">
       <Version>3.3.0</Version>
@@ -338,7 +337,19 @@
   <ItemGroup>
     <PRIResource Include="Properties\Keys.resw" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Assets\TextResources\LicenseCredit.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="DebugHelper\DebugHelper.csproj">
+      <Project>{43c7a08f-ea9f-4f64-9d0d-ab36af8be4aa}</Project>
+      <Name>DebugHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="OpenWeatherMapClient\OpenWeatherMapClient.csproj">
+      <Project>{005a8ddf-b62f-4650-8e14-9f8a78a75609}</Project>
+      <Name>OpenWeatherMapClient</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

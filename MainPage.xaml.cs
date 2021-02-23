@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
+using DebugHelper;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
 
@@ -68,7 +69,7 @@ namespace KurosukeInfoBoard
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Error occured while getting user info on MainPage.", ex);
+                Debugger.WriteErrorLog("Error occured while getting user info on MainPage.", ex);
                 var message = new MessageDialog(ex.Message, "Error occured while getting user info");
                 await message.ShowAsync();
                 AppGlobalVariables.Users = new ObservableCollection<UserBase>();

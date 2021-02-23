@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using DebugHelper;
 
 namespace KurosukeInfoBoard.ViewModels
 {
@@ -163,7 +164,7 @@ namespace KurosukeInfoBoard.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    DebugHelper.WriteErrorLog("Error occured while " + LoadingMessage, ex);
+                    Debugger.WriteErrorLog("Error occured while " + LoadingMessage, ex);
                     await new MessageDialog(ex.Message, "Error occured while " + LoadingMessage).ShowAsync();
                 }
                 finally
@@ -247,7 +248,7 @@ namespace KurosukeInfoBoard.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        DebugHelper.WriteErrorLog("Error occured while " + LoadingMessage, ex);
+                        Debugger.WriteErrorLog("Error occured while " + LoadingMessage, ex);
                         await new MessageDialog(ex.Message, "Error occured while " + LoadingMessage).ShowAsync();
                     }
 

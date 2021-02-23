@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using DebugHelper;
 
 namespace KurosukeInfoBoard.Models.Auth
 {
@@ -40,7 +41,7 @@ namespace KurosukeInfoBoard.Models.Auth
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Exception occured on acquiring user info. Type=" + token.UserType.ToString(), ex);
+                Debugger.WriteErrorLog("Exception occured on acquiring user info. Type=" + token.UserType.ToString(), ex);
                 //var message = new MessageDialog("Type=" + token.UserType.ToString() + " Exception=" + ex.Message, "Exception occured on acquiring user info.");
                 //await message.ShowAsync();
                 var user = new UserBase();

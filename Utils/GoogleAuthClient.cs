@@ -1,18 +1,17 @@
 ﻿using KurosukeInfoBoard.Models.Auth;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
-using Windows.Data.Json;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using DebugHelper;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -64,7 +63,7 @@ namespace KurosukeInfoBoard.Utils
 
         public static async Task<GoogleUser> GetUserAndTokenFromUri(Uri uri)
         {
-            DebugHelper.WriteDebugLog("received URI from authentication. URI:" + uri.ToString());
+            Debugger.WriteDebugLog("received URI from authentication. URI:" + uri.ToString());
             string queryString = uri.Query;
 
             // Parses URI params into a dictionary
@@ -120,7 +119,7 @@ namespace KurosukeInfoBoard.Utils
             string tokenRequestBody = string.Format("grant_type=refresh_token&client_id={0}&refresh_token={1}",
                 clientID,
                 refreshToken);
-            DebugHelper.WriteDebugLog("Token refresh requesy body:" + tokenRequestBody);
+            Debugger.WriteDebugLog("Token refresh requesy body:" + tokenRequestBody);
             return await postRequest(tokenRequestBody, refreshTokenEndpoint);
         }
 
@@ -136,7 +135,7 @@ namespace KurosukeInfoBoard.Utils
                 clientID,
                 code_verifier
                 );
-            DebugHelper.WriteDebugLog("Token acquisition requesy body:" + tokenRequestBody);
+            Debugger.WriteDebugLog("Token acquisition requesy body:" + tokenRequestBody);
             return await postRequest(tokenRequestBody, tokenEndpoint);
         }
 
@@ -149,7 +148,7 @@ namespace KurosukeInfoBoard.Utils
             handler.AllowAutoRedirect = true;
             using (HttpClient client = new HttpClient(handler))
             {
-                DebugHelper.WriteDebugLog("Requesting tokens...");
+                Debugger.WriteDebugLog("Requesting tokens...");
                 HttpResponseMessage response = await client.PostAsync(url, content);
 
                 if (!response.IsSuccessStatusCode)
@@ -159,7 +158,7 @@ namespace KurosukeInfoBoard.Utils
 
                 // Sets the Authentication header of our HTTP client using the acquired access token.
                 string responseString = await response.Content.ReadAsStringAsync();
-                DebugHelper.WriteDebugLog("Token acquisition request finished. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ".");
+                Debugger.WriteDebugLog("Token acquisition request finished. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ".");
                 return JsonSerializer.Deserialize<GoogleToken>(responseString);
             }
         }

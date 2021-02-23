@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using DebugHelper;
 
 // ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
 
@@ -90,7 +91,7 @@ namespace KurosukeInfoBoard.Controls.Calendar
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Error occured while saving calendar settings.", ex);
+                Debugger.WriteErrorLog("Error occured while saving calendar settings.", ex);
                 await new MessageDialog(ex.Message, "Error occured while saving calendar settings.").ShowAsync();
             }
         }

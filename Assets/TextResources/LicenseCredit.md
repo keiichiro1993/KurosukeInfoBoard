@@ -1,0 +1,2 @@
+﻿![license](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)  
+ISO-3166 Countries with Regional Codes is provided by [lukes](https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes) with [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).

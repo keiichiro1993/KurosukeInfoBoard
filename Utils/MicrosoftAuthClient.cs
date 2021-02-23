@@ -8,6 +8,7 @@ using Microsoft.Graph;
 using Microsoft.Identity.Client;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using DebugHelper;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -28,7 +29,7 @@ namespace KurosukeInfoBoard.Utils
                 .WithRedirectUri(redirectUrl)
                 .WithLogging((level, message, containsPii) =>
                 {
-                    DebugHelper.WriteDebugLog($"MSAL: {level} {message} ");
+                    Debugger.WriteDebugLog($"MSAL: {level} {message} ");
                 }, Microsoft.Identity.Client.LogLevel.Warning, enablePiiLogging: false, enableDefaultPlatformLogging: true)
                 .Build();
         }

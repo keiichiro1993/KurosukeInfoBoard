@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using DebugHelper;
 
 namespace KurosukeInfoBoard.ViewModels
 {
@@ -94,7 +95,7 @@ namespace KurosukeInfoBoard.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    DebugHelper.WriteErrorLog("Error occured while " + LoadingMessage + ".", ex);
+                    Debugger.WriteErrorLog("Error occured while " + LoadingMessage + ".", ex);
                     await new MessageDialog(ex.Message, "Error occured while " + LoadingMessage).ShowAsync();
                 }
             }
@@ -112,7 +113,7 @@ namespace KurosukeInfoBoard.ViewModels
             }
             catch (Exception ex)
             {
-                DebugHelper.WriteErrorLog("Error occured while retrieving Nature Remo status. User=" + user.UserName, ex);
+                Debugger.WriteErrorLog("Error occured while retrieving Nature Remo status. User=" + user.UserName, ex);
                 await new MessageDialog(ex.Message + ". User=" + user.UserName + ".", "Error occured while retrieving Nature Remo status.").ShowAsync();
             }
 
@@ -146,7 +147,7 @@ namespace KurosukeInfoBoard.ViewModels
                         }
                         catch (Exception ex)
                         {
-                            DebugHelper.WriteErrorLog("Error occured while retrieving Microsoft Events. User=" + user.UserName + ". Calendar=" + calendar.Name + ".", ex);
+                            Debugger.WriteErrorLog("Error occured while retrieving Microsoft Events. User=" + user.UserName + ". Calendar=" + calendar.Name + ".", ex);
                             await new MessageDialog(ex.Message + ". User=" + user.UserName + ". Calendar=" + calendar.Name + ". Please consider excluding this calendar.", "Error occured while retrieving Microsoft Events.").ShowAsync();
                         }
                     }
@@ -192,7 +193,7 @@ namespace KurosukeInfoBoard.ViewModels
                         }
                         catch (Exception ex)
                         {
-                            DebugHelper.WriteErrorLog("Error occured while retrieving Google Events. User=" + user.UserName + ". Calendar=" + item.Name + ".", ex);
+                            Debugger.WriteErrorLog("Error occured while retrieving Google Events. User=" + user.UserName + ". Calendar=" + item.Name + ".", ex);
                             await new MessageDialog(ex.Message + ". User=" + user.UserName + ". Calendar=" + item.Name + ". Please consider excluding this calendar.", "Error occured while retrieving Google Events.").ShowAsync();
                         }
                     }
