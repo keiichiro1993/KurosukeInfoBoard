@@ -52,6 +52,7 @@ namespace KurosukeInfoBoard.ViewModels
         public async void Init(DateTime datetime)
         {
             IsLoading = true;
+
             if (AppGlobalVariables.Users.Count > 0)
             {
                 try

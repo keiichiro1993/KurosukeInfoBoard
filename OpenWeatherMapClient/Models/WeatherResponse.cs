@@ -68,7 +68,7 @@ namespace OpenWeatherMap.Models
         [JsonPropertyName("coord")]
         public Coord Coord { get; set; }
         [JsonPropertyName("weather")]
-        public List<Weather> Weather { get; set; }
+        public List<Weather> Weathers { get; set; }
         [JsonPropertyName("base")]
         public string Base { get; set; }
         [JsonPropertyName("main")]
@@ -91,5 +91,7 @@ namespace OpenWeatherMap.Models
         public string Name { get; set; }
         [JsonPropertyName("cod")]
         public int Cod { get; set; }
+
+        public Weather FirstWeather { get { return Weathers.FirstOrDefault(); } }
     }
 }

@@ -143,6 +143,9 @@
     <Compile Include="Controls\Remo\NatureRemoTVControl.xaml.cs">
       <DependentUpon>NatureRemoTVControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Weather\WeatherControl.xaml.cs">
+      <DependentUpon>WeatherControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Auth\MicrosoftToken.cs" />
     <Compile Include="Models\Auth\MicrosoftUser.cs" />
     <Compile Include="Models\Auth\NatureRemoToken.cs" />
@@ -188,6 +191,7 @@
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
     <Compile Include="ViewModels\Settings\WeatherSettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\WeatherControlViewModel.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialog.xaml.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialogMain.xaml.cs">
       <DependentUpon>AuthDialogMain.xaml</DependentUpon>
@@ -273,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Remo\NatureRemoTVControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Weather\WeatherControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
