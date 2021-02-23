@@ -176,6 +176,7 @@
     <Compile Include="Utils\MicrosoftAuthClient.cs" />
     <Compile Include="Utils\MicrosoftClient.cs" />
     <Compile Include="Utils\NatureRemoClient.cs" />
+    <Compile Include="Utils\SettingsHelper.cs" />
     <Compile Include="Utils\UIHelper\ColorConverter.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
+    <Compile Include="ViewModels\Settings\WeatherSettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialog.xaml.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialogMain.xaml.cs">

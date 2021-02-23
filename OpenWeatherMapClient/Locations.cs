@@ -30,18 +30,32 @@ namespace OpenWeatherMap
 
         public static async Task<List<City>> GetCities(Country country)
         {
-            if (Cache.Cities != null && Cache.Cities.Count != 0 && Cache.Cities.FirstOrDefault().Country == country.Alpha2)
-            {
-                return Cache.Cities;
-            }
+            await LoadCityToCache();
 
-            var resourceName = "OpenWeatherMap.Assets.TextResources.city.list.json";
-            using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-            {
-                Cache.Cities = await JsonSerializer.DeserializeAsync<List<City>>(resource);
-            }
-
-            return Cache.Cities;
+            return (from city in Cache.Cities
+                    where city.Country == country.Alpha2
+                    select city).ToList();
         }
+
+        public static async Task<City> GetCityById(double id)
+        {
+            await LoadCityToCache();
+            return (from city in Cache.Cities
+                    where city.Id == id
+                    select city).FirstOrDefault();
+        }
+
+        private static async Task LoadCityToCache()
+        {
+            if (Cache.Cities == null)
+            {
+                var resourceName = "OpenWeatherMap.Assets.TextResources.city.list.json";
+                using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
+                {
+                    Cache.Cities = await JsonSerializer.DeserializeAsync<List<City>>(resource);
+                }
+            }
+        }
+
     }
 }
