@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using OpenWeatherMap.Models;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 
@@ -13,9 +12,17 @@ namespace OpenWeatherMap
         public OpenWeatherMapClient()
         {
             var resource = ResourceLoader.GetForViewIndependentUse("Keys");
-            key = resource.GetString("OpenWeatherMapKey");
+            key = resource.GetString("OpenWeatherAPIKey");
         }
 
-
+        public enum Units { Metric, Imperial }
+        public async Task<WeatherResponse> GetWeatherAsync(City city, Units units = Units.Metric)
+        {
+            var url = "https://api.openweathermap.org/data/2.5/weather?id=" + city.Id + "&appid=" + key + "&units=" + (units == Units.Metric ? "metric" : "imperial");
+            using (var client = new HttpClient())
+            {
+                return await client.GetFromJsonAsync<WeatherResponse>(url);
+            }
+        }
     }
 }
