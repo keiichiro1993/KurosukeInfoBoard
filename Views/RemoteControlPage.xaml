@@ -59,10 +59,10 @@
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate x:DataType="remomodels:Device">
                                 <StackPanel Margin="0" Padding="10" CornerRadius="3" Orientation="Vertical" Background="{StaticResource SystemAccentColorDark2}">
-                                    <TextBlock Text="{Binding name}">Living room remo</TextBlock>
+                                    <TextBlock Text="{Binding name}" Foreground="White">Living room remo</TextBlock>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <TextBlock Text="{Binding newest_events.te.val}" FontSize="50"></TextBlock>
-                                        <TextBlock VerticalAlignment="Bottom" Margin="5,0,0,7">℃</TextBlock>
+                                        <TextBlock Text="{Binding newest_events.te.val}" Foreground="White" FontSize="50"></TextBlock>
+                                        <TextBlock VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White">℃</TextBlock>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
@@ -71,7 +71,7 @@
                             <Style TargetType="GridViewHeaderItem">
                                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="Margin" Value="0,0,0,5"/>
+                                <Setter Property="Margin" Value="0,0,0,2"/>
                                 <Setter Property="Padding" Value="0,10,0,-6"/>
                             </Style>
                         </GroupStyle.HeaderContainerStyle>
