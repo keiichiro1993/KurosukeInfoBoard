@@ -40,5 +40,7 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public int humidity_offset { get; set; }
         public List<User> users { get; set; }
         public NewestEvents newest_events { get; set; }
+
+        public List<Appliance> Appliances { get; set; }
     }
 }

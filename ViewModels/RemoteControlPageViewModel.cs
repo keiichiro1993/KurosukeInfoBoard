@@ -40,8 +40,8 @@ namespace KurosukeInfoBoard.ViewModels
             IsLoading = true;
 
             var accounts = from account in AppGlobalVariables.Users
-                            where account.UserType == Models.Auth.UserType.NatureRemo
-                            select account;
+                           where account.UserType == Models.Auth.UserType.NatureRemo
+                           select account;
 
             if (accounts.Any())
             {
@@ -59,6 +59,16 @@ namespace KurosukeInfoBoard.ViewModels
                     {
                         Debugger.WriteErrorLog("Error occured while retrieving remo info.", ex);
                         await new MessageDialog(ex.Message, "Error occured while retrieving remo info.").ShowAsync();
+                    }
+                }
+
+                if (devices.Any())
+                {
+                    foreach (var device in devices)
+                    {
+                        device.Appliances = (from appliance in appliances
+                                             where appliance.device.id == device.id
+                                             select appliance).ToList();
                     }
                 }
 

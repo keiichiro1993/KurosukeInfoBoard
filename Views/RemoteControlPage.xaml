@@ -11,9 +11,13 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <CollectionViewSource x:Name="DevicesSource" Source="{x:Bind viewModel.Devices, Mode=OneWay}" IsSourceGrouped="true" ItemsPath="Appliances" />
+    </Page.Resources>
     <Grid>
-        <Grid>
+        <Grid Visibility="Collapsed">
             <Grid.RowDefinitions>
+                <RowDefinition Height="AUTO"/>
                 <RowDefinition Height="AUTO"/>
                 <RowDefinition Height="AUTO"/>
                 <RowDefinition Height="AUTO"/>
@@ -41,6 +45,38 @@
                         <remocontrols:NatureRemoApplianceControl Appliance="{x:Bind}"/>
                     </DataTemplate>
                 </GridView.ItemTemplate>
+            </GridView>
+        </Grid>
+        <Grid>
+            <GridView Margin="5" ItemsSource="{Binding Source={StaticResource DevicesSource}}" SelectionMode="None">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="remomodels:Appliance">
+                        <remocontrols:NatureRemoApplianceControl Appliance="{x:Bind}"/>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate x:DataType="remomodels:Device">
+                                <StackPanel Margin="0" Padding="10" CornerRadius="3" Orientation="Vertical" Background="{StaticResource SystemAccentColorDark2}">
+                                    <TextBlock Text="{Binding name}">Living room remo</TextBlock>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding newest_events.te.val}" FontSize="50"></TextBlock>
+                                        <TextBlock VerticalAlignment="Bottom" Margin="5,0,0,7">℃</TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                        <GroupStyle.HeaderContainerStyle>
+                            <Style TargetType="GridViewHeaderItem">
+                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="Margin" Value="0,0,0,5"/>
+                                <Setter Property="Padding" Value="0,10,0,-6"/>
+                            </Style>
+                        </GroupStyle.HeaderContainerStyle>
+                    </GroupStyle>
+                </GridView.GroupStyle>
             </GridView>
         </Grid>
         <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
