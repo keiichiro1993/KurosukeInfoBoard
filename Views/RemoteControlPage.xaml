@@ -7,12 +7,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:remocontrols="using:KurosukeInfoBoard.Controls.Remo"
     xmlns:remomodels="using:KurosukeInfoBoard.Models.NatureRemo"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:media="using:Microsoft.UI.Xaml.Media"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
-        <CollectionViewSource x:Name="DevicesSource" Source="{x:Bind viewModel.Devices, Mode=OneWay}" IsSourceGrouped="true" ItemsPath="Appliances" />
+        <ResourceDictionary>
+            <media:AcrylicBrush x:Key="AccentAcrylicBrush" BackgroundSource="Backdrop" TintOpacity="0.7" TintColor="{StaticResource SystemAccentColor}" FallbackColor="{StaticResource SystemAccentColor}" />
+            <CollectionViewSource x:Name="DevicesSource" Source="{x:Bind viewModel.Devices, Mode=OneWay}" IsSourceGrouped="true" ItemsPath="Appliances" />
+        </ResourceDictionary>
     </Page.Resources>
     <Grid>
         <Grid Visibility="Collapsed">
@@ -58,7 +61,7 @@
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate x:DataType="remomodels:Device">
-                                <StackPanel Margin="0" Padding="10" CornerRadius="3" Orientation="Vertical" Background="{StaticResource SystemAccentColorDark2}">
+                                <StackPanel Margin="0" Padding="10" CornerRadius="3" Orientation="Vertical" Background="{StaticResource AccentAcrylicBrush}">
                                     <TextBlock Text="{Binding name}" Foreground="White">Living room remo</TextBlock>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <TextBlock Text="{Binding newest_events.te.val}" Foreground="White" FontSize="50"></TextBlock>
