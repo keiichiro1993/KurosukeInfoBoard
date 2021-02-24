@@ -234,16 +234,26 @@
     <Content Include="Assets\Icons\nature_remo_logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\Weather\broken_clouds.svg" />
-    <Content Include="Assets\Icons\Weather\clear_sky_day.svg" />
-    <Content Include="Assets\Icons\Weather\clear_sky_night.svg" />
-    <Content Include="Assets\Icons\Weather\few_clouds_day.svg" />
-    <Content Include="Assets\Icons\Weather\few_clouds_night.svg" />
-    <Content Include="Assets\Icons\Weather\mist.svg" />
-    <Content Include="Assets\Icons\Weather\rain.svg" />
-    <Content Include="Assets\Icons\Weather\scattered_clouds.svg" />
-    <Content Include="Assets\Icons\Weather\snow.svg" />
-    <Content Include="Assets\Icons\Weather\thunderstorm.svg" />
+    <Content Include="Assets\Icons\Weather_black\broken_clouds.svg" />
+    <Content Include="Assets\Icons\Weather_black\clear_sky_day.svg" />
+    <Content Include="Assets\Icons\Weather_black\clear_sky_night.svg" />
+    <Content Include="Assets\Icons\Weather_black\few_clouds_day.svg" />
+    <Content Include="Assets\Icons\Weather_black\few_clouds_night.svg" />
+    <Content Include="Assets\Icons\Weather_black\mist.svg" />
+    <Content Include="Assets\Icons\Weather_black\rain.svg" />
+    <Content Include="Assets\Icons\Weather_black\scattered_clouds.svg" />
+    <Content Include="Assets\Icons\Weather_black\snow.svg" />
+    <Content Include="Assets\Icons\Weather_black\thunderstorm.svg" />
+    <Content Include="Assets\Icons\Weather_white\broken_clouds.svg" />
+    <Content Include="Assets\Icons\Weather_white\clear_sky_day.svg" />
+    <Content Include="Assets\Icons\Weather_white\clear_sky_night.svg" />
+    <Content Include="Assets\Icons\Weather_white\few_clouds_day.svg" />
+    <Content Include="Assets\Icons\Weather_white\few_clouds_night.svg" />
+    <Content Include="Assets\Icons\Weather_white\mist.svg" />
+    <Content Include="Assets\Icons\Weather_white\rain.svg" />
+    <Content Include="Assets\Icons\Weather_white\scattered_clouds.svg" />
+    <Content Include="Assets\Icons\Weather_white\snow.svg" />
+    <Content Include="Assets\Icons\Weather_white\thunderstorm.svg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
