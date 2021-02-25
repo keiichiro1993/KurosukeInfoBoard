@@ -32,25 +32,26 @@
                 <TextBlock>:</TextBlock>
                 <TextBlock Text="{x:Bind viewModel.Weather.Name, Mode=OneWay}">Chiba</TextBlock>
             </StackPanel>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="AUTO"/>
                     <ColumnDefinition Width="AUTO"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind viewModel.Weather.Main.Temp, Mode=OneWay}" FontSize="50">20</TextBlock>
-                        <TextBlock VerticalAlignment="Bottom" Margin="5,0,0,15">℃</TextBlock>
-                    </StackPanel>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                        <TextBlock Text="{x:Bind viewModel.Weather.Main.Humidity, Mode=OneWay}">60</TextBlock>
-                        <TextBlock Margin="5,0,0,0">%</TextBlock>
-                    </StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock Text="{x:Bind viewModel.Weather.Main.Temp, Mode=OneWay}" FontSize="50">20</TextBlock>
+                    <TextBlock VerticalAlignment="Bottom" Margin="2,0,10,15">℃</TextBlock>
                 </StackPanel>
-                <StackPanel Margin="20,0,0,0" Grid.Column="1" Orientation="Vertical">
-                    <Image Source="{x:Bind viewModel.Weather.Icon, Mode=OneWay}" Height="70"/>
-                    <TextBlock Text="{x:Bind viewModel.Weather.FirstWeather.Main, Mode=OneWay}">Clouds</TextBlock>
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock Text="{x:Bind viewModel.Weather.Main.Humidity, Mode=OneWay}">60</TextBlock>
+                    <TextBlock Margin="2,0,0,0">%</TextBlock>
                 </StackPanel>
+
+                <Image Grid.Column="1" Grid.Row="0" Source="{x:Bind viewModel.Weather.Icon, Mode=OneWay}" Height="75"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Text="{x:Bind viewModel.Weather.FirstWeather.Main, Mode=OneWay}">Clouds</TextBlock>
             </Grid>
         </Grid>
         <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
