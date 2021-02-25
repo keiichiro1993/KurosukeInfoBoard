@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KurosukeInfoBoard.ViewModels.Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,16 @@ namespace KurosukeInfoBoard.Views.Settings
     /// </summary>
     public sealed partial class AboutPage : Page
     {
+        AboutPageViewModel viewModel = new AboutPageViewModel();
         public AboutPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            await viewModel.Init();
         }
     }
 }

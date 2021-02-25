@@ -179,6 +179,7 @@
     <Compile Include="Utils\MicrosoftAuthClient.cs" />
     <Compile Include="Utils\MicrosoftClient.cs" />
     <Compile Include="Utils\NatureRemoClient.cs" />
+    <Compile Include="Utils\SaveToFileHelper.cs" />
     <Compile Include="Utils\SettingsHelper.cs" />
     <Compile Include="Utils\UIHelper\ColorConverter.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="ViewModels\NatureRemoAirConControlViewModel.cs" />
     <Compile Include="ViewModels\NatureRemoTVControlViewModel.cs" />
     <Compile Include="ViewModels\RemoteControlPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
@@ -382,7 +384,12 @@
     <PRIResource Include="Properties\Keys.resw" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\TextResources\LicenseCredit.md" />
+    <None Include="Assets\TextResources\LicenseCredit.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\TextResources\ReleaseHistory.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DebugHelper\DebugHelper.csproj">
