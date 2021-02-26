@@ -17,7 +17,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <TextBlock Margin="10" FontSize="30">About Kurosuke Home Dashboard</TextBlock>
+                <TextBlock Margin="10" FontSize="{StaticResource TextStyleExtraLargeFontSize}">About Kurosuke Home Dashboard</TextBlock>
                 <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
             </Grid>
             <Grid Grid.Row="1">
@@ -26,12 +26,12 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Image VerticalAlignment="Center" Source="/Assets/StoreLogo.png" Width="150" Height="150"/>
+                    <Image VerticalAlignment="Center" Source="/Assets/SquareLogoOriginal.png" Width="150" Height="150" Margin="10"/>
                 </Grid>
                 <Grid Grid.Column="1" Margin="5">
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Margin" Value="5,10"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>
                         </Style>
                     </Grid.Resources>
@@ -55,7 +55,7 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                <TextBlock Margin="10,20,10,10" FontSize="30">License</TextBlock>
+                <TextBlock Margin="10,20,10,10" FontSize="{StaticResource TextStyleExtraLargeFontSize}">License</TextBlock>
                 <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
             </Grid>
             <controls:MarkdownTextBlock Grid.Row="3" Text="{x:Bind viewModel.LicenseMD, Mode=OneWay}">
