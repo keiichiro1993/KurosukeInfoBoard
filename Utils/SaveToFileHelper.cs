@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -27,6 +28,22 @@ namespace KurosukeInfoBoard.Utils
                 Windows.Storage.Provider.FileUpdateStatus status =
                     await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
             }
+        }
+
+        public static async Task SaveStringToAppLocalFile(string fileName, string content)
+        {
+            var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var file = await localFolder.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+            await FileIO.WriteTextAsync(file, content, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+        }
+
+        public static async Task<string> ReadStringFromAppLocalFile(string fileName)
+        {
+            var localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            var file = await localFolder.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.OpenIfExists);
+
+            return await FileIO.ReadTextAsync(file, Windows.Storage.Streams.UnicodeEncoding.Utf8);
         }
     }
 }

@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using DebugHelper;
+using Windows.UI.Input.Inking;
+using Windows.Storage.Streams;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace KurosukeInfoBoard.ViewModels
 {
@@ -225,6 +228,49 @@ namespace KurosukeInfoBoard.ViewModels
             if (DateTime.Now - lastMonthChange > new TimeSpan(0, 0, 1))
             {
                 Init(datetime);
+            }
+        }
+
+
+        private string memoInkFileName = "MemoCanvasData.json";
+        private DateTime lastModifiedTime = DateTime.Now;
+        public async void InfiniteCanvas_ReRenderCompleted(object sender, EventArgs e)
+        {
+            lastModifiedTime = DateTime.Now;
+            await Task.Delay(2000);
+            //save only if more than 2 secs from last modification
+            if (DateTime.Now - lastModifiedTime > new TimeSpan(0, 0, 2))
+            {
+                var iCanvas = (InfiniteCanvas)sender;
+                var json = iCanvas.ExportAsJson();
+
+                try
+                {
+                    await SaveToFileHelper.SaveStringToAppLocalFile(memoInkFileName, json);
+                }
+                catch (Exception ex)
+                {
+                    Debugger.WriteErrorLog("Error occured while saving memo canvas.", ex);
+                    await new MessageDialog(ex.Message, "Error occured while saving memo canvas.").ShowAsync();
+                }
+            }
+        }
+
+        public async void InfiniteCanvas_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var json = await SaveToFileHelper.ReadStringFromAppLocalFile(memoInkFileName);
+                if (!string.IsNullOrEmpty(json))
+                {
+                    var iCanvas = (InfiniteCanvas)sender;
+                    iCanvas.ImportFromJson(json);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debugger.WriteErrorLog("Error occured while loading memo canvas.", ex);
+                await new MessageDialog(ex.Message, "Error occured while loading memo canvas.").ShowAsync();
             }
         }
     }
