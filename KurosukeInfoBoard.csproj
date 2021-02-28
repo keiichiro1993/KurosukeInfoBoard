@@ -140,6 +140,9 @@
     <Compile Include="Controls\Remo\NatureRemoDeviceControl.xaml.cs">
       <DependentUpon>NatureRemoDeviceControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Remo\NatureRemoIRControl.xaml.cs">
+      <DependentUpon>NatureRemoIRControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Remo\NatureRemoTVControl.xaml.cs">
       <DependentUpon>NatureRemoTVControl.xaml</DependentUpon>
     </Compile>
@@ -184,9 +187,10 @@
     <Compile Include="Utils\UIHelper\ColorConverter.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
-    <Compile Include="ViewModels\NatureRemoAirConControlViewModel.cs" />
-    <Compile Include="ViewModels\NatureRemoTVControlViewModel.cs" />
-    <Compile Include="ViewModels\RemoteControlPageViewModel.cs" />
+    <Compile Include="ViewModels\Remo\NatureRemoAirConControlViewModel.cs" />
+    <Compile Include="ViewModels\Remo\NatureRemoIRControlViewModel.cs" />
+    <Compile Include="ViewModels\Remo\NatureRemoTVControlViewModel.cs" />
+    <Compile Include="ViewModels\Remo\RemoteControlPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
@@ -343,6 +347,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Remo\NatureRemoDeviceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Remo\NatureRemoIRControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
