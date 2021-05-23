@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="a3072546-af36-46e7-afb4-ad73568eb719"
-    Publisher="CN=Kurosuke"
+    Name="57769kurosuke.KurosukeHomeDashboard"
+    Publisher="CN=B6F43A7B-5C32-4F65-BF08-F80010939C90"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="a3072546-af36-46e7-afb4-ad73568eb719" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="1ee8a46c-7992-4039-9ef0-06c680edc50d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>KurosukeInfoBoard</DisplayName>
-    <PublisherDisplayName>Kurosuke</PublisherDisplayName>
+    <DisplayName>Kurosuke Home Dashboard</DisplayName>
+    <PublisherDisplayName>kurosuke</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

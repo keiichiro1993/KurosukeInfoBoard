@@ -1,0 +1,2 @@
+MainPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\bin\ARM\Release\KurosukeInfoBoard_1.0.0.0_ARM.msix
+SymbolPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\obj\ARM\Release\Symbols\KurosukeInfoBoard_1.0.0.0_ARM.appxsym
