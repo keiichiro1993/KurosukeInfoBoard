@@ -126,37 +126,53 @@ namespace KurosukeInfoBoard.Controls.Calendar
             CalendarControl cc = d as CalendarControl;
             var month = (CalendarMonth)e.NewValue;
 
-            if (cc._CalendarMonth != null)
+            int retry = 3;
+            while (cc.itemControls.Count <= 0 && retry > 0)
             {
-                await cc.SaveCalendarInk();
+                await Task.Delay(500);
+                retry--;
             }
 
-            cc._CalendarMonth = month;
+            if (cc.itemControls.Count > 0)
+            {
+                //TODO: raise/handle exception if itemControls is empty.
+                await cc.InitCalendarContent(month);
+            }
+        }
+
+        private async Task InitCalendarContent(CalendarMonth month)
+        {
+            if (_CalendarMonth != null)
+            {
+                await SaveCalendarInk();
+            }
+
+            _CalendarMonth = month;
 
             for (var i = 0; i < month.CalendarDays.Count; i++)
             {
-                cc.itemControls[i].CalendarDay = month.CalendarDays[i];
+                itemControls[i].CalendarDay = month.CalendarDays[i];
             }
 
             Windows.Storage.StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
 
             try
             {
-                if (await localFolder.TryGetItemAsync(cc.CalendarMonth.Month.ToString("yyyy-MM") + ".gif") != null)
+                if (await localFolder.TryGetItemAsync(CalendarMonth.Month.ToString("yyyy-MM") + ".gif") != null)
                 {
-                    var file = await localFolder.CreateFileAsync(cc.CalendarMonth.Month.ToString("yyyy-MM") + ".gif", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                    var file = await localFolder.CreateFileAsync(CalendarMonth.Month.ToString("yyyy-MM") + ".gif", Windows.Storage.CreationCollisionOption.OpenIfExists);
 
                     using (IRandomAccessStream stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
                     {
                         using (var inputStream = stream.GetInputStreamAt(0))
                         {
-                            await cc.calendarCanvas.InkPresenter.StrokeContainer.LoadAsync(inputStream);
+                            await calendarCanvas.InkPresenter.StrokeContainer.LoadAsync(inputStream);
                         }
                     }
                 }
                 else
                 {
-                    cc.calendarCanvas.InkPresenter.StrokeContainer.Clear();
+                    calendarCanvas.InkPresenter.StrokeContainer.Clear();
                 }
             }
             catch (Exception ex)
