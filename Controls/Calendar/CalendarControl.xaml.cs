@@ -80,7 +80,7 @@ namespace KurosukeInfoBoard.Controls.Calendar
 
             try
             {
-                var file = await localFolder.CreateFileAsync(_CalendarMonth.Month.ToString("yyyy-MM") + ".png", Windows.Storage.CreationCollisionOption.ReplaceExisting);
+                var file = await localFolder.CreateFileAsync(_CalendarMonth.Month.ToString("yyyy-MM") + ".gif", Windows.Storage.CreationCollisionOption.ReplaceExisting);
                 Windows.Storage.CachedFileManager.DeferUpdates(file);
                 using (IRandomAccessStream stream = await file.OpenAsync(Windows.Storage.FileAccessMode.ReadWrite))
                 {
@@ -142,9 +142,9 @@ namespace KurosukeInfoBoard.Controls.Calendar
 
             try
             {
-                if (await localFolder.TryGetItemAsync(cc.CalendarMonth.Month.ToString("yyyy-MM") + ".png") != null)
+                if (await localFolder.TryGetItemAsync(cc.CalendarMonth.Month.ToString("yyyy-MM") + ".gif") != null)
                 {
-                    var file = await localFolder.CreateFileAsync(cc.CalendarMonth.Month.ToString("yyyy-MM") + ".png", Windows.Storage.CreationCollisionOption.OpenIfExists);
+                    var file = await localFolder.CreateFileAsync(cc.CalendarMonth.Month.ToString("yyyy-MM") + ".gif", Windows.Storage.CreationCollisionOption.OpenIfExists);
 
                     using (IRandomAccessStream stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
                     {
