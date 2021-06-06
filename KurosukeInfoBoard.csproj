@@ -138,6 +138,9 @@
     <Compile Include="Controls\Calendar\CalendarSelectionItemControl.xaml.cs">
       <DependentUpon>CalendarSelectionItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Memo\MemoControl.xaml.cs">
+      <DependentUpon>MemoControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Remo\NatureRemoAirConControl.xaml.cs">
       <DependentUpon>NatureRemoAirConControl.xaml</DependentUpon>
     </Compile>
@@ -343,6 +346,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Calendar\CalendarSelectionItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Memo\MemoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

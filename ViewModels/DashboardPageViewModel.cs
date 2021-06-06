@@ -19,6 +19,8 @@ namespace KurosukeInfoBoard.ViewModels
 {
     public class DashboardPageViewModel : ViewModelBase
     {
+        public string MemoFileName = "dashboard_memo.gif";
+
         private CalendarMonth _CalendarMonth;
         public CalendarMonth CalendarMonth
         {
@@ -232,7 +234,7 @@ namespace KurosukeInfoBoard.ViewModels
         }
 
 
-        private string memoInkFileName = "MemoCanvasData.json";
+        /*private string memoInkFileName = "MemoCanvasData.json";
         private DateTime lastModifiedTime = DateTime.Now;
         public async void InfiniteCanvas_ReRenderCompleted(object sender, EventArgs e)
         {
@@ -273,5 +275,6 @@ namespace KurosukeInfoBoard.ViewModels
                 await new MessageDialog(ex.Message, "Error occured while loading memo canvas.").ShowAsync();
             }
         }
+        */
     }
 }
