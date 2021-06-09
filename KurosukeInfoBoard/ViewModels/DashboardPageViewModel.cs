@@ -17,7 +17,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace KurosukeInfoBoard.ViewModels
 {
-    public class DashboardPageViewModel : ViewModelBase
+    public class DashboardPageViewModel : Common.ViewModels.ViewModelBase
     {
         public string MemoFileName = "dashboard_memo.gif";
 

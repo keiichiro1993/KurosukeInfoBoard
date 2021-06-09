@@ -13,7 +13,7 @@ using DebugHelper;
 
 namespace KurosukeInfoBoard.ViewModels
 {
-    public class NatureRemoAirConControlViewModel : ViewModelBase
+    public class NatureRemoAirConControlViewModel : Common.ViewModels.ViewModelBase
     {
         private Appliance _Appliance;
         public Appliance Appliance

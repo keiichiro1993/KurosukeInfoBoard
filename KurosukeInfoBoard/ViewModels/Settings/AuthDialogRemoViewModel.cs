@@ -11,7 +11,7 @@ using DebugHelper;
 
 namespace KurosukeInfoBoard.ViewModels.Settings
 {
-    public class AuthDialogRemoViewModel : ViewModelBase
+    public class AuthDialogRemoViewModel : Common.ViewModels.ViewModelBase
     {
         private AuthDialog dialogHost;
         private string _TokenString;

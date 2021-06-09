@@ -10,7 +10,7 @@ using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.ViewModels.Settings
 {
-    public class AboutPageViewModel : ViewModelBase
+    public class AboutPageViewModel : Common.ViewModels.ViewModelBase
     {
         private string _LicenseMD;
         public string LicenseMD

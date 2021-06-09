@@ -11,7 +11,7 @@ using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.ViewModels.Remo
 {
-    public class NatureRemoIRControlViewModel : ViewModelBase
+    public class NatureRemoIRControlViewModel : Common.ViewModels.ViewModelBase
     {
         private Appliance _Appliance;
         public Appliance Appliance

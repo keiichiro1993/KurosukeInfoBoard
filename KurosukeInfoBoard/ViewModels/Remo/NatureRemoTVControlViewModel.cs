@@ -11,7 +11,7 @@ using DebugHelper;
 
 namespace KurosukeInfoBoard.ViewModels
 {
-    public class NatureRemoTVControlViewModel : ViewModelBase
+    public class NatureRemoTVControlViewModel : Common.ViewModels.ViewModelBase
     {
         private Appliance _Appliance;
         public Appliance Appliance

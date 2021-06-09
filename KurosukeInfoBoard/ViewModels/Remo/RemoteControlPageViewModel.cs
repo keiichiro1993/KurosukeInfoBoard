@@ -10,7 +10,7 @@ using DebugHelper;
 
 namespace KurosukeInfoBoard.ViewModels
 {
-    public class RemoteControlPageViewModel : ViewModelBase
+    public class RemoteControlPageViewModel : Common.ViewModels.ViewModelBase
     {
         private List<Device> _Devices;
         public List<Device> Devices

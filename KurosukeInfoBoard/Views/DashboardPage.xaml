@@ -11,6 +11,7 @@
     xmlns:remomodels="using:KurosukeInfoBoard.Models.NatureRemo"
     xmlns:weathercontrol="using:KurosukeInfoBoard.Controls.Weather"
     xmlns:memocontrol="using:KurosukeInfoBoard.Controls.Memo"
+    xmlns:playercontrol="using:YoutubePlayer.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -66,6 +67,7 @@
                 <TextBlock Grid.Row="2" Margin="10,20,10,10" FontSize="{StaticResource TextStyleExtraLargeFontSize}">Memo</TextBlock>
                 <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="0,0,0,2"/>
                 <memocontrol:MemoControl Grid.Row="3" FileName="{x:Bind viewModel.MemoFileName}"/>
+                <playercontrol:YoutubePlayerControl Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </Grid>
 
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.ViewModels.Settings
 {
-    public class WeatherSettingsViewModel : ViewModelBase
+    public class WeatherSettingsViewModel : Common.ViewModels.ViewModelBase
     {
         private List<City> _Cities;
         public List<City> Cities

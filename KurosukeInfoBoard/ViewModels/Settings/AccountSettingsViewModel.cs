@@ -10,7 +10,7 @@ using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.ViewModels.Settings
 {
-    public class AccountSettingsViewModel : ViewModelBase
+    public class AccountSettingsViewModel : Common.ViewModels.ViewModelBase
     {
         private ObservableCollection<UserBase> _Users;
         public ObservableCollection<UserBase> Users

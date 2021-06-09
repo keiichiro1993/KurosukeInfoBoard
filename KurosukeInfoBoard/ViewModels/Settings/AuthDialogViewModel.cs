@@ -9,7 +9,7 @@ using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.ViewModels.Settings
 {
-    public class AuthDialogViewModel : ViewModelBase
+    public class AuthDialogViewModel : Common.ViewModels.ViewModelBase
     {
         private bool _IsButtonAvailable = true;
         public bool IsButtonAvailable

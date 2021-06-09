@@ -10,7 +10,7 @@ using Windows.UI.Popups;
 
 namespace KurosukeInfoBoard.ViewModels
 {
-    public class WeatherControlViewModel : ViewModelBase
+    public class WeatherControlViewModel : Common.ViewModels.ViewModelBase
     {
         private WeatherResponse _Weather;
         public WeatherResponse Weather

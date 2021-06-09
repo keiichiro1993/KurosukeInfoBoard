@@ -207,7 +207,6 @@
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
     <Compile Include="ViewModels\Settings\WeatherSettingsViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WeatherControlViewModel.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialog.xaml.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialogMain.xaml.cs">
@@ -461,6 +460,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{a3929048-0213-4129-b215-99106cb7ab95}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DebugHelper\DebugHelper.csproj">
       <Project>{43c7a08f-ea9f-4f64-9d0d-ab36af8be4aa}</Project>
       <Name>DebugHelper</Name>
@@ -468,6 +471,10 @@
     <ProjectReference Include="..\OpenWeatherMapClient\OpenWeatherMapClient.csproj">
       <Project>{005a8ddf-b62f-4650-8e14-9f8a78a75609}</Project>
       <Name>OpenWeatherMapClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YoutubePlayer\YoutubePlayer.csproj">
+      <Project>{d5a96c9e-807e-419a-84b5-ed2053a02060}</Project>
+      <Name>YoutubePlayer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
