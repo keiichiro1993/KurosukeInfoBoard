@@ -461,11 +461,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="DebugHelper\DebugHelper.csproj">
+    <ProjectReference Include="..\DebugHelper\DebugHelper.csproj">
       <Project>{43c7a08f-ea9f-4f64-9d0d-ab36af8be4aa}</Project>
       <Name>DebugHelper</Name>
     </ProjectReference>
-    <ProjectReference Include="OpenWeatherMapClient\OpenWeatherMapClient.csproj">
+    <ProjectReference Include="..\OpenWeatherMapClient\OpenWeatherMapClient.csproj">
       <Project>{005a8ddf-b62f-4650-8e14-9f8a78a75609}</Project>
       <Name>OpenWeatherMapClient</Name>
     </ProjectReference>
