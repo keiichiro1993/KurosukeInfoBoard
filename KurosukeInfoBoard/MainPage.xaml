@@ -8,39 +8,40 @@
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:providers="using:Microsoft.Toolkit.Graph.Providers"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:playercontrol="using:YoutubePlayer.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <muxc:NavigationView x:Name="mainNavigation" PaneDisplayMode="Top" IsPaneOpen="False" ItemInvoked="mainNavigation_ItemInvoked" IsBackButtonVisible="Collapsed">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Dashboard" Tag="DashboardPage">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xF246;"></FontIcon>
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Remote" Tag="RemoteControlPage">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xEA8A;"></FontIcon>
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.MenuItems>
-            <Frame x:Name="contentFrame"></Frame>
-        </muxc:NavigationView>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1200" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="mainNavigation.PaneDisplayMode" Value="Auto" />
-                        <Setter Target="mainNavigation.IsPaneOpen" Value="False" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups >
-
+        <Grid>
+            <muxc:NavigationView x:Name="mainNavigation" PaneDisplayMode="Top" IsPaneOpen="False" ItemInvoked="mainNavigation_ItemInvoked" IsBackButtonVisible="Collapsed">
+                <muxc:NavigationView.MenuItems>
+                    <muxc:NavigationViewItem Content="Dashboard" Tag="DashboardPage">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xF246;"></FontIcon>
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Content="Remote" Tag="RemoteControlPage">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xEA8A;"></FontIcon>
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                </muxc:NavigationView.MenuItems>
+                <Frame x:Name="contentFrame"></Frame>
+            </muxc:NavigationView>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualState>
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="1200" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="mainNavigation.PaneDisplayMode" Value="Auto" />
+                            <Setter Target="mainNavigation.IsPaneOpen" Value="False" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups >
+        </Grid>
     </Grid>
 </Page>
