@@ -44,7 +44,7 @@ namespace YoutubePlayer.Controls
             //await PlayVideo("FJ-empM4bxE");
             //PL81YhiUKD-aSI9NrzYAAfH-usO7by0bzJ
 
-            var playlistId = "PL81YhiUKD-aSI9NrzYAAfH-usO7by0bzJ";
+            var playlistId = "PLdhB2hC90YEuobrLs15TS2LX__iQnFdc9";
 
             var client = new KYoutubeClient();
 

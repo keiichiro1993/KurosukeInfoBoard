@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KurosukeInfoBoard.Views;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -67,7 +68,8 @@ namespace KurosukeInfoBoard
                     // ナビゲーションの履歴スタックが復元されていない場合、最初のページに移動します。
                     // このとき、必要な情報をナビゲーション パラメーターとして渡して、新しいページを
                     // 作成します
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    //rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(ScreenSaverPage), e.Arguments);
                 }
                 // 現在のウィンドウがアクティブであることを確認します
                 Window.Current.Activate();

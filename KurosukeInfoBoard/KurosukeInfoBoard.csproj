@@ -139,6 +139,9 @@
     <Compile Include="Controls\Calendar\CalendarSelectionItemControl.xaml.cs">
       <DependentUpon>CalendarSelectionItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Clock\ClockControl.xaml.cs">
+      <DependentUpon>ClockControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Memo\MemoControl.xaml.cs">
       <DependentUpon>MemoControl.xaml</DependentUpon>
     </Compile>
@@ -220,6 +223,9 @@
     </Compile>
     <Compile Include="Views\RemoteControlPage.xaml.cs">
       <DependentUpon>RemoteControlPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScreenSaverPage.xaml.cs">
+      <DependentUpon>ScreenSaverPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -349,6 +355,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Clock\ClockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Memo\MemoControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -398,6 +408,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RemoteControlPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ScreenSaverPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
