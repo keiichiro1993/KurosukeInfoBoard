@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Tapped="Grid_Tapped">
         <youtube:YoutubePlayerControl />
         <clock:ClockControl HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"/>
     </Grid>
