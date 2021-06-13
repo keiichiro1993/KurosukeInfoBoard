@@ -17,8 +17,8 @@
             </Style>
         </Grid.Resources>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
-            <TextBlock x:Name="DateTextBlock" FontSize="30"/>
-            <TextBlock x:Name="TimeTextBlock" FontSize="50"/>
+            <TextBlock x:Name="DateTextBlock" FontSize="40"/>
+            <TextBlock x:Name="TimeTextBlock" FontSize="70"/>
         </StackPanel>
     </Grid>
 </UserControl>
