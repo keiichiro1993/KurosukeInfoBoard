@@ -207,3 +207,4 @@ FakesAssemblies/
 # Custom ignores
 gallery.xml
 project.lock.json
+/KurosukeInfoBoard/Properties/Keys.resw
