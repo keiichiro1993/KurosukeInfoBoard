@@ -26,7 +26,7 @@ bld/
 # Visual Studo 2015 cache/options directory
 .vs/
 
-Properties/Keys.resw
+KurosukeInfoBoard/Properties/Keys.resw
 OpenWeatherMapClient/Properties/Keys.resw
 
 # MSTest test Results
