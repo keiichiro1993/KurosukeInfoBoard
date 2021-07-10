@@ -197,6 +197,7 @@
     <Compile Include="Utils\MicrosoftClient.cs" />
     <Compile Include="Utils\NatureRemoClient.cs" />
     <Compile Include="Utils\SaveToFileHelper.cs" />
+    <Compile Include="Utils\ScreenSaverTimer.cs" />
     <Compile Include="Utils\SettingsHelper.cs" />
     <Compile Include="Utils\UIHelper\ColorConverter.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ScreenSaverSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\WeatherSettingsViewModel.cs" />
     <Compile Include="ViewModels\WeatherControlViewModel.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialog.xaml.cs" />
@@ -233,6 +235,9 @@
     <Compile Include="Views\Settings\AccountSettingsPage.xaml.cs" />
     <Compile Include="Views\Settings\CalendarSettingsPage.xaml.cs">
       <DependentUpon>CalendarSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\ScreenSaverSettingsPage.xaml.cs">
+      <DependentUpon>ScreenSaverSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsPage.xaml.cs" />
     <Compile Include="Views\Settings\WeatherSettingsPage.xaml.cs">
@@ -424,6 +429,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\CalendarSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\ScreenSaverSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

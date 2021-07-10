@@ -1,4 +1,5 @@
-﻿using KurosukeInfoBoard.Views;
+﻿using KurosukeInfoBoard.Utils;
+using KurosukeInfoBoard.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -68,12 +69,20 @@ namespace KurosukeInfoBoard
                     // ナビゲーションの履歴スタックが復元されていない場合、最初のページに移動します。
                     // このとき、必要な情報をナビゲーション パラメーターとして渡して、新しいページを
                     // 作成します
-                    //rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                    rootFrame.Navigate(typeof(ScreenSaverPage), e.Arguments);
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // 現在のウィンドウがアクティブであることを確認します
                 Window.Current.Activate();
             }
+
+            // Activate Screen Saver Timer
+            Window.Current.CoreWindow.TouchHitTesting += CoreWindow_TouchHitTesting; //detect user activity
+            if (SettingsHelper.Settings.IsScreenSaverEnabled.GetValue<bool>()) { ScreenSaverTimer.StartTimer(); }
+        }
+
+        private void CoreWindow_TouchHitTesting(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.TouchHitTestingEventArgs args)
+        {
+            Utils.AppGlobalVariables.LastTouchActivity = DateTime.Now;
         }
 
         /// <summary>

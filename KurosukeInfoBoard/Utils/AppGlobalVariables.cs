@@ -14,5 +14,6 @@ namespace KurosukeInfoBoard.Utils
         public static Uri GoogleAuthResultUri;
         public static ObservableCollection<UserBase> Users;
         public static Colors Colors;
+        public static DateTime LastTouchActivity = DateTime.Now;
     }
 }

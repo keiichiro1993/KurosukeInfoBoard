@@ -11,6 +11,7 @@ namespace KurosukeInfoBoard.Utils
 {
     public static class SettingsHelper
     {
+        #region public methods
         public static T LoadAppSetting<T>(string key, T defaultValue = default(T))
         {
             ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
@@ -59,11 +60,13 @@ namespace KurosukeInfoBoard.Utils
             return JsonSerializer.Serialize(values);
         }
 
+        #endregion
+
         #region App global settings
         /// <summary>
         /// Specify list of all the settings for consistency.
         /// </summary>
-        public enum Settings { WetherUnits, CityId }
+        public enum Settings { WetherUnits, CityId, IsScreenSaverEnabled, ScreenSaverPeriod }
 
         public static T GetValue<T>(this Settings setting)
         {

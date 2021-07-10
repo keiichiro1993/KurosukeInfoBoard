@@ -37,14 +37,18 @@ namespace YoutubePlayer.Controls
 
         private void YoutubePlayerControl_Unloaded(object sender, RoutedEventArgs e)
         {
+            this.Loaded -= YoutubePlayerControl_Loaded;
+            this.Unloaded -= YoutubePlayerControl_Unloaded;
         }
 
+        // TODO: error handling
         private async void YoutubePlayerControl_Loaded(object sender, RoutedEventArgs e)
         {
             //await PlayVideo("FJ-empM4bxE");
             //PL81YhiUKD-aSI9NrzYAAfH-usO7by0bzJ
 
-            var playlistId = "PLdhB2hC90YEuobrLs15TS2LX__iQnFdc9";
+            //var playlistId = "PLdhB2hC90YEuobrLs15TS2LX__iQnFdc9";
+            var playlistId = "PLYV8__7x__vtPKE-iNz3Xt7HATRSWKv3C";
 
             var client = new KYoutubeClient();
 
