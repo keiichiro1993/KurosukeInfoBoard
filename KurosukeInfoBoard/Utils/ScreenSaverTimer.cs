@@ -23,11 +23,13 @@ namespace KurosukeInfoBoard.Utils
                 var period = new TimeSpan(0, 0, SettingsHelper.Settings.ScreenSaverPeriod.GetValue<int>());
                 if (DateTime.Now - AppGlobalVariables.LastTouchActivity > period)
                 {
-                    await Window.Current.Dispatcher.RunAsync(CoreDispatcherPriority.High,
+                    await AppGlobalVariables.Dispatcher.RunAsync(CoreDispatcherPriority.High,
                     () =>
                     {
-                        var frame = Window.Current.Content as Frame;
-                        frame.Navigate(typeof(Views.ScreenSaverPage));
+                        if (AppGlobalVariables.Frame.CurrentSourcePageType != typeof(Views.ScreenSaverPage))
+                        {
+                            AppGlobalVariables.Frame.Navigate(typeof(Views.ScreenSaverPage));
+                        }
                     });
                 }
             }, interval);

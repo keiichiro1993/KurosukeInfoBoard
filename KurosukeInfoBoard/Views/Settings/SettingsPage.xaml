@@ -19,6 +19,11 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE753;"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Content="Screen Saver" Tag="ScreenSaverSettings">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B2;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="About" Tag="About">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71B;"/>

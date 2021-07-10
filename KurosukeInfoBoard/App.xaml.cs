@@ -76,6 +76,8 @@ namespace KurosukeInfoBoard
             }
 
             // Activate Screen Saver Timer
+            AppGlobalVariables.Frame = rootFrame;
+            AppGlobalVariables.Dispatcher = Window.Current.Dispatcher;
             Window.Current.CoreWindow.TouchHitTesting += CoreWindow_TouchHitTesting; //detect user activity
             if (SettingsHelper.Settings.IsScreenSaverEnabled.GetValue<bool>()) { ScreenSaverTimer.StartTimer(); }
         }
