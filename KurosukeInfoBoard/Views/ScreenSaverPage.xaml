@@ -8,7 +8,8 @@
     xmlns:youtube="using:YoutubePlayer.Controls"
     xmlns:clock="using:KurosukeInfoBoard.Controls.Clock"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Required">
 
     <Grid Tapped="Grid_Tapped">
         <youtube:YoutubePlayerControl />

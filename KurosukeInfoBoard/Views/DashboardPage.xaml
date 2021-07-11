@@ -12,7 +12,8 @@
     xmlns:weathercontrol="using:KurosukeInfoBoard.Controls.Weather"
     xmlns:memocontrol="using:KurosukeInfoBoard.Controls.Memo"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    NavigationCacheMode="Required">
 
     <Grid>
         <Grid>

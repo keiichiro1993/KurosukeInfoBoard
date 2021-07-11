@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid Margin="10">
+        <Grid Margin="20">
             <Grid.Resources>
                 <Style TargetType="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center"/>
@@ -19,7 +19,7 @@
             </Grid.Resources>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
