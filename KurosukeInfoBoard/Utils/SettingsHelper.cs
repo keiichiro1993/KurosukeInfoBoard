@@ -66,7 +66,7 @@ namespace KurosukeInfoBoard.Utils
         /// <summary>
         /// Specify list of all the settings for consistency.
         /// </summary>
-        public enum Settings { WetherUnits, CityId, IsScreenSaverEnabled, ScreenSaverPeriod }
+        public enum Settings { WetherUnits, CityId, IsScreenSaverEnabled, ScreenSaverPeriod, YouTubePlaylistId }
 
         public static T GetValue<T>(this Settings setting)
         {

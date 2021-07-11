@@ -25,12 +25,32 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             set { SettingsHelper.Settings.ScreenSaverPeriod.SetValue(value); }
         }
 
+        public string PlaylistId
+        {
+            get { return SettingsHelper.Settings.YouTubePlaylistId.GetValue<string>(); }
+            set
+            {
+                SettingsHelper.Settings.YouTubePlaylistId.SetValue(value);
+                SwitchTimer();
+            }
+        }
+
+
         private void SwitchTimer()
         {
             if (IsEnabled)
             {
-                if (Period == 0) Period = 10;
-                RaisePropertyChanged("Period");
+                if (Period == 0)
+                {
+                    Period = 10;
+                    RaisePropertyChanged("Period");
+                }
+
+                if (string.IsNullOrEmpty(PlaylistId))
+                {
+                    PlaylistId = "PLVlzi39cwm_lfg9XSQ7OiT1Oqn0R-nFfB";
+                    RaisePropertyChanged("PlaylistId");
+                }
 
                 ScreenSaverTimer.StartTimer();
             }

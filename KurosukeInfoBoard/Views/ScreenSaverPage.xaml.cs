@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KurosukeInfoBoard.Utils;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace KurosukeInfoBoard.Views
     /// </summary>
     public sealed partial class ScreenSaverPage : Page
     {
+        public string PlaylistId = SettingsHelper.Settings.YouTubePlaylistId.GetValue<string>();
+
         public ScreenSaverPage()
         {
             this.InitializeComponent();

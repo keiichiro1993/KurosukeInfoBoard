@@ -36,6 +36,9 @@
                 <muxc:NumberBox Value="{x:Bind viewModel.Period, Mode=TwoWay}" SpinButtonPlacementMode="Inline" />
                 <TextBlock Text="sec(s)" />
             </StackPanel>
+
+            <TextBlock HorizontalAlignment="Right" Text="YouTube playlist ID:" Grid.Row="2" Grid.Column="0" />
+            <TextBox Text="{x:Bind viewModel.PlaylistId, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" />
         </Grid>
     </Grid>
 </Page>

@@ -12,7 +12,7 @@
     NavigationCacheMode="Required">
 
     <Grid Tapped="Grid_Tapped">
-        <youtube:YoutubePlayerControl />
+        <youtube:YoutubePlayerControl YouTubePlaylistId="{x:Bind PlaylistId, Mode=OneWay}" />
         <clock:ClockControl HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"/>
     </Grid>
 </Page>

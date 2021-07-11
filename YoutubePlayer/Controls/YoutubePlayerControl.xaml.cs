@@ -41,15 +41,34 @@ namespace YoutubePlayer.Controls
             this.Unloaded -= YoutubePlayerControl_Unloaded;
         }
 
-        // TODO: error handling
-        private async void YoutubePlayerControl_Loaded(object sender, RoutedEventArgs e)
+        //TODO: live change
+        public string YouTubePlaylistId
         {
-            //await PlayVideo("FJ-empM4bxE");
-            //PL81YhiUKD-aSI9NrzYAAfH-usO7by0bzJ
+            get => (string)GetValue(YouTubePlaylistIdProperty);
+            set => SetValue(YouTubePlaylistIdProperty, value);
+        }
 
+        public static readonly DependencyProperty YouTubePlaylistIdProperty =
+          DependencyProperty.Register(nameof(YouTubePlaylistId), typeof(string),
+            typeof(YoutubePlayerControl), new PropertyMetadata(null, new PropertyChangedCallback(OnPlaylistIdChanged)));
+
+        private static void OnPlaylistIdChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
+
+        // TODO: error handling
+        private void YoutubePlayerControl_Loaded(object sender, RoutedEventArgs e)
+        {
             //var playlistId = "PLdhB2hC90YEuobrLs15TS2LX__iQnFdc9";
-            var playlistId = "PLYV8__7x__vtPKE-iNz3Xt7HATRSWKv3C";
+            //var playlistId = "PLYV8__7x__vtPKE-iNz3Xt7HATRSWKv3C";
 
+            InitPlayer(YouTubePlaylistId);
+        }
+
+        private async void InitPlayer(string playlistId)
+        {
             var client = new KYoutubeClient();
 
             viewModel.PlaylistName = (await client.Playlists.GetAsync(playlistId)).Title;
@@ -71,7 +90,6 @@ namespace YoutubePlayer.Controls
                     Debugger.WriteDebugLog("3. " + player.MediaPlayer.PlaybackSession.PlaybackState);
                 }
             }
-
         }
 
         private async Task PlayVideo(string id)
