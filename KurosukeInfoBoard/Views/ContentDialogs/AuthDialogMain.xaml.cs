@@ -68,6 +68,12 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
             Frame.Navigate(typeof(AuthDialogRemo), dialogHost, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
+        private void PhillipsHue_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.IsButtonAvailable = false;
+            Frame.Navigate(typeof(AuthDialogHue), dialogHost, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+        }
+
         private static async Task registerGoogleToken()
         {
             await Windows.System.Launcher.LaunchUriAsync(GoogleAuthClient.GenerateAuthURI());

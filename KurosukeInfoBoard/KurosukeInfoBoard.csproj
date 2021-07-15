@@ -212,12 +212,16 @@
     <Compile Include="ViewModels\Remo\RemoteControlPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\AuthDialogHueViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
     <Compile Include="ViewModels\Settings\ScreenSaverSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\WeatherSettingsViewModel.cs" />
     <Compile Include="ViewModels\WeatherControlViewModel.cs" />
     <Compile Include="Views\ContentDialogs\AuthDialog.xaml.cs" />
+    <Compile Include="Views\ContentDialogs\AuthDialogHue.xaml.cs">
+      <DependentUpon>AuthDialogHue.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ContentDialogs\AuthDialogMain.xaml.cs">
       <DependentUpon>AuthDialogMain.xaml</DependentUpon>
     </Compile>
@@ -406,6 +410,10 @@
     <Page Include="Views\ContentDialogs\AuthDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ContentDialogs\AuthDialogHue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ContentDialogs\AuthDialogMain.xaml">
       <SubType>Designer</SubType>

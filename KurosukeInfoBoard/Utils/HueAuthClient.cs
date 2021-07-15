@@ -81,13 +81,15 @@ namespace KurosukeInfoBoard.Utils
                         var user = new HueUser(bridgeInfo);
                         user.Token = token;
 
-                        AccountManager.SaveUserToVault(user);
-
                         return user;
                     }
                     catch (LinkButtonNotPressedException ex)
                     {
                         DebugHelper.Debugger.WriteDebugLog("Hue Bridge link button not yet pressed. " + ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugHelper.Debugger.WriteErrorLog("Error while Hue Bridge registration. This might be because the list contains invalid bridge. Ignoring...", ex);
                     }
                 }
             }

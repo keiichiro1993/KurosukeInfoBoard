@@ -50,6 +50,16 @@
                     <TextBlock Grid.Column="1" Foreground="White" Margin="10,0" VerticalAlignment="Center">Sign in with Nature Remo</TextBlock>
                 </Grid>
             </Button>
+            <Button Grid.Row="3" IsEnabled="{x:Bind viewModel.IsButtonAvailable, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Background="#2F2F2F" Padding="0" Margin="0,1,0,0" Click="PhillipsHue_Click">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Assets/Icons/phillips_hue_logo.png" Margin="12,0" />
+                    <TextBlock Grid.Column="1" Foreground="White" Margin="10,0" VerticalAlignment="Center">Connect to Hue Bridge</TextBlock>
+                </Grid>
+            </Button>
         </Grid>
         <controls:Loading x:Name="LoadingControl" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
             <controls:Loading.Background>
