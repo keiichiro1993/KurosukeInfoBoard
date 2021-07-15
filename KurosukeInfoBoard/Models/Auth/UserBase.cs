@@ -10,7 +10,7 @@ using DebugHelper;
 
 namespace KurosukeInfoBoard.Models.Auth
 {
-    public enum UserType { Google, Microsoft, NatureRemo }
+    public enum UserType { Google, Microsoft, NatureRemo, Hue }
     public class UserBase
     {
         public string UserName { get; set; }
@@ -35,6 +35,8 @@ namespace KurosukeInfoBoard.Models.Auth
                     case UserType.NatureRemo:
                         var remoClient = new NatureRemoClient(token);
                         return await remoClient.GetUserDataAsync();
+                    case UserType.Hue:
+                        return await HueAuthClient.FindHueBridge(token);
                     default:
                         break;
                 }

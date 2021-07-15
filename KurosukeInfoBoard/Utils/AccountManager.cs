@@ -48,7 +48,7 @@ namespace KurosukeInfoBoard.Utils
             var redirectUrl = resource.GetString("MicrosoftRedirectUrl");
             var msAuthClient = new MicrosoftAuthClient(clientID, new string[] { "user.read", "Calendars.Read" }, redirectUrl, null);
             var msAccounts = await msAuthClient.GetCachedAccounts();
-            
+
             if (msAccounts != null && msAccounts.Count() > 0)
             {
                 foreach (var msAccount in msAccounts)
@@ -88,14 +88,14 @@ namespace KurosukeInfoBoard.Utils
             var token = new TokenBase();
             token.UserType = type;
             token.Id = cred.UserName;
-            if (type == UserType.NatureRemo)
-            {
-                token.AccessToken = cred.Password;
-            }
-            else
+            if (type == UserType.Google)
             {
                 token.RefreshToken = cred.Password;
                 token = await token.AcquireNewToken();
+            }
+            else
+            {
+                token.AccessToken = cred.Password;
             }
             userList.Add(await UserBase.AcquireUserFromToken(token));
         }
@@ -104,13 +104,13 @@ namespace KurosukeInfoBoard.Utils
         {
             var resourceName = ResourceNamePrefix + user.UserType.ToString();
             var vault = new PasswordVault();
-            if (user.UserType == UserType.NatureRemo)
+            if (user.UserType == UserType.Google)
             {
-                vault.Add(new PasswordCredential(resourceName, user.Id, user.Token.AccessToken));
+                vault.Add(new PasswordCredential(resourceName, user.Id, user.Token.RefreshToken));
             }
             else
             {
-                vault.Add(new PasswordCredential(resourceName, user.Id, user.Token.RefreshToken));
+                vault.Add(new PasswordCredential(resourceName, user.Id, user.Token.AccessToken));
             }
         }
     }
