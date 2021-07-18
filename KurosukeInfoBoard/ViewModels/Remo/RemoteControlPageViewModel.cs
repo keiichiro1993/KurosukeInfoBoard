@@ -7,46 +7,50 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using DebugHelper;
+using KurosukeInfoBoard.Models.Common;
+using System.Collections.ObjectModel;
+using KurosukeInfoBoard.Models.Auth;
 
 namespace KurosukeInfoBoard.ViewModels
 {
     public class RemoteControlPageViewModel : Common.ViewModels.ViewModelBase
     {
-        private List<Device> _Devices;
-        public List<Device> Devices
-        {
-            get { return _Devices; }
-            set
-            {
-                _Devices = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private List<Appliance> _Appliances;
-        public List<Appliance> Appliances
-        {
-            get { return _Appliances; }
-            set
-            {
-                _Appliances = value;
-                RaisePropertyChanged();
-            }
-        }
+        public ObservableCollection<IDevice> Devices = new ObservableCollection<IDevice>();
 
         public async void Init()
         {
             LoadingMessage = "Acquiring remo info...";
             IsLoading = true;
 
-            var accounts = from account in AppGlobalVariables.Users
-                           where account.UserType == Models.Auth.UserType.NatureRemo
-                           select account;
+            var taskList = new List<Task<List<IDevice>>>();
 
+            var remoAccounts = from account in AppGlobalVariables.Users
+                               where account.UserType == Models.Auth.UserType.NatureRemo
+                               select account;
+
+            taskList.Add(GetRemoInfo(remoAccounts));
+
+            var hueAccounts = from account in AppGlobalVariables.Users
+                              where account.UserType == Models.Auth.UserType.Hue
+                              select account;
+
+            taskList.Add(GetHueInfo(hueAccounts));
+
+            var devicesList = await Task.WhenAll(taskList);
+            foreach (var devices in devicesList)
+            {
+                foreach (var device in devices) { Devices.Add(device); }
+            }
+
+            IsLoading = false;
+        }
+
+        private async Task<List<IDevice>> GetRemoInfo(IEnumerable<Models.Auth.UserBase> accounts)
+        {
+            var devices = new List<IDevice>();
             if (accounts.Any())
             {
-                var devices = new List<Device>();
-                var appliances = new List<Appliance>();
+                var appliances = new List<IAppliance>();
                 foreach (var account in accounts)
                 {
                     try
@@ -67,16 +71,25 @@ namespace KurosukeInfoBoard.ViewModels
                     foreach (var device in devices)
                     {
                         device.Appliances = (from appliance in appliances
-                                             where appliance.device.id == device.id
+                                             where ((Appliance)appliance).device.id == ((Device)device).id
                                              select appliance).ToList();
                     }
                 }
 
-                Appliances = appliances;
-                Devices = devices;
+            }
+            return devices;
+        }
+
+        private async Task<List<IDevice>> GetHueInfo(IEnumerable<Models.Auth.UserBase> accounts)
+        {
+            var hueDevices = new List<IDevice>();
+            foreach (var account in accounts)
+            {
+                var client = new HueClient((HueUser)account);
+                hueDevices.AddRange(await client.GetHueDevicesAsync());
             }
 
-            IsLoading = false;
+            return hueDevices;
         }
     }
 }

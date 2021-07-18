@@ -143,6 +143,12 @@
     <Compile Include="Controls\Clock\ClockControl.xaml.cs">
       <DependentUpon>ClockControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Hue\HueColorLightControl.xaml.cs">
+      <DependentUpon>HueColorLightControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Hue\HueLightControl.xaml.cs">
+      <DependentUpon>HueLightControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Memo\MemoControl.xaml.cs">
       <DependentUpon>MemoControl.xaml</DependentUpon>
     </Compile>
@@ -172,7 +178,9 @@
     <Compile Include="Models\Auth\NatureRemoUser.cs" />
     <Compile Include="Models\CalendarDay.cs" />
     <Compile Include="Models\CalendarMonth.cs" />
+    <Compile Include="Models\Common\IAppliance.cs" />
     <Compile Include="Models\Common\ICalendar.cs" />
+    <Compile Include="Models\Common\IDevice.cs" />
     <Compile Include="Models\Common\IEvent.cs" />
     <Compile Include="Models\Google\Colors.cs" />
     <Compile Include="Models\Google\Event.cs" />
@@ -181,6 +189,8 @@
     <Compile Include="Models\Auth\TokenBase.cs" />
     <Compile Include="Models\Auth\UserBase.cs" />
     <Compile Include="Models\Google\Calendar.cs" />
+    <Compile Include="Models\Hue\Group.cs" />
+    <Compile Include="Models\Hue\Light.cs" />
     <Compile Include="Models\Microsoft\Calendar.cs" />
     <Compile Include="Models\Microsoft\Event.cs" />
     <Compile Include="Models\NatureRemo\Appliance.cs" />
@@ -197,6 +207,7 @@
     <Compile Include="Utils\GoogleClient.cs" />
     <Compile Include="Utils\HTTPClientBase.cs" />
     <Compile Include="Utils\HueAuthClient.cs" />
+    <Compile Include="Utils\HueClient.cs" />
     <Compile Include="Utils\MicrosoftAuthClient.cs" />
     <Compile Include="Utils\MicrosoftClient.cs" />
     <Compile Include="Utils\NatureRemoClient.cs" />
@@ -206,6 +217,8 @@
     <Compile Include="Utils\UIHelper\ColorConverter.cs" />
     <Compile Include="Utils\XAMLValueConverters\CalendarGridRatioConverter.cs" />
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
+    <Compile Include="ViewModels\Hue\HueColorLightControlViewModel.cs" />
+    <Compile Include="ViewModels\Hue\HueLightControlViewModel.cs" />
     <Compile Include="ViewModels\Remo\NatureRemoAirConControlViewModel.cs" />
     <Compile Include="ViewModels\Remo\NatureRemoIRControlViewModel.cs" />
     <Compile Include="ViewModels\Remo\NatureRemoTVControlViewModel.cs" />
@@ -372,6 +385,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Clock\ClockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Hue\HueColorLightControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Hue\HueLightControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

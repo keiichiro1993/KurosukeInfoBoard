@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KurosukeInfoBoard.Models.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,16 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public NewestEvent mo { get; set; }
     }
 
-    public class Device
+    public class Device : IDevice
     {
+
+        #region implementation of IDevice
+        public string DeviceName { get { return name; } }
+        public string RoomTemperature { get { return newest_events.te.val.ToString(); } }
+        public string RoomTemperatureUnit { get { return string.IsNullOrEmpty(RoomTemperature) ? "" : "℃"; } }
+        public List<IAppliance> Appliances { get; set; }
+        #endregion
+
         public string name { get; set; }
         public string id { get; set; }
         public DateTime created_at { get; set; }
@@ -41,6 +50,5 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public List<User> users { get; set; }
         public NewestEvents newest_events { get; set; }
 
-        public List<Appliance> Appliances { get; set; }
     }
 }

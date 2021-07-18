@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:remocontrols="using:KurosukeInfoBoard.Controls.Remo"
     xmlns:remomodels="using:KurosukeInfoBoard.Models.NatureRemo"
+    xmlns:commonmodels="using:KurosukeInfoBoard.Models.Common"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:media="using:Microsoft.UI.Xaml.Media"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -18,54 +19,22 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
-        <Grid Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <TextBlock Margin="10" FontSize="30">Devices</TextBlock>
-                <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
-            </Grid>
-            <GridView Grid.Row="1" ItemsSource="{x:Bind viewModel.Devices, Mode=OneWay}">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="remomodels:Device">
-                        <remocontrols:NatureRemoDeviceControl Device="{x:Bind}"/>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-
-            <Grid Grid.Row="2">
-                <TextBlock Margin="10,20,10,10" FontSize="30">Appliances</TextBlock>
-                <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
-            </Grid>
-            <GridView Grid.Row="3" ItemsSource="{x:Bind viewModel.Appliances, Mode=OneWay}">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="remomodels:Appliance">
-                        <remocontrols:NatureRemoApplianceControl Appliance="{x:Bind}"/>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
-        </Grid>
         <Grid>
             <GridView Margin="5" ItemsSource="{Binding Source={StaticResource DevicesSource}}" SelectionMode="None">
                 <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="remomodels:Appliance">
+                    <DataTemplate x:DataType="commonmodels:IAppliance">
                         <remocontrols:NatureRemoApplianceControl Appliance="{x:Bind}"/>
                     </DataTemplate>
                 </GridView.ItemTemplate>
                 <GridView.GroupStyle>
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
-                            <DataTemplate x:DataType="remomodels:Device">
+                            <DataTemplate x:DataType="commonmodels:IDevice">
                                 <StackPanel Margin="0" Padding="10" CornerRadius="3" Orientation="Vertical" Background="{StaticResource AccentAcrylicBrush}">
-                                    <TextBlock Text="{Binding name}" Foreground="White">Living room remo</TextBlock>
+                                    <TextBlock Text="{x:Bind DeviceName}" Foreground="White" />
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <TextBlock Text="{Binding newest_events.te.val}" Foreground="White" FontSize="50"></TextBlock>
-                                        <TextBlock VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White">℃</TextBlock>
+                                        <TextBlock Text="{x:Bind RoomTemperature}" Foreground="White" FontSize="50" />
+                                        <TextBlock Text="{x:Bind RoomTemperatureUnit}" VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White" />
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>

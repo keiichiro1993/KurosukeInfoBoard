@@ -1,4 +1,5 @@
 ﻿using KurosukeInfoBoard.Models.Auth;
+using KurosukeInfoBoard.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Models.NatureRemo
 {
-    public class Appliance
+    public class Appliance : IAppliance
     {
+        public string ApplianceName { get { return nickname; } }
+        public string ApplianceType { get { return type; } }
+
         public TokenBase Token { get; set; }
         public string id { get; set; }
         public Device device { get; set; }

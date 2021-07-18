@@ -1,4 +1,5 @@
-﻿using KurosukeInfoBoard.Models.NatureRemo;
+﻿using KurosukeInfoBoard.Models.Common;
+using KurosukeInfoBoard.Models.NatureRemo;
 using KurosukeInfoBoard.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -27,24 +28,24 @@ namespace KurosukeInfoBoard.Controls.Remo
             this.InitializeComponent();
         }
 
-        public Appliance Appliance
+        public IAppliance Appliance
         {
-            get => (Appliance)GetValue(ApplianceProperty);
+            get => (IAppliance)GetValue(ApplianceProperty);
             set => SetValue(ApplianceProperty, value);
         }
 
         public static readonly DependencyProperty ApplianceProperty =
-          DependencyProperty.Register(nameof(Appliance), typeof(Appliance),
+          DependencyProperty.Register(nameof(Appliance), typeof(IAppliance),
             typeof(NatureRemoTVControl), new PropertyMetadata(null, new PropertyChangedCallback(OnApplianceChanged)));
 
         private static void OnApplianceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var cc = d as NatureRemoTVControl;
-            var appliance = (Appliance)e.NewValue;
-            if (appliance.type == "TV")
+            var appliance = (IAppliance)e.NewValue;
+            if (appliance.ApplianceType == "TV")
             {
                 cc.Visibility = Visibility.Visible;
-                cc.viewModel.Init(appliance);
+                cc.viewModel.Init((Appliance)appliance);
             }
         }
     }

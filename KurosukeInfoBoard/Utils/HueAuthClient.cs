@@ -25,7 +25,7 @@ namespace KurosukeInfoBoard.Utils
             var bridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
 
             var bridge = (from item in bridges
-                          where item.BridgeId == token.Id
+                          where item.BridgeId == token.Id.ToLower()
                           select item).FirstOrDefault();
 
             if (bridge != null)

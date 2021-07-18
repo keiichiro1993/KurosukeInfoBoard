@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 using DebugHelper;
+using KurosukeInfoBoard.Models.Common;
 
 // ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
 
@@ -30,22 +31,24 @@ namespace KurosukeInfoBoard.Controls.Remo
             this.InitializeComponent();
         }
 
-        public Appliance Appliance
+        public IAppliance Appliance
         {
-            get => (Appliance)GetValue(ApplianceProperty);
+            get => (IAppliance)GetValue(ApplianceProperty);
             set => SetValue(ApplianceProperty, value);
         }
 
         public static readonly DependencyProperty ApplianceProperty =
-          DependencyProperty.Register(nameof(Appliance), typeof(Appliance),
+          DependencyProperty.Register(nameof(Appliance), typeof(IAppliance),
             typeof(NatureRemoApplianceControl), new PropertyMetadata(null, new PropertyChangedCallback(OnApplianceChanged)));
 
         private static void OnApplianceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var cc = d as NatureRemoApplianceControl;
-            var appliance = (Appliance)e.NewValue;
-            cc.applianceNameTextBlock.Text = appliance.nickname;
-            cc.applianceTypeTextBlock.Text = appliance.type;
+
+            var appliance = (IAppliance)e.NewValue;
+
+            cc.applianceNameTextBlock.Text = appliance.ApplianceName;
+            cc.applianceTypeTextBlock.Text = appliance.ApplianceType;
 
             var image = new SvgImageSource();
             image.UriSource = new Uri(appliance.IconImage);
@@ -64,26 +67,31 @@ namespace KurosukeInfoBoard.Controls.Remo
             loadingControl.IsLoading = true;
             try
             {
-                switch (Appliance.type)
+                if (Appliance.GetType() == typeof(Appliance))
                 {
-                    case "IR":
-                        if (Appliance.signals.Count == 1)
-                        {
-                            var client = new NatureRemoClient(Appliance.Token);
-                            await client.PostSignal(Appliance.signals.First().id);
-                        }
-                        else
-                        {
-                            //リモコンポップアップする
+                    var appliance = (Appliance)Appliance;
+                    switch (appliance.type)
+                    {
+                        case "IR":
+                            if (appliance.signals.Count == 1)
+                            {
+                                var client = new NatureRemoClient(appliance.Token);
+                                await client.PostSignal(appliance.signals.First().id);
+                            }
+                            else
+                            {
+                                //リモコンポップアップする
+                                buttonsFlyout.ShowAt(this, new FlyoutShowOptions { Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft });
+                            }
+                            break;
+                        default:
                             buttonsFlyout.ShowAt(this, new FlyoutShowOptions { Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft });
-                        }
-                        break;
-                    case "TV":
-                        buttonsFlyout.ShowAt(this, new FlyoutShowOptions { Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft });
-                        break;
-                    case "AC":
-                        buttonsFlyout.ShowAt(this, new FlyoutShowOptions { Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft });
-                        break;
+                            break;
+                    }
+                }
+                else if (Appliance.GetType() == typeof(Models.Hue.Light))
+                {
+                    buttonsFlyout.ShowAt(this, new FlyoutShowOptions { Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft });
                 }
             }
             catch (Exception ex)

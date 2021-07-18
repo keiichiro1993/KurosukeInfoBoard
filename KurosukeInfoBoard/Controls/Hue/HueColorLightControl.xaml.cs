@@ -1,6 +1,5 @@
 ﻿using KurosukeInfoBoard.Models.Common;
-using KurosukeInfoBoard.Models.NatureRemo;
-using KurosukeInfoBoard.ViewModels.Remo;
+using KurosukeInfoBoard.ViewModels.Hue;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,12 +17,12 @@ using Windows.UI.Xaml.Navigation;
 
 // ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
 
-namespace KurosukeInfoBoard.Controls.Remo
+namespace KurosukeInfoBoard.Controls.Hue
 {
-    public sealed partial class NatureRemoIRControl : UserControl
+    public sealed partial class HueColorLightControl : UserControl
     {
-        NatureRemoIRControlViewModel viewModel { get; set; } = new NatureRemoIRControlViewModel();
-        public NatureRemoIRControl()
+        public HueColorLightControlViewModel viewModel { get; set; } = new HueColorLightControlViewModel();
+        public HueColorLightControl()
         {
             this.InitializeComponent();
         }
@@ -36,22 +35,17 @@ namespace KurosukeInfoBoard.Controls.Remo
 
         public static readonly DependencyProperty ApplianceProperty =
           DependencyProperty.Register(nameof(Appliance), typeof(IAppliance),
-            typeof(NatureRemoAirConControl), new PropertyMetadata(null, new PropertyChangedCallback(OnApplianceChanged)));
+            typeof(HueColorLightControl), new PropertyMetadata(null, new PropertyChangedCallback(OnApplianceChanged)));
 
         private static void OnApplianceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cc = d as NatureRemoIRControl;
+            var cc = d as HueColorLightControl;
             var appliance = (IAppliance)e.NewValue;
-            if (appliance.ApplianceType == "IR")
+            if (appliance.ApplianceType == "Extended color light")
             {
                 cc.Visibility = Visibility.Visible;
-                cc.viewModel.Init((Appliance)appliance);
+                cc.viewModel.Init((Models.Hue.Light)appliance);
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            viewModel.Button_Click(sender, e);
         }
     }
 }

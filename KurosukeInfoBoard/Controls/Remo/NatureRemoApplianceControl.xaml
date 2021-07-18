@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:huecontrols="using:KurosukeInfoBoard.Controls.Hue"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="300">
@@ -31,6 +32,8 @@
                             <local:NatureRemoAirConControl Appliance="{x:Bind Appliance, Mode=OneWay}" Visibility="Collapsed"/>
                             <local:NatureRemoTVControl Appliance="{x:Bind Appliance, Mode=OneWay}" Visibility="Collapsed"/>
                             <local:NatureRemoIRControl Appliance="{x:Bind Appliance, Mode=OneWay}" Visibility="Collapsed"/>
+                            <huecontrols:HueLightControl Appliance="{x:Bind Appliance, Mode=OneWay}" Visibility="Collapsed"/>
+                            <huecontrols:HueColorLightControl Appliance="{x:Bind Appliance, Mode=OneWay}" Visibility="Collapsed"/>
                         </Grid>
                     </Flyout>
                 </Grid.ContextFlyout>
