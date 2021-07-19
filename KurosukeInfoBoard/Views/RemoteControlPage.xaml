@@ -30,13 +30,27 @@
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate x:DataType="commonmodels:IDevice">
-                                <StackPanel Margin="0" Padding="10" CornerRadius="3" Orientation="Vertical" Background="{StaticResource AccentAcrylicBrush}">
-                                    <TextBlock Text="{x:Bind DeviceName}" Foreground="White" />
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <TextBlock Text="{x:Bind RoomTemperature}" Foreground="White" FontSize="50" />
-                                        <TextBlock Text="{x:Bind RoomTemperatureUnit}" VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White" />
+                                <Grid CornerRadius="3" Margin="0" Padding="10"  Background="{StaticResource AccentAcrylicBrush}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="AUTO" />
+                                        <RowDefinition Height="AUTO" />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Vertical">
+                                        <TextBlock Text="{x:Bind DeviceName}" Foreground="White" />
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="{x:Bind HeaderTemperatureVisibility}">
+                                            <TextBlock Text="{x:Bind RoomTemperature}" Foreground="White" FontSize="50" />
+                                            <TextBlock Text="{x:Bind RoomTemperatureUnit}" VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White" />
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
+                                    <Grid Grid.Row="1" Visibility="{x:Bind HeaderControlVisibility}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="AUTO" />
+                                            <RowDefinition Height="AUTO" />
+                                        </Grid.RowDefinitions>
+                                        <ToggleSwitch Grid.Row="0" IsOn="{x:Bind HueIsOn, Mode=TwoWay}" />
+                                        <Slider Grid.Row="1" Value="{x:Bind HueBrightness, Mode=TwoWay}" Maximum="254" Minimum="0" />
+                                    </Grid>
+                                </Grid>
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                         <GroupStyle.HeaderContainerStyle>

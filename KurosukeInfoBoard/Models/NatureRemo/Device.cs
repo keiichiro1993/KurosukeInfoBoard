@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.Models.NatureRemo
 {
@@ -36,6 +37,12 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public string RoomTemperature { get { return newest_events.te.val.ToString(); } }
         public string RoomTemperatureUnit { get { return string.IsNullOrEmpty(RoomTemperature) ? "" : "℃"; } }
         public List<IAppliance> Appliances { get; set; }
+        public Visibility HeaderControlVisibility { get; set; } = Visibility.Collapsed;
+        public Visibility HeaderTemperatureVisibility { get; set; } = Visibility.Visible;
+
+        public byte HueBrightness { get; set; }
+        public bool HueIsOn { get; set; }
+
         #endregion
 
         public string name { get; set; }

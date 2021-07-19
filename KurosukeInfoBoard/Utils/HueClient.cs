@@ -1,6 +1,8 @@
 ﻿using KurosukeInfoBoard.Models.Auth;
 using KurosukeInfoBoard.Models.Common;
 using Q42.HueApi;
+using Q42.HueApi.ColorConverters;
+using Q42.HueApi.ColorConverters.Original;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,14 +48,30 @@ namespace KurosukeInfoBoard.Utils
             return hueDevices;
         }
 
-        public async Task SendCommandAsync(Light light)
+        public async Task<Light> SendCommandAsync(Light light, RGBColor? color = null)
         {
             var command = new LightCommand();
 
             command.On = light.State.On;
             command.Brightness = light.State.Brightness;
 
+            if (color != null)
+            {
+                command.SetColor((RGBColor)color);
+            }
+
             await client.SendCommandAsync(command, new List<string>() { light.Id });
+            return await client.GetLightAsync(light.Id);
+        }
+
+        public async Task SendCommandAsync(Q42.HueApi.Models.Groups.Group group)
+        {
+            var command = new LightCommand();
+
+            command.On = group.Action.On;
+            command.Brightness = group.Action.Brightness;
+
+            await client.SendGroupCommandAsync(command, group.Id);
         }
     }
 }

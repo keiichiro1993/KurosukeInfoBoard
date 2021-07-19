@@ -23,7 +23,7 @@ namespace KurosukeInfoBoard.Utils.UIHelper
             var r = (byte)System.Convert.ToUInt32(hex.Substring(3, 2), 16);
             var g = (byte)System.Convert.ToUInt32(hex.Substring(5, 2), 16);
             var b = (byte)System.Convert.ToUInt32(hex.Substring(7, 2), 16);
-            return Color.FromArgb(255, r, g, b);
+            return Color.FromArgb(a, r, g, b);
         }
     }
 }
