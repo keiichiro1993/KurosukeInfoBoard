@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
     </UserControl.Resources>
-    <Button Click="Button_Click" Padding="0" MinWidth="350" MinHeight="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+    <Button Click="Button_Click" Padding="0" MinWidth="230" MinHeight="100" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
             <TextBlock x:Name="deviceNameTextBlock">Living room remo</TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

@@ -19,10 +19,9 @@
             <Grid>
                 <Ellipse  Stroke="Gray" StrokeThickness="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <TextBlock x:Name="applianceTypeTextBlock">TV</TextBlock>
-                        <TextBlock>:</TextBlock>
-                        <TextBlock x:Name="applianceNameTextBlock">LivingRoom TV</TextBlock>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
+                        <TextBlock x:Name="applianceTypeTextBlock" HorizontalAlignment="Center">TV</TextBlock>
+                        <TextBlock x:Name="applianceNameTextBlock" HorizontalAlignment="Center">LivingRoom TV</TextBlock>
                     </StackPanel>
                     <Image x:Name="applianceIconImage" Source="/Assets/Icons/IRControls/TV.svg" MaxWidth="50" MaxHeight="50" Stretch="Uniform" Margin="0,5,0,0"/>
                 </StackPanel>

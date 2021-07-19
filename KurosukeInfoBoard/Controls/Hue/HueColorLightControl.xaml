@@ -33,7 +33,7 @@
                         <Button.Flyout>
                             <Flyout>
                                 <StackPanel Orientation="Vertical">
-                                    <muxc:ColorPicker x:Name="colorPicker" Color="{x:Bind viewModel.Color, Mode=TwoWay}" IsAlphaEnabled="False"/>
+                                    <muxc:ColorPicker x:Name="colorPicker" Color="{x:Bind viewModel.Color, Mode=TwoWay}" IsAlphaEnabled="False" IsAlphaSliderVisible="False" />
                                 </StackPanel>
                             </Flyout>
                         </Button.Flyout>

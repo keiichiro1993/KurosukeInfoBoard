@@ -46,12 +46,18 @@ namespace KurosukeInfoBoard.ViewModels.Hue
             }
         }
 
+        private DateTime lastCommand;
         private async void SendCommand()
         {
-            IsLoading = true;
-            var client = new HueClient(Light.HueUser);
-            await client.SendCommandAsync(Light.HueLight);
-            IsLoading = false;
+            lastCommand = DateTime.Now;
+            await Task.Delay(1000);
+            if (DateTime.Now - lastCommand >= new TimeSpan(0, 0, 1))
+            {
+                IsLoading = true;
+                var client = new HueClient(Light.HueUser);
+                await client.SendCommandAsync(Light.HueLight);
+                IsLoading = false;
+            }
         }
     }
 }
