@@ -47,7 +47,7 @@
                     <RowDefinition Height="AUTO"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Margin="10" FontSize="{StaticResource TextStyleExtraLargeFontSize}">Home status</TextBlock>
+                <TextBlock Margin="10,0,10,10" FontSize="{StaticResource TextStyleExtraLargeFontSize}">Home status</TextBlock>
                 <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
                 <Grid Grid.Row="1" Margin="0,2,0,0">
                     <Grid.ColumnDefinitions>

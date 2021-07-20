@@ -52,13 +52,14 @@ namespace KurosukeInfoBoard.Utils
         {
             var command = new LightCommand();
 
-            command.On = light.State.On;
-            command.Brightness = light.State.Brightness;
 
             if (color != null)
             {
                 command.SetColor((RGBColor)color);
             }
+
+            command.On = light.State.On;
+            command.Brightness = light.State.Brightness;
 
             await client.SendCommandAsync(command, new List<string>() { light.Id });
             return await client.GetLightAsync(light.Id);

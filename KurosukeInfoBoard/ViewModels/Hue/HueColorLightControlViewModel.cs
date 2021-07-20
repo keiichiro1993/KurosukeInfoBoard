@@ -61,9 +61,9 @@ namespace KurosukeInfoBoard.ViewModels.Hue
                 IsLoading = true;
                 var client = new HueClient(Light.HueUser);
                 Light.HueLight = await client.SendCommandAsync(Light.HueLight, color);
+                IsLoading = false;
                 RaisePropertyChanged("Light");
                 RaisePropertyChanged("ColorBrush");
-                IsLoading = false;
             }
         }
 
