@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+    d:DesignWidth="400" d:DesignHeight="300">
 
     <Grid>
         <Grid.Resources>
@@ -50,7 +51,27 @@
                     <TextBlock Grid.Column="1" Foreground="White" Margin="10,0" VerticalAlignment="Center">Sign in with Nature Remo</TextBlock>
                 </Grid>
             </Button>
-            <Button Grid.Row="3" IsEnabled="{x:Bind viewModel.IsButtonAvailable, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Background="#2F2F2F" Padding="0" Margin="0,1,0,0" Click="PhillipsHue_Click">
+            <Border Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1,2,2,1" CornerRadius="3">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="Red" Offset="0.0" />
+                        <GradientStop Color="Orange" Offset="0.25" />
+                        <GradientStop Color="LemonChiffon" Offset="0.40" />
+                        <GradientStop Color="LimeGreen" Offset="0.55" />
+                        <GradientStop Color="LightSkyBlue" Offset="0.75" />
+                        <GradientStop Color="DarkBlue" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Button Grid.Row="3" IsEnabled="{x:Bind viewModel.IsButtonAvailable, Mode=OneWay}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Padding="0" Margin="0,1,0,0" Click="PhillipsHue_Click">
+                <Button.Background>
+                    <AcrylicBrush
+                        BackgroundSource="Backdrop"
+                        TintColor="#2F2F2F"
+                        TintOpacity="0.1"
+                        TintLuminosityOpacity="0.7"
+                        FallbackColor="#2F2F2F"/>
+                </Button.Background>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50"/>
