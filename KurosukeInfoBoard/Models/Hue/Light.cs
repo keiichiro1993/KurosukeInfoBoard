@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.Models.Hue
 {
@@ -23,6 +24,13 @@ namespace KurosukeInfoBoard.Models.Hue
 
         public string ApplianceType { get { return HueLight.Type; } }
 
-        public string IconImage { get { return "ms-appx:///Assets/Icons/IRControls/Light_new.svg"; } }
+        public string IconImage
+        {
+            get
+            {
+                var path = Application.Current.RequestedTheme == ApplicationTheme.Light ? "ms-appx:///Assets/Icons/IRControls_black/" : "ms-appx:///Assets/Icons/IRControls_white/";
+                return path + "Light_new.svg";
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace KurosukeInfoBoard.Models.NatureRemo
 {
@@ -29,10 +30,11 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         {
             get
             {
-                if (image == "ico_light") { return "ms-appx:///Assets/Icons/IRControls/Light_new.svg"; }
-                else if (tv != null) { return "ms-appx:///Assets/Icons/IRControls/TV.svg"; }
-                else if (aircon != null) { return "ms-appx:///Assets/Icons/IRControls/AC.svg"; }
-                else { return "ms-appx:///Assets/Icons/IRControls/Lightning.svg"; }
+                var path = Application.Current.RequestedTheme == ApplicationTheme.Light ? "ms-appx:///Assets/Icons/IRControls_black/" : "ms-appx:///Assets/Icons/IRControls_white/";
+                if (image == "ico_light") { return path + "Light_new.svg"; }
+                else if (tv != null) { return path + "TV.svg"; }
+                else if (aircon != null) { return path + "AC.svg"; }
+                else { return path + "Lightning.svg"; }
             }
         }
     }

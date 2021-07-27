@@ -22,11 +22,11 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>arm64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
     <PackageCertificateThumbprint>EF434A7DBD59EC4BC89DFB9AA95CBF534F1A1FBA</PackageCertificateThumbprint>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <AppxSymbolPackageEnabled>True</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -274,11 +274,16 @@
     <Content Include="Assets\Icons\google_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Icons\IRControls\AC.svg" />
-    <Content Include="Assets\Icons\IRControls\Light.svg" />
-    <Content Include="Assets\Icons\IRControls\Lightning.svg" />
-    <Content Include="Assets\Icons\IRControls\Light_new.svg" />
-    <Content Include="Assets\Icons\IRControls\TV.svg" />
+    <Content Include="Assets\Icons\IRControls_black\AC.svg" />
+    <Content Include="Assets\Icons\IRControls_black\Light.svg" />
+    <Content Include="Assets\Icons\IRControls_black\Lightning.svg" />
+    <Content Include="Assets\Icons\IRControls_black\Light_new.svg" />
+    <Content Include="Assets\Icons\IRControls_black\TV.svg" />
+    <Content Include="Assets\Icons\IRControls_white\AC.svg" />
+    <Content Include="Assets\Icons\IRControls_white\Light.svg" />
+    <Content Include="Assets\Icons\IRControls_white\Lightning.svg" />
+    <Content Include="Assets\Icons\IRControls_white\Light_new.svg" />
+    <Content Include="Assets\Icons\IRControls_white\TV.svg" />
     <Content Include="Assets\Icons\microsoft_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
