@@ -1,22 +1,15 @@
 ﻿using KurosukeInfoBoard.Utils;
-using KurosukeInfoBoard.Views;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Windows.ApplicationModel.Resources;
 
 namespace KurosukeInfoBoard
 {
@@ -33,6 +26,9 @@ namespace KurosukeInfoBoard
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            var resource = ResourceLoader.GetForViewIndependentUse("Keys");
+            AppCenter.Start(resource.GetString("AppCenterKey"), typeof(Analytics), typeof(Crashes));
         }
 
         /// <summary>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Crashes;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace DebugHelper
@@ -11,20 +14,29 @@ namespace DebugHelper
             Debug.WriteLine(Header + message); //TODO: create log file? or sending it to App Insights?
         }
 
-        public static void WriteErrorLog(string message, Exception ex)
+        public static async void WriteErrorLog(string message, Exception ex)
         {
             WriteDebugLog(Header + "Caught an exception " + ex.HResult + ". Message: " + message);
-            writeError(ex);
+            printError(ex);
+
+            if (await AppCenter.IsEnabledAsync())
+            {
+                var properties = new Dictionary<string, string>
+                {
+                    { "CustomMessage", message }
+                };
+                Crashes.TrackError(ex, properties);
+            }
         }
 
-        private static void writeError(Exception ex)
+        private static void printError(Exception ex)
         {
             WriteDebugLog(ex.Message);
             WriteDebugLog(ex.StackTrace);
             if (ex.InnerException != null)
             {
                 WriteDebugLog("==== in ====");
-                writeError(ex.InnerException);
+                printError(ex.InnerException);
             }
         }
     }
