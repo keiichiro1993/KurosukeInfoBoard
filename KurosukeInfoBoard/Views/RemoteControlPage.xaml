@@ -8,7 +8,9 @@
     xmlns:remocontrols="using:KurosukeInfoBoard.Controls.Remo"
     xmlns:remomodels="using:KurosukeInfoBoard.Models.NatureRemo"
     xmlns:commonmodels="using:KurosukeInfoBoard.Models.Common"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:media="using:Microsoft.UI.Xaml.Media"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" 
+    xmlns:media="using:Microsoft.UI.Xaml.Media"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -20,50 +22,52 @@
     </Page.Resources>
     <Grid>
         <Grid>
-            <GridView Margin="5" ItemsSource="{Binding Source={StaticResource DevicesSource}}" SelectionMode="None">
-                <GridView.ItemTemplate>
-                    <DataTemplate x:DataType="commonmodels:IAppliance">
-                        <remocontrols:NatureRemoApplianceControl Appliance="{x:Bind}"/>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-                <GridView.GroupStyle>
-                    <GroupStyle>
-                        <GroupStyle.HeaderTemplate>
-                            <DataTemplate x:DataType="commonmodels:IDevice">
-                                <Grid CornerRadius="3" Margin="0" Padding="10"  Background="{StaticResource AccentAcrylicBrush}">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="AUTO" />
-                                        <RowDefinition Height="AUTO" />
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Grid.Row="0" Orientation="Vertical">
-                                        <TextBlock Text="{x:Bind DeviceName}" Foreground="White" />
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="{x:Bind HeaderTemperatureVisibility}">
-                                            <TextBlock Text="{x:Bind RoomTemperature}" Foreground="White" FontSize="50" />
-                                            <TextBlock Text="{x:Bind RoomTemperatureUnit}" VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White" />
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <Grid Grid.Row="1" Visibility="{x:Bind HeaderControlVisibility}">
+            <muxc:RefreshContainer RefreshRequested="{x:Bind viewModel.RefreshRequested}">
+                <GridView Margin="5" ItemsSource="{Binding Source={StaticResource DevicesSource}}" SelectionMode="None">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="commonmodels:IAppliance">
+                            <remocontrols:NatureRemoApplianceControl Appliance="{x:Bind}"/>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate x:DataType="commonmodels:IDevice">
+                                    <Grid CornerRadius="3" Margin="0" Padding="10"  Background="{StaticResource AccentAcrylicBrush}">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="AUTO" />
                                             <RowDefinition Height="AUTO" />
                                         </Grid.RowDefinitions>
-                                        <ToggleSwitch Grid.Row="0" IsOn="{x:Bind HueIsOn, Mode=TwoWay}" />
-                                        <Slider Grid.Row="1" Value="{x:Bind HueBrightness, Mode=TwoWay}" Maximum="254" Minimum="0" />
+                                        <StackPanel Grid.Row="0" Orientation="Vertical">
+                                            <TextBlock Text="{x:Bind DeviceName}" Foreground="White" />
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="{x:Bind HeaderTemperatureVisibility}">
+                                                <TextBlock Text="{x:Bind RoomTemperature}" Foreground="White" FontSize="50" />
+                                                <TextBlock Text="{x:Bind RoomTemperatureUnit}" VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Grid Grid.Row="1" Visibility="{x:Bind HeaderControlVisibility}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="AUTO" />
+                                                <RowDefinition Height="AUTO" />
+                                            </Grid.RowDefinitions>
+                                            <ToggleSwitch Grid.Row="0" IsOn="{x:Bind HueIsOn, Mode=TwoWay}" />
+                                            <Slider Grid.Row="1" Value="{x:Bind HueBrightness, Mode=TwoWay}" Maximum="254" Minimum="0" />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </DataTemplate>
-                        </GroupStyle.HeaderTemplate>
-                        <GroupStyle.HeaderContainerStyle>
-                            <Style TargetType="GridViewHeaderItem">
-                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="Margin" Value="0,0,0,2"/>
-                                <Setter Property="Padding" Value="0,10,0,-6"/>
-                            </Style>
-                        </GroupStyle.HeaderContainerStyle>
-                    </GroupStyle>
-                </GridView.GroupStyle>
-            </GridView>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.HeaderContainerStyle>
+                                <Style TargetType="GridViewHeaderItem">
+                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="Margin" Value="0,0,0,2"/>
+                                    <Setter Property="Padding" Value="0,10,0,-6"/>
+                                </Style>
+                            </GroupStyle.HeaderContainerStyle>
+                        </GroupStyle>
+                    </GridView.GroupStyle>
+                </GridView>
+            </muxc:RefreshContainer>
         </Grid>
         <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
             <controls:Loading.Background>

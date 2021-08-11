@@ -10,18 +10,29 @@ using DebugHelper;
 using KurosukeInfoBoard.Models.Common;
 using System.Collections.ObjectModel;
 using KurosukeInfoBoard.Models.Auth;
+using Microsoft.UI.Xaml.Controls;
 
 namespace KurosukeInfoBoard.ViewModels
 {
     public class RemoteControlPageViewModel : Common.ViewModels.ViewModelBase
     {
-        public ObservableCollection<IDevice> Devices = new ObservableCollection<IDevice>();
+        private ObservableCollection<IDevice> _Devices;
+        public ObservableCollection<IDevice> Devices
+        {
+            get { return _Devices; }
+            set
+            {
+                _Devices = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public async void Init()
         {
-            LoadingMessage = "Acquiring remo info...";
+            LoadingMessage = "Acquiring control info...";
             IsLoading = true;
 
+            Devices = new ObservableCollection<IDevice>();
             var taskList = new List<Task<List<IDevice>>>();
 
             var remoAccounts = from account in AppGlobalVariables.Users
@@ -43,6 +54,14 @@ namespace KurosukeInfoBoard.ViewModels
             }
 
             IsLoading = false;
+        }
+
+        public void RefreshRequested(RefreshContainer sender, RefreshRequestedEventArgs args)
+        {
+            using (var RefreshCompletionDeferral = args.GetDeferral())
+            {
+                Init();
+            }
         }
 
         private async Task<List<IDevice>> GetRemoInfo(IEnumerable<Models.Auth.UserBase> accounts)
