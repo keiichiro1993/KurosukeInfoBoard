@@ -9,6 +9,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -71,35 +72,53 @@ namespace YoutubePlayer.Controls
         {
             var client = new KYoutubeClient();
 
-            viewModel.PlaylistName = (await client.Playlists.GetAsync(playlistId)).Title;
-
-            while (true)
+            try
             {
-                await foreach (var batch in client.Playlists.GetVideoBatchesAsync(playlistId))
-                {
-                    foreach (var video in batch.Items)
-                    {
-                        viewModel.Title = video.Title;
-                        viewModel.ChannelName = video.Author.Title;
-                        await PlayVideo(video.Id);
+                viewModel.PlaylistName = (await client.Playlists.GetAsync(playlistId)).Title;
 
-                        Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
-                        while (!(player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused || player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None))
+                while (true)
+                {
+                    await foreach (var batch in client.Playlists.GetVideoBatchesAsync(playlistId))
+                    {
+                        foreach (var video in batch.Items)
                         {
-                            await Task.Delay(1000);
-                            Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+                            await PlayVideo(video, client);
                         }
-                        Debugger.WriteDebugLog("3. " + player.MediaPlayer.PlaybackSession.PlaybackState);
                     }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Debugger.WriteErrorLog("Error occurred in YouTube Player controlk.", ex);
+                await new MessageDialog("Please make sure you specified the correct playlist ID. After changing playlist ID, please restart this app. Error=" + ex.Message, "Error occurred in YouTube Player").ShowAsync();
+            }
         }
 
-        private async Task PlayVideo(string id)
+        private async Task PlayVideo(YoutubeExplode.Playlists.PlaylistVideo video, KYoutubeClient client, int retry = 2)
         {
-            var client = new KYoutubeClient();
-            viewModel.MediaSource = await client.GetHighestQualityVideoAsMediaSource(id);
+            try
+            {
+                viewModel.Title = video.Title;
+                viewModel.ChannelName = video.Author.Title;
+                viewModel.MediaSource = await client.GetHighestQualityVideoAsMediaSource(video.Id);
+
+                Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+                while (!(player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused || player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None))
+                {
+                    await Task.Delay(1000);
+                    Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+                }
+                Debugger.WriteDebugLog("3. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+            }
+            catch (Exception ex)
+            {
+                Debugger.WriteErrorLog("Error occurred with video id=[" + video.Id + "] title=[" + video.Title + "]. remaining retry=" + retry + ".", ex);
+                if (retry > 0)
+                {
+                    retry--;
+                    await PlayVideo(video, client, retry);
+                }
+            }
         }
     }
 }
