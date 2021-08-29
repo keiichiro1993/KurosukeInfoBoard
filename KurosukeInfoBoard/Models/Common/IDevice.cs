@@ -19,6 +19,7 @@ namespace KurosukeInfoBoard.Models.Common
         Visibility HeaderTemperatureVisibility { get; }
         Visibility HeaderSceneControlVisibility { get; }
         List<Q42.HueApi.Models.Scene> HueScenes { get; set; }
+        Q42.HueApi.Models.Scene SelectedHueScene { get; set; }
 
         byte HueBrightness { get; set; }
         bool HueIsOn { get; set; }

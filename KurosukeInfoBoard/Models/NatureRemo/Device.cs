@@ -45,7 +45,7 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public byte HueBrightness { get; set; }
         public bool HueIsOn { get; set; }
         public List<Scene> HueScenes { get; set; }
-
+        public Scene SelectedHueScene { get; set; }
         #endregion
 
         public string name { get; set; }

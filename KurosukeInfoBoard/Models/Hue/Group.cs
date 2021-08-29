@@ -1,6 +1,7 @@
 ﻿using Common.ViewModels;
 using KurosukeInfoBoard.Models.Common;
 using KurosukeInfoBoard.Utils;
+using Q42.HueApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,8 +51,23 @@ namespace KurosukeInfoBoard.Models.Hue
             get { return HueGroup.Action.On; }
             set
             {
-                HueGroup.Action.On = value;
-                SendGroupCommand();
+                if (HueGroup.Action.On != value)
+                {
+                    HueGroup.Action.On = value;
+                    SendGroupCommand();
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private Scene _SelectedHueScene;
+        public Scene SelectedHueScene
+        {
+            get { return _SelectedHueScene; }
+            set
+            {
+                _SelectedHueScene = value;
+                SendSceneCommand();
             }
         }
 
@@ -81,7 +97,28 @@ namespace KurosukeInfoBoard.Models.Hue
             }
         }
 
-
-
+        private async void SendSceneCommand()
+        {
+            if (SelectedHueScene != null)
+            {
+                IsLoading = true;
+                var appliance = Appliances.FirstOrDefault() as Light;
+                if (appliance != null)
+                {
+                    try
+                    {
+                        var client = new HueClient(appliance.HueUser);
+                        await client.SendCommandAsync(SelectedHueScene);
+                        if (!HueIsOn) { HueIsOn = true; }
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugHelper.Debugger.WriteErrorLog("Error occurred while sending scene command.", ex);
+                        await new MessageDialog("Error occurred while sending scene command: " + ex.Message).ShowAsync();
+                    }
+                }
+                IsLoading = false;
+            }
+        }
     }
 }

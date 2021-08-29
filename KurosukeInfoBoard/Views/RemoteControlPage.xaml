@@ -53,7 +53,7 @@
                                             </Grid.RowDefinitions>
                                             <ToggleSwitch Grid.Row="0" IsOn="{x:Bind HueIsOn, Mode=TwoWay}" />
                                             <Slider Grid.Row="1" Value="{x:Bind HueBrightness, Mode=TwoWay}" Maximum="254" Minimum="0" />
-                                            <ListView Grid.Row="2" Visibility="{x:Bind HeaderSceneControlVisibility}" ItemsSource="{x:Bind HueScenes}" 
+                                            <ListView Grid.Row="2" Visibility="{x:Bind HeaderSceneControlVisibility}" ItemsSource="{x:Bind HueScenes}" SelectionMode="Single" SelectedItem="{x:Bind SelectedHueScene, Mode=TwoWay}"
                                                       ScrollViewer.VerticalScrollBarVisibility="Disabled" 
                                                       ScrollViewer.HorizontalScrollBarVisibility="Auto" 
                                                       ScrollViewer.HorizontalScrollMode="Auto" 
