@@ -18,12 +18,23 @@ namespace KurosukeInfoBoard.Models.Hue
         {
             DeviceName = group.Name + " - " + group.Class;
             HueGroup = group;
-            HueScenes = new List<Q42.HueApi.Models.Scene>();
+            HueScenes = new List<Scene>();
         }
 
-        Q42.HueApi.Models.Groups.Group HueGroup { get; set; }
+        Q42.HueApi.Models.Groups.Group _HueGroup;
 
-        public List<Q42.HueApi.Models.Scene> HueScenes { get; set; }
+        Q42.HueApi.Models.Groups.Group HueGroup
+        {
+            get { return _HueGroup; }
+            set
+            {
+                _HueGroup = value;
+                RaisePropertyChanged("HueIsOn");
+                RaisePropertyChanged("HueBrightness");
+            }
+        }
+
+        public List<Scene> HueScenes { get; set; }
 
         public string DeviceName { get; set; }
 
@@ -42,8 +53,12 @@ namespace KurosukeInfoBoard.Models.Hue
             get { return HueGroup.Action.Brightness; }
             set
             {
-                HueGroup.Action.Brightness = value;
-                SendGroupCommand();
+                if (HueGroup.Action.Brightness != value)
+                {
+                    HueGroup.Action.Brightness = value;
+                    SendGroupCommand();
+                    RaisePropertyChanged();
+                }
             }
         }
 
@@ -110,7 +125,7 @@ namespace KurosukeInfoBoard.Models.Hue
                     {
                         var client = new HueClient(appliance.HueUser);
                         await client.SendCommandAsync(SelectedHueScene);
-                        if (!HueIsOn) { HueIsOn = true; }
+                        HueGroup = await client.GetHueGroupByIdAsync(HueGroup.Id);
                     }
                     catch (Exception ex)
                     {

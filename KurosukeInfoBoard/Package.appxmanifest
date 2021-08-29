@@ -9,7 +9,7 @@
   <Identity
     Name="57769kurosuke.KurosukeHomeDashboard"
     Publisher="CN=B6F43A7B-5C32-4F65-BF08-F80010939C90"
-    Version="1.1.2.0" />
+    Version="1.2.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="1ee8a46c-7992-4039-9ef0-06c680edc50d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

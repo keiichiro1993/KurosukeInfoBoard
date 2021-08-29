@@ -59,6 +59,11 @@ namespace KurosukeInfoBoard.Utils
             return hueDevices;
         }
 
+        public async Task<Q42.HueApi.Models.Groups.Group> GetHueGroupByIdAsync(string id)
+        {
+            return await client.GetGroupAsync(id);
+        }
+
         public async Task<Light> SendCommandAsync(Light light, RGBColor? color = null)
         {
             var command = new LightCommand();
