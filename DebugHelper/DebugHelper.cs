@@ -19,6 +19,7 @@ namespace DebugHelper
             WriteDebugLog(Header + "Caught an exception " + ex.HResult + ". Message: " + message);
             printError(ex);
 
+#if !DEBUG
             if (await AppCenter.IsEnabledAsync())
             {
                 var properties = new Dictionary<string, string>
@@ -27,6 +28,7 @@ namespace DebugHelper
                 };
                 Crashes.TrackError(ex, properties);
             }
+#endif
         }
 
         private static void printError(Exception ex)
