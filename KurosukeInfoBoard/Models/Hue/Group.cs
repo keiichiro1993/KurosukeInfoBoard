@@ -46,6 +46,7 @@ namespace KurosukeInfoBoard.Models.Hue
                 SendGroupCommand();
             }
         }
+
         public bool HueIsOn
         {
             get { return HueGroup.Action.On; }

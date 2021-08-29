@@ -509,7 +509,7 @@
       <Version>7.0.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.6.1</Version>
+      <Version>2.6.2</Version>
     </PackageReference>
     <PackageReference Include="Q42.HueApi">
       <Version>3.18.1</Version>
