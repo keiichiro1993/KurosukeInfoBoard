@@ -19,7 +19,7 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm|arm64</AppxBundlePlatforms>
@@ -222,7 +222,7 @@
     <Compile Include="ViewModels\Remo\NatureRemoAirConControlViewModel.cs" />
     <Compile Include="ViewModels\Remo\NatureRemoIRControlViewModel.cs" />
     <Compile Include="ViewModels\Remo\NatureRemoTVControlViewModel.cs" />
-    <Compile Include="ViewModels\Remo\RemoteControlPageViewModel.cs" />
+    <Compile Include="ViewModels\RemoteControlPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogHueViewModel.cs" />

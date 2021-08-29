@@ -32,6 +32,8 @@ namespace KurosukeInfoBoard.Utils
                          where item.Type == Q42.HueApi.Models.Groups.GroupType.Room
                          select item).ToList();
 
+            var scenes = await client.GetScenesAsync();
+
             foreach (var room in rooms)
             {
                 var hueDevice = new Models.Hue.Group(room);
@@ -40,8 +42,17 @@ namespace KurosukeInfoBoard.Utils
                 {
                     lights.Add(new Models.Hue.Light(await client.GetLightAsync(lightId), user));
                 }
-
                 hueDevice.Appliances = lights;
+
+                if (scenes != null)
+                {
+                    hueDevice.HueScenes.AddRange(from scene in scenes
+                                                 where scene.Type != null
+                                                    && scene.Type == Q42.HueApi.Models.SceneType.GroupScene
+                                                    && scene.Group == room.Id
+                                                 select scene);
+                }
+
                 hueDevices.Add(hueDevice);
             }
 
@@ -73,6 +84,11 @@ namespace KurosukeInfoBoard.Utils
             command.Brightness = group.Action.Brightness;
 
             await client.SendGroupCommandAsync(command, group.Id);
+        }
+
+        public async Task SendCommandAsync(Q42.HueApi.Models.Scene scene)
+        {
+            await client.RecallSceneAsync(scene.Id, scene.Group);
         }
     }
 }

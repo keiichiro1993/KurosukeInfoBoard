@@ -1,4 +1,5 @@
 ﻿using KurosukeInfoBoard.Models.Common;
+using Q42.HueApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,11 +38,13 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public string RoomTemperature { get { return newest_events.te.val.ToString(); } }
         public string RoomTemperatureUnit { get { return string.IsNullOrEmpty(RoomTemperature) ? "" : "℃"; } }
         public List<IAppliance> Appliances { get; set; }
-        public Visibility HeaderControlVisibility { get; set; } = Visibility.Collapsed;
-        public Visibility HeaderTemperatureVisibility { get; set; } = Visibility.Visible;
+        public Visibility HeaderControlVisibility { get; } = Visibility.Collapsed;
+        public Visibility HeaderTemperatureVisibility { get; } = Visibility.Visible;
+        public Visibility HeaderSceneControlVisibility { get; } = Visibility.Collapsed;
 
         public byte HueBrightness { get; set; }
         public bool HueIsOn { get; set; }
+        public List<Scene> HueScenes { get; set; }
 
         #endregion
 
@@ -56,6 +59,5 @@ namespace KurosukeInfoBoard.Models.NatureRemo
         public int humidity_offset { get; set; }
         public List<User> users { get; set; }
         public NewestEvents newest_events { get; set; }
-
     }
 }

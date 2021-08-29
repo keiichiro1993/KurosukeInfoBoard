@@ -13,10 +13,15 @@ namespace KurosukeInfoBoard.Models.Common
         string RoomTemperature { get; }
         string RoomTemperatureUnit { get; }
         List<IAppliance> Appliances { get; set; }
-        Visibility HeaderControlVisibility { get; set; }
-        Visibility HeaderTemperatureVisibility { get; set; }
+
+        #region Hue
+        Visibility HeaderControlVisibility { get; }
+        Visibility HeaderTemperatureVisibility { get; }
+        Visibility HeaderSceneControlVisibility { get; }
+        List<Q42.HueApi.Models.Scene> HueScenes { get; set; }
 
         byte HueBrightness { get; set; }
         bool HueIsOn { get; set; }
+        #endregion
     }
 }
