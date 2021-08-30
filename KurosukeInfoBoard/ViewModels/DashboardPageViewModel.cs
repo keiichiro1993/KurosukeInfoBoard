@@ -58,12 +58,15 @@ namespace KurosukeInfoBoard.ViewModels
         {
             IsLoading = true;
 
-            if (AppGlobalVariables.Users.Count > 0)
-            {
-                try
-                {
-                    SelectedMonth = datetime;
 
+            try
+            {
+                SelectedMonth = datetime;
+
+                var eventList = new List<Models.Common.EventBase>();
+                var deviceList = new List<Device>();
+                if (AppGlobalVariables.Users.Count > 0)
+                {
                     var calendarTasks = new List<Task<List<Models.Common.EventBase>>>();
                     var remoTasks = new List<Task<List<Device>>>();
 
@@ -71,7 +74,6 @@ namespace KurosukeInfoBoard.ViewModels
 
                     foreach (var user in AppGlobalVariables.Users)
                     {
-
                         if (user.UserType == Models.Auth.UserType.Google)
                         {
                             calendarTasks.Add(GetGoogleEvents(datetime, user));
@@ -85,26 +87,24 @@ namespace KurosukeInfoBoard.ViewModels
                         {
                             remoTasks.Add(GetRemoDevices(user));
                         }
-
                     }
 
-                    var eventList = new List<Models.Common.EventBase>();
                     var eventLists = await Task.WhenAll(calendarTasks);
                     foreach (var events in eventLists) { eventList.AddRange(events); }
 
-                    var deviceList = new List<Device>();
                     var deviceLists = await Task.WhenAll(remoTasks);
                     foreach (var devices in deviceLists) { deviceList.AddRange(devices); }
+                }
 
-                    CalendarMonth = new CalendarMonth(datetime, eventList);
-                    Devices = deviceList;
-                }
-                catch (Exception ex)
-                {
-                    Debugger.WriteErrorLog("Error occured while " + LoadingMessage + ".", ex);
-                    await new MessageDialog(ex.Message, "Error occured while " + LoadingMessage).ShowAsync();
-                }
+                CalendarMonth = new CalendarMonth(datetime, eventList);
+                Devices = deviceList;
             }
+            catch (Exception ex)
+            {
+                Debugger.WriteErrorLog("Error occured while " + LoadingMessage + ".", ex);
+                await new MessageDialog(ex.Message, "Error occured while " + LoadingMessage).ShowAsync();
+            }
+
             IsLoading = false;
         }
 
