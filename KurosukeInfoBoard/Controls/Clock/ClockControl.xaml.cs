@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,6 +21,7 @@ namespace KurosukeInfoBoard.Controls.Clock
         private bool loaded = true;
         private async void ClockControl_Loaded(object sender, RoutedEventArgs e)
         {
+            loaded = true;
             while (loaded)
             {
                 DateTextBlock.Text = DateTime.Now.ToString("yyyy/MM/dd ddd");
@@ -32,8 +34,6 @@ namespace KurosukeInfoBoard.Controls.Clock
         private void ClockControl_Unloaded(object sender, RoutedEventArgs e)
         {
             loaded = false;
-            this.Loaded -= ClockControl_Loaded;
-            this.Unloaded -= ClockControl_Unloaded;
         }
     }
 }
