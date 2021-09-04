@@ -36,10 +36,11 @@ namespace YoutubePlayer.Controls
             this.Unloaded += YoutubePlayerControl_Unloaded;
         }
 
+        private bool isInitialized = false;
+        private bool loaded = true;
         private void YoutubePlayerControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.Loaded -= YoutubePlayerControl_Loaded;
-            this.Unloaded -= YoutubePlayerControl_Unloaded;
+            loaded = false;
         }
 
         //TODO: live change
@@ -64,8 +65,12 @@ namespace YoutubePlayer.Controls
         {
             //var playlistId = "PLdhB2hC90YEuobrLs15TS2LX__iQnFdc9";
             //var playlistId = "PLYV8__7x__vtPKE-iNz3Xt7HATRSWKv3C";
-
-            InitPlayer(YouTubePlaylistId);
+            loaded = true;
+            if (!isInitialized)
+            {
+                isInitialized = true;
+                InitPlayer(YouTubePlaylistId);
+            }
         }
 
         private async void InitPlayer(string playlistId)
@@ -91,6 +96,7 @@ namespace YoutubePlayer.Controls
             {
                 Debugger.WriteErrorLog("Error occurred in YouTube Player controlk.", ex);
                 await new MessageDialog("Please make sure you specified the correct playlist ID. After changing playlist ID, please restart this app. Error=" + ex.Message, "Error occurred in YouTube Player").ShowAsync();
+                isInitialized = false;
             }
         }
 
@@ -105,8 +111,21 @@ namespace YoutubePlayer.Controls
                 Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
                 while (!(player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused || player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None))
                 {
-                    await Task.Delay(1000);
-                    Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+                    if (loaded)
+                    {
+                        await Task.Delay(1000);
+                        Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+                    }
+                    else
+                    {
+                        while (!loaded)
+                        {
+                            player.MediaPlayer.Pause();
+                            await Task.Delay(200);
+                        }
+                        player.MediaPlayer.Play();
+                        await Task.Delay(200);
+                    }
                 }
                 Debugger.WriteDebugLog("3. " + player.MediaPlayer.PlaybackSession.PlaybackState);
             }
