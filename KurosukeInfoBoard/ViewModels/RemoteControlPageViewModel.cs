@@ -27,7 +27,14 @@ namespace KurosukeInfoBoard.ViewModels
             }
         }
 
+        private bool isInLoop = false;
         public async void Init()
+        {
+            await Refresh();
+            RefreshLoop();
+        }
+
+        private async Task Refresh()
         {
             LoadingMessage = "Acquiring control info...";
             IsLoading = true;
@@ -56,13 +63,32 @@ namespace KurosukeInfoBoard.ViewModels
             IsLoading = false;
         }
 
-        public void RefreshRequested(RefreshContainer sender, RefreshRequestedEventArgs args)
+        public async void RefreshRequested(RefreshContainer sender, RefreshRequestedEventArgs args)
         {
             using (var RefreshCompletionDeferral = args.GetDeferral())
             {
-                Init();
+                await Refresh();
             }
         }
+
+        public void StopAutoRefresh()
+        {
+            isInLoop = false;
+        }
+
+        private async void RefreshLoop()
+        {
+            if (!isInLoop && SettingsHelper.Settings.AutoRefreshControls.GetValue<bool>())
+            {
+                isInLoop = true;
+                while (isInLoop)
+                {
+                    await Task.Delay(SettingsHelper.Settings.AutoRefreshControlsInterval.GetValue<int>() * 1000 * 60);
+                    Init();
+                }
+            }
+        }
+
 
         private async Task<List<IDevice>> GetRemoInfo(IEnumerable<Models.Auth.UserBase> accounts)
         {
@@ -104,8 +130,16 @@ namespace KurosukeInfoBoard.ViewModels
             var hueDevices = new List<IDevice>();
             foreach (var account in accounts)
             {
-                var client = new HueClient((HueUser)account);
-                hueDevices.AddRange(await client.GetHueDevicesAsync());
+                try
+                {
+                    var client = new HueClient((HueUser)account);
+                    hueDevices.AddRange(await client.GetHueDevicesAsync());
+                }
+                catch (Exception ex)
+                {
+                    Debugger.WriteErrorLog("Error occured while retrieving Hue info.", ex);
+                    await new MessageDialog(ex.Message, "Error occured while retrieving Hue info.").ShowAsync();
+                }
             }
 
             return hueDevices;

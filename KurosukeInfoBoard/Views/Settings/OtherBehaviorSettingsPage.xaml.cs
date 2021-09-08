@@ -1,4 +1,4 @@
-﻿using KurosukeInfoBoard.ViewModels;
+﻿using KurosukeInfoBoard.ViewModels.Settings;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,29 +16,17 @@ using Windows.UI.Xaml.Navigation;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
-namespace KurosukeInfoBoard.Views
+namespace KurosukeInfoBoard.Views.Settings
 {
     /// <summary>
     /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class RemoteControlPage : Page
+    public sealed partial class OtherBehaviorSettingsPage : Page
     {
-        public RemoteControlPageViewModel viewModel { get; set; } = new RemoteControlPageViewModel();
-        public RemoteControlPage()
+        public OtherBehaviorSettingsPageViewModel viewModel = new OtherBehaviorSettingsPageViewModel();
+        public OtherBehaviorSettingsPage()
         {
             this.InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            viewModel.Init();
-        }
-
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            viewModel.StopAutoRefresh();
-            base.OnNavigatingFrom(e);
         }
     }
 }

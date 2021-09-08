@@ -34,6 +34,7 @@ namespace KurosukeInfoBoard.Views.Settings
             ("CalendarSettings", typeof(CalendarSettingsPage)),
             ("WeatherSettings", typeof(WeatherSettingsPage)),
             ("ScreenSaverSettings", typeof(ScreenSaverSettingsPage)),
+            ("OtherBehaviorSettings", typeof(OtherBehaviorSettingsPage)),
             ("About", typeof(AboutPage)),
         };
         private void mainNavigation_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
