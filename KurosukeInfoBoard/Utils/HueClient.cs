@@ -1,5 +1,6 @@
 ﻿using KurosukeInfoBoard.Models.Auth;
 using KurosukeInfoBoard.Models.Common;
+using KurosukeInfoBoard.Models.SQL;
 using Q42.HueApi;
 using Q42.HueApi.ColorConverters;
 using Q42.HueApi.ColorConverters.Original;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Utils
@@ -51,6 +53,45 @@ namespace KurosukeInfoBoard.Utils
                                                     && scene.Type == Q42.HueApi.Models.SceneType.GroupScene
                                                     && scene.Group == room.Id
                                                  select scene);
+
+                    // check if scene matches
+                    using (var context = new HueSelectedSceneContext())
+                    {
+                        await context.Database.EnsureCreatedAsync();
+                        HueSelectedSceneEntity exist = GetExistingSceneEntity(room.Id, context);
+                        if (exist != null)
+                        {
+                            var match = true;
+                            var cachedLights = JsonSerializer.Deserialize<List<Light>>(exist.LightStateJson);
+                            foreach (var cachedLight in cachedLights)
+                            {
+                                var light = (from item in hueDevice.Appliances
+                                             where ((Models.Hue.Light)item).HueLight.Id == cachedLight.Id
+                                             select ((Models.Hue.Light)item).HueLight).FirstOrDefault();
+                                if (light != null)
+                                {
+                                    if (light.State.Equals(cachedLight.State))
+                                    {
+                                        match = false;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (match)
+                            {
+                                hueDevice.SelectedHueScene = (from item in hueDevice.HueScenes
+                                                              where item.Id == exist.SceneId
+                                                              select item).FirstOrDefault();
+                            }
+                            else
+                            {
+                                context.Remove(exist);
+                                await context.SaveChangesAsync();
+                            }
+                        }
+                    }
+
                 }
 
                 hueDevices.Add(hueDevice);
@@ -89,11 +130,67 @@ namespace KurosukeInfoBoard.Utils
             command.Brightness = group.Action.Brightness;
 
             await client.SendGroupCommandAsync(command, group.Id);
+
+            // Clear current scene
+            using (var context = new HueSelectedSceneContext())
+            {
+                HueSelectedSceneEntity exist = GetExistingSceneEntity(group.Id, context);
+                if (exist != null)
+                {
+                    context.Remove(exist);
+                    await context.SaveChangesAsync();
+                }
+            }
         }
 
         public async Task SendCommandAsync(Q42.HueApi.Models.Scene scene)
         {
             await client.RecallSceneAsync(scene.Id, scene.Group);
+
+            // get status after update
+            var lights = new List<Light>();
+            foreach (var light in scene.Lights)
+            {
+                lights.Add(await client.GetLightAsync(light));
+            }
+            var lightStateJson = JsonSerializer.Serialize(lights);
+
+            // Save current scene
+            using (var context = new HueSelectedSceneContext())
+            {
+                HueSelectedSceneEntity exist = GetExistingSceneEntity(scene.Group, context);
+                if (exist != null)
+                {
+                    exist.SceneId = scene.Id;
+                    exist.LightStateJson = lightStateJson;
+                    context.Update(exist);
+                }
+                else
+                {
+                    var entity = new HueSelectedSceneEntity();
+                    entity.HueId = bridge.Config.BridgeId;
+                    entity.RoomId = scene.Group;
+                    entity.SceneId = scene.Id;
+                    entity.LightStateJson = lightStateJson;
+                    await context.HueSelectedScenes.AddAsync(entity);
+                }
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private HueSelectedSceneEntity GetExistingSceneEntity(string groupId, HueSelectedSceneContext context)
+        {
+            var query = from item in context.HueSelectedScenes
+                        where item.HueId == bridge.Config.BridgeId && item.RoomId == groupId
+                        select item;
+
+            if (query.Count() > 1)
+            {
+                context.RemoveRange(query);
+            }
+
+            return query.FirstOrDefault();
         }
     }
 }

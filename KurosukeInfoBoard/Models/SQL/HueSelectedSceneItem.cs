@@ -5,37 +5,31 @@ using Windows.Storage;
 
 namespace KurosukeInfoBoard.Models.SQL
 {
-
-    [Table("CalendarCache")]
-    public class CalendarCacheEntity
+    [Table("HueSelectedScenes")]
+    public class HueSelectedSceneEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
         [Required]
-        public string CalendarId { get; set; }
+        public string HueId { get; set; }
 
         [Required]
-        public string CalendarName { get; set; }
+        public string RoomId { get; set; }
 
         [Required]
-        public bool IsEnabled { get; set; }
+        public string SceneId { get; set; }
 
         [Required]
-        public string AccountType { get; set; }
-
-        [Required]
-        public string UserId { get; set; }
-
-        public string OverrideColor { get; set; }
+        public string LightStateJson { get; set; }
     }
 
-    public class CalendarCacheContext : DbContext
+    public class HueSelectedSceneContext : DbContext
     {
-        private static string DBFileName = "calendarcache.db";
+        private static string DBFileName = "hueselectedscene.db";
 
-        public DbSet<CalendarCacheEntity> CalendarCache { get; internal set; }
+        public DbSet<HueSelectedSceneEntity> HueSelectedScenes { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
