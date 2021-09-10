@@ -56,6 +56,7 @@ namespace KurosukeInfoBoard.Models.Hue
                 if (HueGroup.Action.Brightness != value)
                 {
                     HueGroup.Action.Brightness = value;
+                    SelectedHueScene = null;
                     SendGroupCommand();
                     RaisePropertyChanged();
                 }
