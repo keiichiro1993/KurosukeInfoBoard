@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
+using Windows.Media.Playback;
 
 namespace YoutubePlayer.ViewModels
 {
@@ -38,17 +39,6 @@ namespace YoutubePlayer.ViewModels
             set
             {
                 _ChannelName = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private MediaSource _MediaSource;
-        public MediaSource MediaSource
-        {
-            get { return _MediaSource; }
-            set
-            {
-                _MediaSource = value;
                 RaisePropertyChanged();
             }
         }
