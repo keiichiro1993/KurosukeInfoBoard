@@ -1,4 +1,5 @@
 ﻿using DebugHelper;
+using FFmpegInterop;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -106,28 +107,47 @@ namespace YoutubePlayer.Controls
             {
                 viewModel.Title = video.Title;
                 viewModel.ChannelName = video.Author.Title;
-                viewModel.MediaSource = await client.GetHighestQualityVideoAsMediaSource(video.Id);
 
-                Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
-                while (!(player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused || player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.None))
+                using (var stream = await client.GetHighestQualityVideoAsStream(video.Id))
                 {
-                    if (loaded)
+                    // FFmpeg
+                    var config = new FFmpegInteropConfig();
+                    config.VideoDecoderMode = FFmpegInterop.VideoDecoderMode.Automatic;
+                    config.DefaultBufferTime = new TimeSpan(0, 0, 10);
+                    var ffmpegStream = await FFmpegInteropMSS.CreateFromStreamAsync(stream.AsRandomAccessStream(), config);
+
+                    // Media Player
+                    using (var mediaPlayer = new MediaPlayer())
                     {
-                        await Task.Delay(1000);
-                        Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState);
-                    }
-                    else
-                    {
-                        while (!loaded)
-                        {
-                            player.MediaPlayer.Pause();
-                            await Task.Delay(200);
-                        }
+                        mediaPlayer.Source = ffmpegStream.CreateMediaPlaybackItem();
+                        player.SetMediaPlayer(mediaPlayer);
                         player.MediaPlayer.Play();
-                        await Task.Delay(200);
+                        Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+                        while (player.MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.None)
+                        {
+                            if (loaded)
+                            {
+                                await Task.Delay(1000);
+                                Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState + " Position:" + player.MediaPlayer.PlaybackSession.Position);
+                                if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
+                                {
+                                    player.MediaPlayer.Play();
+                                }
+                            }
+                            else
+                            {
+                                while (!loaded)
+                                {
+                                    player.MediaPlayer.Pause();
+                                    await Task.Delay(200);
+                                }
+                                player.MediaPlayer.Play();
+                                await Task.Delay(200);
+                            }
+                        }
+                        Debugger.WriteDebugLog("3. " + player.MediaPlayer.PlaybackSession.PlaybackState);
                     }
                 }
-                Debugger.WriteDebugLog("3. " + player.MediaPlayer.PlaybackSession.PlaybackState);
             }
             catch (Exception ex)
             {
