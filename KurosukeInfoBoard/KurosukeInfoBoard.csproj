@@ -189,6 +189,7 @@
     <Compile Include="Models\Auth\TokenBase.cs" />
     <Compile Include="Models\Auth\UserBase.cs" />
     <Compile Include="Models\Google\Calendar.cs" />
+    <Compile Include="Models\Hue\Extensions\StateExtensions.cs" />
     <Compile Include="Models\Hue\Group.cs" />
     <Compile Include="Models\Hue\Light.cs" />
     <Compile Include="Models\Microsoft\Calendar.cs" />
@@ -496,6 +497,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FFmpegInteropX">
+      <Version>0.9.2</Version>
+    </PackageReference>
+    <PackageReference Include="FFmpegInteropX.FFmpegUWP">
+      <Version>4.3.100</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>4.3.0</Version>
     </PackageReference>

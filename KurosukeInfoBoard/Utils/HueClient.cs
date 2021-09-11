@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using KurosukeInfoBoard.Models.Hue.Extensions;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -70,7 +71,7 @@ namespace KurosukeInfoBoard.Utils
                                              select ((Models.Hue.Light)item).HueLight).FirstOrDefault();
                                 if (light != null)
                                 {
-                                    if (light.State.Equals(cachedLight.State))
+                                    if (!light.State.CheckEquals(cachedLight.State))
                                     {
                                         match = false;
                                         break;

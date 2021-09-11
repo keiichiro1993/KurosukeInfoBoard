@@ -62,21 +62,38 @@ namespace KurosukeInfoBoard
         {
             base.OnNavigatedTo(e);
 
-            try
+            if (AppGlobalVariables.Users == null)
             {
-                var users = await AccountManager.GetAuthorizedUserList();
-                AppGlobalVariables.Users = new ObservableCollection<UserBase>(users);
-            }
-            catch (Exception ex)
-            {
-                Debugger.WriteErrorLog("Error occured while getting user info on MainPage.", ex);
-                var message = new MessageDialog(ex.Message, "Error occured while getting user info");
-                await message.ShowAsync();
-                AppGlobalVariables.Users = new ObservableCollection<UserBase>();
+                try
+                {
+                    var users = await AccountManager.GetAuthorizedUserList();
+                    AppGlobalVariables.Users = new ObservableCollection<UserBase>(users);
+                }
+                catch (Exception ex)
+                {
+                    Debugger.WriteErrorLog("Error occured while getting user info on MainPage.", ex);
+                    var message = new MessageDialog(ex.Message, "Error occured while getting user info");
+                    await message.ShowAsync();
+                    AppGlobalVariables.Users = new ObservableCollection<UserBase>();
+                }
             }
 
-            mainNavigation.SelectedItem = mainNavigation.MenuItems[0];
-            contentFrame.Navigate(typeof(DashboardPage));
+            if (mainNavigation.SelectedItem == null)
+            {
+                mainNavigation.SelectedItem = mainNavigation.MenuItems[0];
+                contentFrame.Navigate(typeof(DashboardPage));
+            }
+            else
+            {
+                if (contentFrame.CurrentSourcePageType == typeof(DashboardPage))
+                {
+                    mainNavigation.SelectedItem = mainNavigation.MenuItems[0];
+                }
+                else if (contentFrame.CurrentSourcePageType == typeof(RemoteControlPage))
+                {
+                    mainNavigation.SelectedItem = mainNavigation.MenuItems[1];
+                }
+            }
         }
     }
 }

@@ -148,7 +148,8 @@ namespace KurosukeInfoBoard.ViewModels
 
         public async void PowerButton_Toggled(object sender, RoutedEventArgs e)
         {
-            var currentState = ((ToggleSwitch)sender).IsOn ? "power-on" : "power-off";
+            Appliance.settings.button = Appliance.settings.button.Replace("power-on", "");
+            var currentState = ((ToggleSwitch)sender).IsOn ? "" : "power-off";
             if (currentState != Appliance.settings.button)
             {
                 IsLoading = true;
@@ -157,7 +158,7 @@ namespace KurosukeInfoBoard.ViewModels
                 {
                     ((ToggleSwitch)sender).IsEnabled = false;
                     var client = new NatureRemoClient(Appliance.Token);
-                    var button = Appliance.settings.button == "power-on" ? "power-off" : "power-on";
+                    var button = Appliance.settings.button == "" ? "power-off" : "";
                     var settingsString = await client.PostButton(Appliance.id, "aircon_settings", button);
                     Appliance.settings = JsonSerializer.Deserialize<Models.NatureRemo.Settings>(settingsString);
                     ((ToggleSwitch)sender).IsEnabled = true;
