@@ -39,6 +39,8 @@ namespace KurosukeInfoBoard.ViewModels
             LoadingMessage = "Acquiring control info...";
             IsLoading = true;
 
+            lastUpdate = DateTime.Now;
+
             Devices = new ObservableCollection<IDevice>();
             var taskList = new List<Task<List<IDevice>>>();
 
@@ -76,12 +78,12 @@ namespace KurosukeInfoBoard.ViewModels
             isInLoop = false;
         }
 
+        DateTime lastUpdate = DateTime.Now;
         private async void RefreshLoop()
         {
             if (!isInLoop && SettingsHelper.Settings.AutoRefreshControls.GetValue<bool>())
             {
                 isInLoop = true;
-                var lastUpdate = DateTime.Now;
                 var timeSpan = new TimeSpan(0, SettingsHelper.Settings.AutoRefreshControlsInterval.GetValue<int>(), 0);
                 while (isInLoop)
                 {
