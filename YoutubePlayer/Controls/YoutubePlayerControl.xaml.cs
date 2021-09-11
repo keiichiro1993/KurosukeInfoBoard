@@ -113,7 +113,7 @@ namespace YoutubePlayer.Controls
                     // FFmpeg
                     var config = new FFmpegInteropConfig();
                     config.VideoDecoderMode = FFmpegInterop.VideoDecoderMode.Automatic;
-                    config.DefaultBufferTime = new TimeSpan(0, 0, 10);
+                    config.DefaultBufferTime = TimeSpan.Zero;
                     var ffmpegStream = await FFmpegInteropMSS.CreateFromStreamAsync(stream.AsRandomAccessStream(), config);
 
                     // Media Player
