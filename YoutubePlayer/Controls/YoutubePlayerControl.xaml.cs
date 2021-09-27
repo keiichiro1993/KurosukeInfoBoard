@@ -101,7 +101,7 @@ namespace YoutubePlayer.Controls
             }
         }
 
-        private async Task PlayVideo(YoutubeExplode.Playlists.PlaylistVideo video, KYoutubeClient client, int retry = 2)
+        private async Task PlayVideo(YoutubeExplode.Playlists.PlaylistVideo video, KYoutubeClient client, int retry = 2, TimeSpan? lastPosition = null)
         {
             try
             {
@@ -119,16 +119,28 @@ namespace YoutubePlayer.Controls
                     // Media Player
                     using (var mediaPlayer = new MediaPlayer())
                     {
-                        mediaPlayer.Source = ffmpegStream.CreateMediaPlaybackItem();
-                        player.SetMediaPlayer(mediaPlayer);
-                        player.MediaPlayer.Play();
+                        setStreamAndPlay(ffmpegStream, mediaPlayer, lastPosition);
                         Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+
+                        TimeSpan threashold = new TimeSpan(0, 0, 0, 0, 500); //threashold to detect the video play issue
+
                         while (player.MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.None)
                         {
                             if (loaded)
                             {
                                 await Task.Delay(1000);
-                                Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState + " Position:" + player.MediaPlayer.PlaybackSession.Position);
+
+                                if (lastPosition != null && player.MediaPlayer.PlaybackSession.Position - lastPosition < threashold && player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
+                                {
+                                    Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue. Trying to recover...");
+                                    player.MediaPlayer.Pause();
+                                    setStreamAndPlay(ffmpegStream, mediaPlayer, lastPosition);
+                                    Debugger.WriteDebugLog("[Auto Recovery] The stream has been reset and resumed video playback.");
+                                }
+
+                                lastPosition = player.MediaPlayer.PlaybackSession.Position;
+                                Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState + " Position:" + lastPosition);
+
                                 if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
                                 {
                                     player.MediaPlayer.Play();
@@ -155,9 +167,19 @@ namespace YoutubePlayer.Controls
                 if (retry > 0)
                 {
                     retry--;
-                    await PlayVideo(video, client, retry);
+                    await PlayVideo(video, client, retry, lastPosition);
                 }
             }
+        }
+
+        private void setStreamAndPlay(FFmpegInteropMSS ffmpegStream, MediaPlayer mediaPlayer, TimeSpan? position = null)
+        {
+            mediaPlayer.Source = ffmpegStream.CreateMediaPlaybackItem();
+            player.SetMediaPlayer(mediaPlayer);
+
+            if (position != null) { player.MediaPlayer.PlaybackSession.Position = (TimeSpan)position; }
+
+            player.MediaPlayer.Play();
         }
     }
 }
