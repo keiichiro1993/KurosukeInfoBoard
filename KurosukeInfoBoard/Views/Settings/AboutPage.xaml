@@ -17,7 +17,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <TextBlock Margin="10" FontSize="{StaticResource TextStyleExtraLargeFontSize}">About Kurosuke Home Dashboard</TextBlock>
+                <TextBlock Margin="10" FontSize="{StaticResource TextStyleLargeFontSize}">About Kurosuke Home Dashboard</TextBlock>
                 <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
             </Grid>
             <Grid Grid.Row="1">
@@ -55,11 +55,12 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                <TextBlock Margin="10,20,10,10" FontSize="{StaticResource TextStyleExtraLargeFontSize}">License</TextBlock>
+                <TextBlock Margin="10,20,10,10" FontSize="{StaticResource TextStyleLargeFontSize}">License</TextBlock>
                 <Border BorderBrush="Gray" BorderThickness="0,0,0,2"/>
             </Grid>
-            <controls:MarkdownTextBlock Grid.Row="3" Text="{x:Bind viewModel.LicenseMD, Mode=OneWay}">
-            </controls:MarkdownTextBlock>
+            <ScrollViewer Grid.Row="3">
+                <controls:MarkdownTextBlock Text="{x:Bind viewModel.LicenseMD, Mode=OneWay}" />
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>
