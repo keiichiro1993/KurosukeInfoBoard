@@ -87,7 +87,7 @@ namespace KurosukeInfoBoard.ViewModels
                 var timeSpan = new TimeSpan(0, SettingsHelper.Settings.AutoRefreshControlsInterval.GetValue<int>(), 0);
                 while (isInLoop)
                 {
-                    await Task.Delay(1000);
+                    await Task.Delay(250);
                     if (DateTime.Now - lastUpdate > timeSpan)
                     {
                         await Refresh();
