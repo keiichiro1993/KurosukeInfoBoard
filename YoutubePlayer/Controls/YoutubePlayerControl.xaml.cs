@@ -132,10 +132,8 @@ namespace YoutubePlayer.Controls
 
                                 if (lastPosition != null && player.MediaPlayer.PlaybackSession.Position - lastPosition < threashold && player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
                                 {
-                                    Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue. Trying to recover...");
-                                    player.MediaPlayer.Pause();
-                                    setStreamAndPlay(ffmpegStream, mediaPlayer, lastPosition);
-                                    Debugger.WriteDebugLog("[Auto Recovery] The stream has been reset and resumed video playback.");
+                                    Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue with Playing state. Trying to recover...");
+                                    throw new InvalidOperationException("Detected a video playback issue with Playing state");
                                 }
 
                                 lastPosition = player.MediaPlayer.PlaybackSession.Position;
@@ -144,6 +142,13 @@ namespace YoutubePlayer.Controls
                                 if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
                                 {
                                     player.MediaPlayer.Play();
+                                    // PlayしたはずなのにPausedのままの場合がある。（Bufferingですらない）
+                                    await Task.Delay(1000);
+                                    if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
+                                    {
+                                        Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue with Paused state. Trying to recover...");
+                                        throw new InvalidOperationException("Detected a video playback issue with Paused state");
+                                    }
                                 }
                             }
                             else
