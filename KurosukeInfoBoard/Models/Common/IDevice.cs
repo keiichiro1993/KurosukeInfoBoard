@@ -23,6 +23,7 @@ namespace KurosukeInfoBoard.Models.Common
 
         byte HueBrightness { get; set; }
         bool HueIsOn { get; set; }
+        bool IsLoading { get; set; }
         #endregion
     }
 }

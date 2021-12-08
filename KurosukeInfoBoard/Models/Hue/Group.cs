@@ -57,7 +57,7 @@ namespace KurosukeInfoBoard.Models.Hue
                 {
                     HueGroup.Action.Brightness = value;
                     SelectedHueScene = null;
-                    SendGroupCommand();
+                    SendGroupCommand(500);
                     RaisePropertyChanged();
                 }
             }
@@ -94,11 +94,11 @@ namespace KurosukeInfoBoard.Models.Hue
         }
 
         private DateTime lastCommand;
-        private async void SendGroupCommand()
+        private async void SendGroupCommand(int delay = 0)
         {
             lastCommand = DateTime.Now;
-            await Task.Delay(500);
-            if (DateTime.Now - lastCommand >= new TimeSpan(0, 0, 0, 0, 500))
+            await Task.Delay(delay);
+            if (delay == 0 || DateTime.Now - lastCommand >= new TimeSpan(0, 0, 0, 0, delay))
             {
                 IsLoading = true;
                 var appliance = Appliances.FirstOrDefault() as Light;
@@ -125,7 +125,7 @@ namespace KurosukeInfoBoard.Models.Hue
             {
                 IsLoading = true;
                 var appliance = Appliances.FirstOrDefault() as Light;
-                if (appliance != null)
+                if (appliance != null && SelectedHueScene != null)
                 {
                     try
                     {
