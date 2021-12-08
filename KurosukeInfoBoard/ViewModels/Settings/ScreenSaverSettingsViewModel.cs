@@ -25,6 +25,12 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             set { SettingsHelper.Settings.ScreenSaverPeriod.SetValue(value); }
         }
 
+        public bool UseAV1Codec
+        {
+            get { return SettingsHelper.Settings.UseAV1Codec.GetValue<bool>(); }
+            set { SettingsHelper.Settings.UseAV1Codec.SetValue(value); }
+        }
+
         public string PlaylistId
         {
             get { return SettingsHelper.Settings.YouTubePlaylistId.GetValue<string>(); }

@@ -26,6 +26,7 @@
                 <RowDefinition Height="AUTO"/>
                 <RowDefinition Height="AUTO"/>
                 <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="AUTO"/>
             </Grid.RowDefinitions>
 
             <TextBlock HorizontalAlignment="Right" Text="Screen Saver Enabled:" Grid.Row="0" Grid.Column="0" />
@@ -39,6 +40,12 @@
 
             <TextBlock HorizontalAlignment="Right" Text="YouTube playlist ID:" Grid.Row="2" Grid.Column="0" />
             <TextBox Text="{x:Bind viewModel.PlaylistId, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" />
+
+            <TextBlock HorizontalAlignment="Right" Text="Use AV1 Codec:" Grid.Row="3" Grid.Column="0" />
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                <ToggleSwitch IsOn="{x:Bind viewModel.UseAV1Codec, Mode=TwoWay}" />
+                <TextBlock Text="*you need to install the AV1/VP9 video extensions from Microsoft Store"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

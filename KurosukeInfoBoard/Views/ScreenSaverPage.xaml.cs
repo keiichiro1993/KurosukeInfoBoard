@@ -25,6 +25,7 @@ namespace KurosukeInfoBoard.Views
     public sealed partial class ScreenSaverPage : Page
     {
         public string PlaylistId = SettingsHelper.Settings.YouTubePlaylistId.GetValue<string>();
+        public bool UseAV1Codec = SettingsHelper.Settings.UseAV1Codec.GetValue<bool>();
 
         public ScreenSaverPage()
         {

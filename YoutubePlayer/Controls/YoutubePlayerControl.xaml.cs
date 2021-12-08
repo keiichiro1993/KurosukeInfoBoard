@@ -60,6 +60,21 @@ namespace YoutubePlayer.Controls
 
         }
 
+        public bool UseAV1Codec
+        {
+            get => (bool)GetValue(UseAV1CodecProperty);
+            set => SetValue(UseAV1CodecProperty, value);
+        }
+
+        public static readonly DependencyProperty UseAV1CodecProperty =
+          DependencyProperty.Register(nameof(UseAV1Codec), typeof(bool),
+            typeof(YoutubePlayerControl), new PropertyMetadata(null, new PropertyChangedCallback(OnUseAV1CodecChanged)));
+
+        private static void OnUseAV1CodecChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
 
         // TODO: error handling
         private void YoutubePlayerControl_Loaded(object sender, RoutedEventArgs e)
@@ -108,7 +123,7 @@ namespace YoutubePlayer.Controls
                 viewModel.Title = video.Title;
                 viewModel.ChannelName = video.Author.Title;
 
-                using (var stream = await client.GetHighestQualityVideoAsStream(video.Id))
+                using (var stream = await client.GetHighestQualityVideoAsStream(video.Id, UseAV1Codec))
                 {
                     // FFmpeg
                     var config = new FFmpegInteropConfig();
@@ -122,13 +137,13 @@ namespace YoutubePlayer.Controls
                         setStreamAndPlay(ffmpegStream, mediaPlayer, lastPosition);
                         Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
 
-                        TimeSpan threashold = new TimeSpan(0, 0, 0, 0, 500); //threashold to detect the video play issue
+                        TimeSpan threashold = new TimeSpan(0, 0, 0, 0, 10); //threashold to detect the video play issue
 
                         while (player.MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.None)
                         {
                             if (loaded)
                             {
-                                await Task.Delay(1000);
+                                await Task.Delay(5000);
 
                                 if (lastPosition != null && player.MediaPlayer.PlaybackSession.Position - lastPosition < threashold && player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
                                 {
@@ -142,8 +157,8 @@ namespace YoutubePlayer.Controls
                                 if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
                                 {
                                     player.MediaPlayer.Play();
-                                    // PlayしたはずなのにPausedのままの場合がある。（Bufferingですらない）
-                                    await Task.Delay(1000);
+                                    // PlayしたはずなのにPausedのままの場合がある。（Buffering?）
+                                    await Task.Delay(10000);
                                     if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
                                     {
                                         Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue with Paused state. Trying to recover...");
