@@ -182,6 +182,7 @@
     <Compile Include="Models\Common\ICalendar.cs" />
     <Compile Include="Models\Common\IDevice.cs" />
     <Compile Include="Models\Common\IEvent.cs" />
+    <Compile Include="Models\Common\MergedRoom.cs" />
     <Compile Include="Models\Google\Colors.cs" />
     <Compile Include="Models\Google\Event.cs" />
     <Compile Include="Models\Auth\GoogleToken.cs" />
@@ -534,7 +535,7 @@
       <Version>3.18.1</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>5.0.2</Version>
+      <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="TimeZoneConverter">
       <Version>3.4.0</Version>
