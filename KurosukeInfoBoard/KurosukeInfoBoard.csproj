@@ -182,7 +182,10 @@
     <Compile Include="Models\Common\ICalendar.cs" />
     <Compile Include="Models\Common\IDevice.cs" />
     <Compile Include="Models\Common\IEvent.cs" />
-    <Compile Include="Models\Common\MergedRoom.cs" />
+    <Compile Include="Models\SQL\CombinedControlItem.cs" />
+    <Compile Include="Utils\DBHelpers\CombinedControlHelper.cs" />
+    <Compile Include="Utils\RemoteControlHelper.cs" />
+    <Compile Include="ViewModels\MergedRoom.cs" />
     <Compile Include="Models\Google\Colors.cs" />
     <Compile Include="Models\Google\Event.cs" />
     <Compile Include="Models\Auth\GoogleToken.cs" />
@@ -231,6 +234,7 @@
     <Compile Include="ViewModels\Settings\AuthDialogHueViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
     <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
+    <Compile Include="ViewModels\Settings\CombinedControlPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\OtherBehaviorSettingsPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\ScreenSaverSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\WeatherSettingsViewModel.cs" />
