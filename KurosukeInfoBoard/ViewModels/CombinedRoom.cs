@@ -1,5 +1,6 @@
 ﻿using Common.ViewModels;
 using KurosukeInfoBoard.Models.Common;
+using KurosukeInfoBoard.Models.Hue;
 using KurosukeInfoBoard.Utils;
 using Q42.HueApi.Models;
 using System;
@@ -10,20 +11,46 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace KurosukeInfoBoard.Models.Hue
+namespace KurosukeInfoBoard.ViewModels
 {
-    public class Group : ViewModelBase, IDevice
+    /// <summary>
+    /// MergedRoom class will combine multiple types of devices to one object to control everything at one UI. only for remo+hue so far
+    /// This class must have all the functionality from all the remote control account types.
+    /// </summary>
+    public class CombinedRoom : ViewModelBase, IDevice
     {
-        public Group(Q42.HueApi.Models.Groups.Group group)
+
+        public CombinedRoom(string deviceName, Models.Hue.Group hueDevice, Models.NatureRemo.Device remoDevice)
         {
-            DeviceName = group.Name + " - " + group.Class;
-            HueGroup = group;
+            Appliances = new List<IAppliance>();
             HueScenes = new List<Scene>();
+            DeviceName = deviceName;
+            if (hueDevice != null)
+            {
+                HueGroup = hueDevice.HueGroup;
+                Appliances.AddRange(hueDevice.Appliances);
+                HueScenes.AddRange(hueDevice.HueScenes);
+            }
+            if (remoDevice != null)
+            {
+                RemoDevice = remoDevice;
+                Appliances.AddRange(remoDevice.Appliances);
+            }
+        }
+
+        Models.NatureRemo.Device _RemoDevice;
+        Models.NatureRemo.Device RemoDevice
+        {
+            get { return _RemoDevice; }
+            set
+            {
+                _RemoDevice = value;
+                RaisePropertyChanged("RoomTemperature");
+            }
         }
 
         Q42.HueApi.Models.Groups.Group _HueGroup;
-
-        public Q42.HueApi.Models.Groups.Group HueGroup
+        Q42.HueApi.Models.Groups.Group HueGroup
         {
             get { return _HueGroup; }
             set
@@ -38,22 +65,25 @@ namespace KurosukeInfoBoard.Models.Hue
 
         public string DeviceName { get; set; }
 
-        public string RoomTemperature { get; set; } = "";
+        public string RoomTemperature { get { return RemoDevice != null ? RemoDevice.newest_events.te.val.ToString() : ""; } }
 
-        public string RoomTemperatureUnit { get; set; } = "";
+        public string RoomTemperatureUnit { get { return string.IsNullOrEmpty(RoomTemperature) ? "" : "℃"; } }
 
         public List<IAppliance> Appliances { get; set; }
 
-        public Visibility HeaderControlVisibility { get; } = Visibility.Visible;
-        public Visibility HeaderTemperatureVisibility { get; } = Visibility.Collapsed;
+        public Visibility HeaderTemperatureVisibility { get { return RemoDevice != null ? Visibility.Visible : Visibility.Collapsed; } }
+        public Visibility HeaderControlVisibility { get { return HueGroup != null ? Visibility.Visible : Visibility.Collapsed; } }
         public Visibility HeaderSceneControlVisibility { get { return HueScenes.Count > 0 ? Visibility.Visible : Visibility.Collapsed; } }
 
         public byte HueBrightness
         {
-            get { return HueGroup.Action.Brightness; }
+            get
+            {
+                return HueGroup != null ? HueGroup.Action.Brightness : (byte)0;
+            }
             set
             {
-                if (HueGroup.Action.Brightness != value)
+                if (HueGroup != null && HueGroup.Action.Brightness != value)
                 {
                     HueGroup.Action.Brightness = value;
                     SelectedHueScene = null;
@@ -65,10 +95,10 @@ namespace KurosukeInfoBoard.Models.Hue
 
         public bool HueIsOn
         {
-            get { return HueGroup.Action.On; }
+            get { return HueGroup != null ? HueGroup.Action.On : false; }
             set
             {
-                if (HueGroup.Action.On != value)
+                if (HueGroup != null && HueGroup.Action.On != value)
                 {
                     HueGroup.Action.On = value;
                     SelectedHueScene = null;

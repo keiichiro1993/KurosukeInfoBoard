@@ -32,6 +32,7 @@ namespace KurosukeInfoBoard.Views.Settings
         {
             ("AccountSettings", typeof(AccountSettingsPage)),
             ("CalendarSettings", typeof(CalendarSettingsPage)),
+            ("CombinedRoomSettings", typeof(CombinedRoomSettingsPage)),
             ("WeatherSettings", typeof(WeatherSettingsPage)),
             ("ScreenSaverSettings", typeof(ScreenSaverSettingsPage)),
             ("OtherBehaviorSettings", typeof(OtherBehaviorSettingsPage)),

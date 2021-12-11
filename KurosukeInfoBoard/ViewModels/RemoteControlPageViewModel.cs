@@ -11,11 +11,14 @@ using KurosukeInfoBoard.Models.Common;
 using System.Collections.ObjectModel;
 using KurosukeInfoBoard.Models.Auth;
 using Microsoft.UI.Xaml.Controls;
+using KurosukeInfoBoard.Utils.DBHelpers;
 
 namespace KurosukeInfoBoard.ViewModels
 {
     public class RemoteControlPageViewModel : Common.ViewModels.ViewModelBase
     {
+        CombinedControlHelper dbHelper = new CombinedControlHelper();
+
         private ObservableCollection<IDevice> _Devices;
         public ObservableCollection<IDevice> Devices
         {
@@ -30,6 +33,7 @@ namespace KurosukeInfoBoard.ViewModels
         private bool isInLoop = false;
         public async void Init()
         {
+            await dbHelper.Init();
             await Refresh();
             RefreshLoop();
         }
@@ -40,24 +44,29 @@ namespace KurosukeInfoBoard.ViewModels
             IsLoading = true;
 
             lastUpdate = DateTime.Now;
-
             Devices = new ObservableCollection<IDevice>();
-            var taskList = new List<Task<List<IDevice>>>();
 
-            var remoAccounts = from account in AppGlobalVariables.Users
-                               where account.UserType == Models.Auth.UserType.NatureRemo
-                               select account;
+            var devices = await RemoteControlHelper.GetAllDevices();
+            var combinedControls = dbHelper.GetCombinedControls();
 
-            taskList.Add(GetRemoInfo(remoAccounts));
+            foreach (var combinedControl in combinedControls)
+            {
+                var remoDevice = (from device in devices
+                                  where typeof(Device) == device.GetType() && ((Device)device).id == combinedControl.RemoID
+                                  select device).FirstOrDefault();
+                var hueDevice = (from device in devices
+                                 where typeof(Models.Hue.Group) == device.GetType() && ((Models.Hue.Group)device).HueGroup.Id == combinedControl.HueID
+                                 select device).FirstOrDefault();
 
-            var hueAccounts = from account in AppGlobalVariables.Users
-                              where account.UserType == Models.Auth.UserType.Hue
-                              select account;
+                var room = new CombinedRoom(combinedControl.DeviceName, hueDevice as Models.Hue.Group, remoDevice as Device);
 
-            taskList.Add(GetHueInfo(hueAccounts));
+                if (remoDevice != null) { devices.Remove(remoDevice); }
+                if (hueDevice != null) { devices.Remove(hueDevice); }
 
-            var devicesList = await Task.WhenAll(taskList);
-            foreach (var devices in devicesList)
+                Devices.Add(room);
+            }
+
+            if (!SettingsHelper.Settings.ShowCombinedRoomOnly.GetValue<bool>())
             {
                 foreach (var device in devices) { Devices.Add(device); }
             }
@@ -87,69 +96,13 @@ namespace KurosukeInfoBoard.ViewModels
                 var timeSpan = new TimeSpan(0, SettingsHelper.Settings.AutoRefreshControlsInterval.GetValue<int>(), 0);
                 while (isInLoop)
                 {
-                    await Task.Delay(250);
+                    await Task.Delay(500);
                     if (DateTime.Now - lastUpdate > timeSpan)
                     {
                         await Refresh();
                     }
                 }
             }
-        }
-
-
-        private async Task<List<IDevice>> GetRemoInfo(IEnumerable<Models.Auth.UserBase> accounts)
-        {
-            var devices = new List<IDevice>();
-            if (accounts.Any())
-            {
-                var appliances = new List<IAppliance>();
-                foreach (var account in accounts)
-                {
-                    try
-                    {
-                        var client = new NatureRemoClient(account.Token);
-                        devices.AddRange(await client.GetDevicesAsync());
-                        appliances.AddRange(await client.GetAppliancesAsync());
-                    }
-                    catch (Exception ex)
-                    {
-                        Debugger.WriteErrorLog("Error occured while retrieving remo info.", ex);
-                        await new MessageDialog(ex.Message, "Error occured while retrieving remo info.").ShowAsync();
-                    }
-                }
-
-                if (devices.Any())
-                {
-                    foreach (var device in devices)
-                    {
-                        device.Appliances = (from appliance in appliances
-                                             where ((Appliance)appliance).device.id == ((Device)device).id
-                                             select appliance).ToList();
-                    }
-                }
-
-            }
-            return devices;
-        }
-
-        private async Task<List<IDevice>> GetHueInfo(IEnumerable<Models.Auth.UserBase> accounts)
-        {
-            var hueDevices = new List<IDevice>();
-            foreach (var account in accounts)
-            {
-                try
-                {
-                    var client = new HueClient((HueUser)account);
-                    hueDevices.AddRange(await client.GetHueDevicesAsync());
-                }
-                catch (Exception ex)
-                {
-                    Debugger.WriteErrorLog("Error occured while retrieving Hue info.", ex);
-                    await new MessageDialog(ex.Message, "Error occured while retrieving Hue info.").ShowAsync();
-                }
-            }
-
-            return hueDevices;
         }
     }
 }

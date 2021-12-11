@@ -80,7 +80,6 @@ namespace KurosukeInfoBoard.ViewModels
                         }
                         else if (user.UserType == Models.Auth.UserType.Microsoft)
                         {
-
                             calendarTasks.Add(GetMicrosoftEvents(datetime, user));
                         }
                         else if (user.UserType == Models.Auth.UserType.NatureRemo)

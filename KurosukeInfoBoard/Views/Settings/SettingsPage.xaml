@@ -14,6 +14,11 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Icon="Contact" Content="Accounts" Tag="AccountSettings"/>
                 <muxc:NavigationViewItem Icon="Calendar" Content="Calendars" Tag="CalendarSettings"/>
+                <muxc:NavigationViewItem Content="Remote Control Groups" Tag="CombinedRoomSettings">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF168;"/>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Content="Weather" Tag="WeatherSettings">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE753;"/>
