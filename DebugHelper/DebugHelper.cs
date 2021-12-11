@@ -14,6 +14,7 @@ namespace DebugHelper
             Debug.WriteLine(Header + message); //TODO: create log file? or sending it to App Insights?
         }
 
+#pragma warning disable CS1998 // 非同期メソッドは、'await' 演算子がないため、同期的に実行されます
         public static async void WriteErrorLog(string message, Exception ex)
         {
             WriteDebugLog(Header + "Caught an exception " + ex.HResult + ". Message: " + message);
@@ -30,6 +31,8 @@ namespace DebugHelper
             }
 #endif
         }
+#pragma warning restore CS1998
+
 
         private static void printError(Exception ex)
         {

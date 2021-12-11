@@ -17,15 +17,8 @@ namespace KurosukeInfoBoard.Utils
         {
             var taskList = new List<Task<List<IDevice>>>();
 
-            var remoAccounts = from account in AppGlobalVariables.Users
-                               where account.UserType == Models.Auth.UserType.NatureRemo
-                               select account;
-            taskList.Add(GetRemoDevices(remoAccounts));
-
-            var hueAccounts = from account in AppGlobalVariables.Users
-                              where account.UserType == Models.Auth.UserType.Hue
-                              select account;
-            taskList.Add(GetHueDevices(hueAccounts));
+            taskList.Add(GetRemoDevices());
+            taskList.Add(GetHueDevices());
 
             var devicesList = await Task.WhenAll(taskList);
 
@@ -34,8 +27,11 @@ namespace KurosukeInfoBoard.Utils
             return mergedDevices;
         }
 
-        public static async Task<List<IDevice>> GetRemoDevices(IEnumerable<Models.Auth.UserBase> accounts)
+        public static async Task<List<IDevice>> GetRemoDevices()
         {
+            var accounts = from account in AppGlobalVariables.Users
+                               where account.UserType == Models.Auth.UserType.NatureRemo
+                               select account;
             var devices = new List<IDevice>();
             if (accounts.Any())
             {
@@ -69,8 +65,11 @@ namespace KurosukeInfoBoard.Utils
             return devices;
         }
 
-        public static async Task<List<IDevice>> GetHueDevices(IEnumerable<Models.Auth.UserBase> accounts)
+        public static async Task<List<IDevice>> GetHueDevices()
         {
+            var accounts = from account in AppGlobalVariables.Users
+                              where account.UserType == Models.Auth.UserType.Hue
+                              select account;
             var hueDevices = new List<IDevice>();
             foreach (var account in accounts)
             {

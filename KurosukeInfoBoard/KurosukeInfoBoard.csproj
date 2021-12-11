@@ -185,7 +185,7 @@
     <Compile Include="Models\SQL\CombinedControlItem.cs" />
     <Compile Include="Utils\DBHelpers\CombinedControlHelper.cs" />
     <Compile Include="Utils\RemoteControlHelper.cs" />
-    <Compile Include="ViewModels\MergedRoom.cs" />
+    <Compile Include="ViewModels\CombinedRoom.cs" />
     <Compile Include="Models\Google\Colors.cs" />
     <Compile Include="Models\Google\Event.cs" />
     <Compile Include="Models\Auth\GoogleToken.cs" />
@@ -231,22 +231,26 @@
     <Compile Include="ViewModels\RemoteControlPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\AccountSettingsViewModel.cs" />
-    <Compile Include="ViewModels\Settings\AuthDialogHueViewModel.cs" />
-    <Compile Include="ViewModels\Settings\AuthDialogRemoViewModel.cs" />
-    <Compile Include="ViewModels\Settings\AuthDialogViewModel.cs" />
-    <Compile Include="ViewModels\Settings\CombinedControlPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ContentDialogs\AddGroupDialogViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ContentDialogs\AuthDialogHueViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ContentDialogs\AuthDialogRemoViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ContentDialogs\AuthDialogViewModel.cs" />
+    <Compile Include="ViewModels\Settings\CombinedRoomSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\OtherBehaviorSettingsPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\ScreenSaverSettingsViewModel.cs" />
     <Compile Include="ViewModels\Settings\WeatherSettingsViewModel.cs" />
     <Compile Include="ViewModels\WeatherControlViewModel.cs" />
-    <Compile Include="Views\ContentDialogs\AuthDialog.xaml.cs" />
-    <Compile Include="Views\ContentDialogs\AuthDialogHue.xaml.cs">
+    <Compile Include="Views\Settings\ContentDialogs\AddGroupDialog.xaml.cs">
+      <DependentUpon>AddGroupDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\ContentDialogs\AuthDialog.xaml.cs" />
+    <Compile Include="Views\Settings\ContentDialogs\AuthDialogHue.xaml.cs">
       <DependentUpon>AuthDialogHue.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContentDialogs\AuthDialogMain.xaml.cs">
+    <Compile Include="Views\Settings\ContentDialogs\AuthDialogMain.xaml.cs">
       <DependentUpon>AuthDialogMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ContentDialogs\AuthDialogRemo.xaml.cs">
+    <Compile Include="Views\Settings\ContentDialogs\AuthDialogRemo.xaml.cs">
       <DependentUpon>AuthDialogRemo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DashboardPage.xaml.cs">
@@ -264,6 +268,9 @@
     <Compile Include="Views\Settings\AccountSettingsPage.xaml.cs" />
     <Compile Include="Views\Settings\CalendarSettingsPage.xaml.cs">
       <DependentUpon>CalendarSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\CombinedRoomSettingsPage.xaml.cs">
+      <DependentUpon>CombinedRoomSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\OtherBehaviorSettingsPage.xaml.cs">
       <DependentUpon>OtherBehaviorSettingsPage.xaml</DependentUpon>
@@ -444,19 +451,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ContentDialogs\AuthDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ContentDialogs\AuthDialogHue.xaml">
+    <Page Include="Views\Settings\ContentDialogs\AddGroupDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContentDialogs\AuthDialogMain.xaml">
+    <Page Include="Views\Settings\ContentDialogs\AuthDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Settings\ContentDialogs\AuthDialogHue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ContentDialogs\AuthDialogRemo.xaml">
+    <Page Include="Views\Settings\ContentDialogs\AuthDialogMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\ContentDialogs\AuthDialogRemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -481,6 +492,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\CalendarSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\CombinedRoomSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
