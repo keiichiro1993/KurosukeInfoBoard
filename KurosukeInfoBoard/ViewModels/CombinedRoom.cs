@@ -30,6 +30,7 @@ namespace KurosukeInfoBoard.ViewModels
                 HueGroup = hueDevice.HueGroup;
                 Appliances.AddRange(hueDevice.Appliances);
                 HueScenes.AddRange(hueDevice.HueScenes);
+                SelectedHueScene = hueDevice.SelectedHueScene;
             }
             if (remoDevice != null)
             {

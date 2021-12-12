@@ -35,18 +35,20 @@
                                 <DataTemplate x:DataType="commonmodels:IDevice">
                                     <Grid>
                                         <Grid CornerRadius="3" Margin="0" Padding="10"  Background="{StaticResource AccentAcrylicBrush}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="AUTO"/>
+                                                <RowDefinition Height="AUTO"/>
+                                            </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="AUTO"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,20,0">
-                                                <TextBlock Text="{x:Bind DeviceName}" Foreground="White" />
-                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Visibility="{x:Bind HeaderTemperatureVisibility}">
-                                                    <TextBlock Text="{x:Bind RoomTemperature}" Foreground="White" FontSize="50" />
-                                                    <TextBlock Text="{x:Bind RoomTemperatureUnit}" VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White" />
-                                                </StackPanel>
+                                            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="{x:Bind DeviceName}" Foreground="White" />
+                                            <StackPanel Grid.Row="1" Grid.Column="0"  Orientation="Horizontal"  Margin="0,0,20,0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{x:Bind HeaderTemperatureVisibility}">
+                                                <TextBlock Text="{x:Bind RoomTemperature}" Foreground="White" FontSize="50" />
+                                                <TextBlock Text="{x:Bind RoomTemperatureUnit}" VerticalAlignment="Bottom" Margin="5,0,0,7" Foreground="White" />
                                             </StackPanel>
-                                            <Grid Grid.Column="1" Visibility="{x:Bind HeaderControlVisibility}" VerticalAlignment="Center">
+                                            <Grid Grid.Row="1" Grid.Column="1" Visibility="{x:Bind HeaderControlVisibility}" VerticalAlignment="Center">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="AUTO" />
                                                     <RowDefinition Height="AUTO" />
