@@ -16,16 +16,16 @@
 -->
 
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
-  <Application>
-    <!--
+	<Application>
+		<!--
       Name="*Application*" のアセンブリ要素は、アプリケーション パッケージ内の
       すべてのアセンブリに適用されます。アスタリスクはワイルドカードではありません。
     -->
-    <Assembly Name="*Application*" Dynamic="Required All" />
-    
-    
-    <!--ここに、アプリケーション固有ランタイム ディレクティブを追加します。-->
+		<Assembly Name="*Application*" Dynamic="Required All" />
+		<Namespace Name="System.Text.Json.Serialization.Converters" Browse="Required All"/>
+
+		<!--ここに、アプリケーション固有ランタイム ディレクティブを追加します。-->
 
 
-  </Application>
+	</Application>
 </Directives>

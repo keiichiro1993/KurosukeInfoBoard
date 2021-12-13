@@ -63,7 +63,12 @@ namespace KurosukeInfoBoard.Utils
                         if (exist != null)
                         {
                             var match = true;
-                            var cachedLights = JsonSerializer.Deserialize<List<Light>>(exist.LightStateJson);
+                            var deserializerOptions = new JsonSerializerOptions
+                            {
+                                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
+                                //WriteIndented = true,
+                            };
+                            var cachedLights = JsonSerializer.Deserialize<List<Light>>(exist.LightStateJson, deserializerOptions);
                             foreach (var cachedLight in cachedLights)
                             {
                                 var light = (from item in hueDevice.Appliances
@@ -154,7 +159,12 @@ namespace KurosukeInfoBoard.Utils
             {
                 lights.Add(await client.GetLightAsync(light));
             }
-            var lightStateJson = JsonSerializer.Serialize(lights);
+            var serializerOptions = new JsonSerializerOptions
+            {
+                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
+                //WriteIndented = true,
+            };
+            var lightStateJson = JsonSerializer.Serialize(lights, serializerOptions);
 
             // Save current scene
             using (var context = new HueSelectedSceneContext())
