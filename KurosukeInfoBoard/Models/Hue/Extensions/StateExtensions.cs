@@ -9,13 +9,13 @@ namespace KurosukeInfoBoard.Models.Hue.Extensions
 {
     public static class StateExtensions
     {
-        public static bool CheckEquals(this State state, State other)
+        public static bool CheckEquals(this State state, JsonState other)
         {
-
             return state.On == other.On &&
                    state.Alert == other.Alert &&
                    (state.ColorMode == "hsb" ? state.Brightness == other.Brightness : true) &&
-                   (state.ColorMode == "xy" ? Math.Abs(state.ColorCoordinates[0] - other.ColorCoordinates[0]) <= 0.00025 && Math.Abs(state.ColorCoordinates[1] - other.ColorCoordinates[1]) <= 0.00025 : true) &&
+                   (state.ColorMode == "xy" ? Math.Abs((int)(state.ColorCoordinates[0] * 10000) - other.ColorCoordinates[0]) <= 10 &&
+                                              Math.Abs((int)(state.ColorCoordinates[1] * 10000) - other.ColorCoordinates[1]) <= 10 : true) &&
                    state.ColorMode == other.ColorMode &&
                    (state.ColorMode == "ct" ? state.ColorTemperature == other.ColorTemperature : true) &&
                    state.Effect == other.Effect &&

@@ -63,25 +63,27 @@ namespace KurosukeInfoBoard.Utils
                         if (exist != null)
                         {
                             var match = true;
-                            var deserializerOptions = new JsonSerializerOptions
+                            try
                             {
-                                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
-                                //WriteIndented = true,
-                            };
-                            var cachedLights = JsonSerializer.Deserialize<List<Light>>(exist.LightStateJson, deserializerOptions);
-                            foreach (var cachedLight in cachedLights)
-                            {
-                                var light = (from item in hueDevice.Appliances
-                                             where ((Models.Hue.Light)item).HueLight.Id == cachedLight.Id
-                                             select ((Models.Hue.Light)item).HueLight).FirstOrDefault();
-                                if (light != null)
+                                var cachedLights = JsonSerializer.Deserialize<List<Models.Hue.JsonLight>>(exist.LightStateJson);
+                                foreach (var cachedLight in cachedLights)
                                 {
-                                    if (!light.State.CheckEquals(cachedLight.State))
+                                    var light = (from item in hueDevice.Appliances
+                                                 where ((Models.Hue.Light)item).HueLight.Id == cachedLight.Id
+                                                 select ((Models.Hue.Light)item).HueLight).FirstOrDefault();
+                                    if (light != null)
                                     {
-                                        match = false;
-                                        break;
+                                        if (!light.State.CheckEquals(cachedLight.State))
+                                        {
+                                            match = false;
+                                            break;
+                                        }
                                     }
                                 }
+                            }
+                            catch (Exception) 
+                            {
+                                match = false;
                             }
 
                             if (match)
@@ -154,17 +156,15 @@ namespace KurosukeInfoBoard.Utils
             await client.RecallSceneAsync(scene.Id, scene.Group);
 
             // get status after update
-            var lights = new List<Light>();
+            await Task.Delay(300);
+            var lights = new List<Models.Hue.JsonLight>();
             foreach (var light in scene.Lights)
             {
-                lights.Add(await client.GetLightAsync(light));
+                var lightItem = await client.GetLightAsync(light);
+                lights.Add(new Models.Hue.JsonLight(lightItem));
             }
-            var serializerOptions = new JsonSerializerOptions
-            {
-                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
-                //WriteIndented = true,
-            };
-            var lightStateJson = JsonSerializer.Serialize(lights, serializerOptions);
+
+            var lightStateJson = JsonSerializer.Serialize(lights);
 
             // Save current scene
             using (var context = new HueSelectedSceneContext())
