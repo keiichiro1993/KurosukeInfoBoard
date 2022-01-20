@@ -42,7 +42,11 @@ namespace KurosukeInfoBoard.Utils
 
         public async Task<List<Device>> GetDevicesAsync()
         {
-            return await GetAsyncWithType<List<Device>>(endpoint + "/1/devices");
+            var devices = await GetAsyncWithType<List<Device>>(endpoint + "/1/devices");
+            var remoteControlDevices = from device in devices
+                                       where !device.firmware_version.Contains("Remo-E")
+                                       select device;
+            return remoteControlDevices.ToList();
         }
 
         public async Task PostSignal(string signalId)
