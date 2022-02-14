@@ -49,7 +49,7 @@
                 <SolidColorBrush Color="Black" Opacity="0.7" />
             </controls:Loading.Background>
             <StackPanel Orientation="Horizontal">
-                <ProgressRing IsActive="True"/>
+                <muxc:ProgressRing IsActive="True"/>
             </StackPanel>
         </controls:Loading>
     </Grid>

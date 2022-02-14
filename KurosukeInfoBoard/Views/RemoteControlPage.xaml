@@ -168,7 +168,7 @@
                                                 <SolidColorBrush Color="Black" Opacity="0.7" />
                                             </controls:Loading.Background>
                                             <StackPanel Orientation="Horizontal">
-                                                <ProgressRing IsActive="True"/>
+                                                <muxc:ProgressRing IsActive="True"/>
                                             </StackPanel>
                                         </controls:Loading>
                                     </Grid>
@@ -192,8 +192,8 @@
                 <SolidColorBrush Color="Black" Opacity="0.7" />
             </controls:Loading.Background>
             <StackPanel Orientation="Horizontal">
-                <ProgressRing IsActive="True"/>
-                <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}"></TextBlock>
+                <muxc:ProgressRing IsActive="True" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}" VerticalAlignment="Center"/>
             </StackPanel>
         </controls:Loading>
     </Grid>

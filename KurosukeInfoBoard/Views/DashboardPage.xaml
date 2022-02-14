@@ -10,7 +10,8 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:remomodels="using:KurosukeInfoBoard.Models.NatureRemo"
     xmlns:weathercontrol="using:KurosukeInfoBoard.Controls.Weather"
-    xmlns:memocontrol="using:KurosukeInfoBoard.Controls.Memo"
+    xmlns:memocontrol="using:KurosukeInfoBoard.Controls.Memo" 
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     NavigationCacheMode="Required">
@@ -76,8 +77,8 @@
                 <SolidColorBrush Color="Black" Opacity="0.7" />
             </controls:Loading.Background>
             <StackPanel Orientation="Horizontal">
-                <ProgressRing IsActive="True"/>
-                <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}"></TextBlock>
+                <muxc:ProgressRing IsActive="True" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}" VerticalAlignment="Center"/>
             </StackPanel>
         </controls:Loading>
         <VisualStateManager.VisualStateGroups>

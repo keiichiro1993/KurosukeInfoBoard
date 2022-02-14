@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:huecontrols="using:KurosukeInfoBoard.Controls.Hue"
+    xmlns:huecontrols="using:KurosukeInfoBoard.Controls.Hue" 
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="300">
@@ -43,7 +44,7 @@
                 <SolidColorBrush Color="Black" Opacity="0.7" />
             </controls:Loading.Background>
             <StackPanel Orientation="Horizontal">
-                <ProgressRing IsActive="True"/>
+                <muxc:ProgressRing IsActive="True"/>
             </StackPanel>
         </controls:Loading>
     </Grid>
