@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 namespace KurosukeInfoBoard.ViewModels.Settings
 {
@@ -14,11 +15,15 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             get { return SettingsHelper.Settings.AutoRefreshControls.GetValue<bool>(); }
             set
             {
-                SettingsHelper.Settings.AutoRefreshControls.SetValue(value);
-                if (value && Period <= 0)
+                if (value != IsEnabled)
                 {
-                    Period = 5;
-                    RaisePropertyChanged("Period");
+                    SettingsHelper.Settings.AutoRefreshControls.SetValue(value);
+                    if (value && Period <= 0)
+                    {
+                        Period = 5;
+                        RaisePropertyChanged("Period");
+                    }
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -35,5 +40,22 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             }
         }
 
+        public bool IsAlwaysFullScreen
+        {
+            get { return SettingsHelper.Settings.AlwaysFullScreen.GetValue<bool>(); }
+            set
+            {
+                SettingsHelper.Settings.AlwaysFullScreen.SetValue(value);
+                var view = ApplicationView.GetForCurrentView();
+                if (!view.IsFullScreenMode && value)
+                {
+                    view.TryEnterFullScreenMode();
+                }
+                else if (view.IsFullScreenMode && !value)
+                {
+                    view.ExitFullScreenMode();
+                }
+            }
+        }
     }
 }

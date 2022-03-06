@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 using DebugHelper;
+using Windows.UI.ViewManagement;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
 
@@ -61,6 +62,12 @@ namespace KurosukeInfoBoard
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            var view = ApplicationView.GetForCurrentView();
+            if (!view.IsFullScreenMode && SettingsHelper.Settings.AlwaysFullScreen.GetValue<bool>())
+            {
+                view.TryEnterFullScreenMode();
+            }
 
             if (AppGlobalVariables.Users == null)
             {

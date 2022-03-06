@@ -33,9 +33,12 @@
 
             <TextBlock HorizontalAlignment="Right" Text="Interval:" Grid.Row="1" Grid.Column="0" />
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                <muxc:NumberBox Value="{x:Bind viewModel.Period, Mode=TwoWay}" SpinButtonPlacementMode="Inline" />
+                <muxc:NumberBox Value="{x:Bind viewModel.Period, Mode=TwoWay}" SpinButtonPlacementMode="Inline" IsEnabled="{x:Bind viewModel.IsEnabled, Mode=OneWay}" />
                 <TextBlock Text="min(s)" />
             </StackPanel>
+
+            <TextBlock HorizontalAlignment="Right" Text="Full Screen:" Grid.Row="2" Grid.Column="0" />
+            <CheckBox IsChecked="{x:Bind viewModel.IsAlwaysFullScreen, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
         </Grid>
     </Grid>
 </Page>

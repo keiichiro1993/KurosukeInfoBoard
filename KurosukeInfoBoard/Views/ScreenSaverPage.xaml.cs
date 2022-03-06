@@ -44,7 +44,7 @@ namespace KurosukeInfoBoard.Views
         private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var view = ApplicationView.GetForCurrentView();
-            if (view.IsFullScreenMode)
+            if (view.IsFullScreenMode && !SettingsHelper.Settings.AlwaysFullScreen.GetValue<bool>())
             {
                 view.ExitFullScreenMode();
             }
