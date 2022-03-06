@@ -77,7 +77,7 @@
                 <SolidColorBrush Color="Black" Opacity="0.7" />
             </controls:Loading.Background>
             <StackPanel Orientation="Horizontal">
-                <muxc:ProgressRing IsActive="True" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <muxc:ProgressRing IsActive="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" VerticalAlignment="Center" Margin="0,0,5,0"/>
                 <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}" VerticalAlignment="Center"/>
             </StackPanel>
         </controls:Loading>
