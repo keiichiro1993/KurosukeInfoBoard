@@ -1,31 +1,31 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Models.Auth
 {
     public class GoogleUser : UserBase
     {
-        [JsonPropertyName("sub")]
+        [JsonProperty("sub")]
         public string Sub { get; set; }
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string GoogleName
         {
             get { return base.UserName; }
             set { base.UserName = value; }
         }
-        [JsonPropertyName("given_name")]
+        [JsonProperty("given_name")]
         public string GivenName { get; set; }
-        [JsonPropertyName("family_name")]
+        [JsonProperty("family_name")]
         public string FamilyName { get; set; }
-        [JsonPropertyName("picture")]
+        [JsonProperty("picture")]
         public string GoogleProfilePic { set { base.ProfilePictureUrl = value; } }
-        [JsonPropertyName("locale")]
+        [JsonProperty("locale")]
         public string Locale { get; set; }
-        [JsonPropertyName("email")]
+        [JsonProperty("email")]
         public string Email { set { base.Id = value; } }
     }
 }

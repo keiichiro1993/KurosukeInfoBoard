@@ -27,5 +27,12 @@ namespace KurosukeInfoBoard.ViewModels.Settings
         {
             Users = AppGlobalVariables.Users;
         }
+
+        public async Task DeleteAllUsers()
+        {
+            IsLoading = true;
+            await AccountManager.RemoveAllUsers();
+            IsLoading = false;
+        }
     }
 }

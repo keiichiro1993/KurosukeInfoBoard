@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Models.Microsoft
@@ -15,7 +15,7 @@ namespace KurosukeInfoBoard.Models.Microsoft
 
     public class Calendar : Common.CalendarBase
     {
-        [JsonPropertyName("@odata.id")]
+        [JsonProperty("@odata.id")]
         public string OdataId { get; set; }
         public string id { get; set; }
         public string name { get; set; }
@@ -55,7 +55,7 @@ namespace KurosukeInfoBoard.Models.Microsoft
 
     public class CalendarList
     {
-        [JsonPropertyName("@odata.context")]
+        [JsonProperty("@odata.context")]
         public string OdataContext { get; set; }
         public List<Calendar> value { get; set; }
     }

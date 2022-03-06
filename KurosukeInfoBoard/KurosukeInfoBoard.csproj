@@ -231,6 +231,7 @@
     <Compile Include="ViewModels\DashboardPageViewModel.cs" />
     <Compile Include="ViewModels\Hue\HueColorLightControlViewModel.cs" />
     <Compile Include="ViewModels\Hue\HueLightControlViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\Remo\NatureRemoAirConControlViewModel.cs" />
     <Compile Include="ViewModels\Remo\NatureRemoIRControlViewModel.cs" />
     <Compile Include="ViewModels\Remo\NatureRemoTVControlViewModel.cs" />

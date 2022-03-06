@@ -119,7 +119,7 @@ namespace KurosukeInfoBoard.Utils
             string tokenRequestBody = string.Format("grant_type=refresh_token&client_id={0}&refresh_token={1}",
                 clientID,
                 refreshToken);
-            Debugger.WriteDebugLog("Token refresh requesy body:" + tokenRequestBody);
+            Debugger.WriteDebugLog("Token refresh request body:" + tokenRequestBody);
             return await postRequest(tokenRequestBody, refreshTokenEndpoint);
         }
 

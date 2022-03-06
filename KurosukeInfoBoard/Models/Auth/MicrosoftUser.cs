@@ -1,43 +1,43 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Models.Auth
 {
     public class MicrosoftUser : UserBase
     {
-        [JsonPropertyName("businessPhones")]
+        [JsonProperty("businessPhones")]
         public List<string> BusinessPhones { get; set; }
-        [JsonPropertyName("displayName")]
+        [JsonProperty("displayName")]
         public string DisplayName
         {
             get { return base.UserName; }
             set { base.UserName = value; }
         }
-        [JsonPropertyName("givenName")]
+        [JsonProperty("givenName")]
         public string GivenName { get; set; }
-        [JsonPropertyName("jobTitle")]
+        [JsonProperty("jobTitle")]
         public string JobTitle { get; set; }
-        [JsonPropertyName("mail")]
+        [JsonProperty("mail")]
         public string Mail { get; set; }
-        [JsonPropertyName("mobilePhone")]
+        [JsonProperty("mobilePhone")]
         public string MobilePhone { get; set; }
-        [JsonPropertyName("officeLocation")]
+        [JsonProperty("officeLocation")]
         public string OfficeLocation { get; set; }
-        [JsonPropertyName("preferredLanguage")]
+        [JsonProperty("preferredLanguage")]
         public string PreferredLanguage { get; set; }
-        [JsonPropertyName("surname")]
+        [JsonProperty("surname")]
         public string Surname { get; set; }
-        [JsonPropertyName("userPrincipalName")]
+        [JsonProperty("userPrincipalName")]
         public string UserPrincipalName
         {
             get { return base.Id; }
             set { base.Id = value; }
         }
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public string GUID { get; set; }
     }
 }

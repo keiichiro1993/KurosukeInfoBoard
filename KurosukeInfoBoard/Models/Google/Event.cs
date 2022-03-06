@@ -1,9 +1,9 @@
 ﻿using KurosukeInfoBoard.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Models.Google
@@ -61,7 +61,7 @@ namespace KurosukeInfoBoard.Models.Google
 
     public class ExtendedProperties
     {
-        [JsonPropertyName("private")]
+        [JsonProperty("private")]
         public object privateObject { get; set; }
         public object shared { get; set; }
     }

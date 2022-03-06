@@ -113,5 +113,44 @@ namespace KurosukeInfoBoard.Utils
                 vault.Add(new PasswordCredential(resourceName, user.Id, user.Token.AccessToken));
             }
         }
+
+        public static async Task RemoveAllUsers()
+        {
+            foreach (var type in Enum.GetValues(typeof(UserType)).Cast<UserType>())
+            {
+                IReadOnlyList<PasswordCredential> credentialList = null;
+                var vault = new PasswordVault();
+                try
+                {
+                    credentialList = vault.FindAllByResource(ResourceNamePrefix + type.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Debugger.WriteErrorLog("There's no credential. Ignoring.", ex);
+                }
+
+                if (credentialList != null && credentialList.Count() > 0)
+                {
+                    Debugger.WriteDebugLog("Removing " + credentialList.Count + " non-MS users.");
+                    foreach (var cred in credentialList)
+                    {
+                        vault.Remove(cred);
+                    }
+                }
+            }
+
+            //MS token
+            var resource = ResourceLoader.GetForViewIndependentUse("Keys");
+            var clientID = resource.GetString("MicrosoftClientID");
+            var redirectUrl = resource.GetString("MicrosoftRedirectUrl");
+            var msAuthClient = new MicrosoftAuthClient(clientID, new string[] { "user.read", "Calendars.Read" }, redirectUrl, null);
+            var msAccounts = await msAuthClient.GetCachedAccounts();
+
+            if (msAccounts != null && msAccounts.Count() > 0)
+            {
+                Debugger.WriteDebugLog("Removing " + msAccounts.Count() + " MS users.");
+                await msAuthClient.DeleteAllCachedAccount();
+            }
+        }
     }
 }

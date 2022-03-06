@@ -39,5 +39,23 @@ namespace KurosukeInfoBoard.Views.Settings
             var dialog = new ContentDialogs.AuthDialog();
             await dialog.ShowAsync();
         }
+
+        private async void RemoveAllAccount_Click(object sender, RoutedEventArgs e)
+        {
+            ContentDialog deleteDialog = new ContentDialog
+            {
+                Title = "Delete all users?",
+                Content = "Are you sure you need to delete all the cached users?",
+                PrimaryButtonText = "Delete",
+                CloseButtonText = "Cancel"
+            };
+
+            var result = await deleteDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                await viewModel.DeleteAllUsers();
+            }
+        }
     }
 }

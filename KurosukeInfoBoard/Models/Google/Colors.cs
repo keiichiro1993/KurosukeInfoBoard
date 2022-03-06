@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Models.Google
@@ -16,79 +16,79 @@ namespace KurosukeInfoBoard.Models.Google
 
     public class CalendarColors
     {
-        [JsonPropertyName("1")]
+        [JsonProperty("1")]
         public Color color1 { get; set; }
-        [JsonPropertyName("2")]
+        [JsonProperty("2")]
         public Color color2 { get; set; }
-        [JsonPropertyName("3")]
+        [JsonProperty("3")]
         public Color color3 { get; set; }
-        [JsonPropertyName("4")]
+        [JsonProperty("4")]
         public Color color4 { get; set; }
-        [JsonPropertyName("5")]
+        [JsonProperty("5")]
         public Color color5 { get; set; }
-        [JsonPropertyName("6")]
+        [JsonProperty("6")]
         public Color color6 { get; set; }
-        [JsonPropertyName("7")]
+        [JsonProperty("7")]
         public Color color7 { get; set; }
-        [JsonPropertyName("8")]
+        [JsonProperty("8")]
         public Color color8 { get; set; }
-        [JsonPropertyName("9")]
+        [JsonProperty("9")]
         public Color color9 { get; set; }
-        [JsonPropertyName("10")]
+        [JsonProperty("10")]
         public Color color10 { get; set; }
-        [JsonPropertyName("11")]
+        [JsonProperty("11")]
         public Color color11 { get; set; }
-        [JsonPropertyName("12")]
+        [JsonProperty("12")]
         public Color color12 { get; set; }
-        [JsonPropertyName("13")]
+        [JsonProperty("13")]
         public Color color13 { get; set; }
-        [JsonPropertyName("14")]
+        [JsonProperty("14")]
         public Color color14 { get; set; }
-        [JsonPropertyName("15")]
+        [JsonProperty("15")]
         public Color color15 { get; set; }
-        [JsonPropertyName("16")]
+        [JsonProperty("16")]
         public Color color16 { get; set; }
-        [JsonPropertyName("17")]
+        [JsonProperty("17")]
         public Color color17 { get; set; }
-        [JsonPropertyName("18")]
+        [JsonProperty("18")]
         public Color color18 { get; set; }
-        [JsonPropertyName("19")]
+        [JsonProperty("19")]
         public Color color19 { get; set; }
-        [JsonPropertyName("20")]
+        [JsonProperty("20")]
         public Color color20 { get; set; }
-        [JsonPropertyName("21")]
+        [JsonProperty("21")]
         public Color color21 { get; set; }
-        [JsonPropertyName("22")]
+        [JsonProperty("22")]
         public Color color22 { get; set; }
-        [JsonPropertyName("23")]
+        [JsonProperty("23")]
         public Color color23 { get; set; }
-        [JsonPropertyName("24")]
+        [JsonProperty("24")]
         public Color color24 { get; set; }
     }
 
     public class EventColors
     {
-        [JsonPropertyName("1")]
+        [JsonProperty("1")]
         public Color color1 { get; set; }
-        [JsonPropertyName("2")]
+        [JsonProperty("2")]
         public Color color2 { get; set; }
-        [JsonPropertyName("3")]
+        [JsonProperty("3")]
         public Color color3 { get; set; }
-        [JsonPropertyName("4")]
+        [JsonProperty("4")]
         public Color color4 { get; set; }
-        [JsonPropertyName("5")]
+        [JsonProperty("5")]
         public Color color5 { get; set; }
-        [JsonPropertyName("6")]
+        [JsonProperty("6")]
         public Color color6 { get; set; }
-        [JsonPropertyName("7")]
+        [JsonProperty("7")]
         public Color color7 { get; set; }
-        [JsonPropertyName("8")]
+        [JsonProperty("8")]
         public Color color8 { get; set; }
-        [JsonPropertyName("9")]
+        [JsonProperty("9")]
         public Color color9 { get; set; }
-        [JsonPropertyName("10")]
+        [JsonProperty("10")]
         public Color color10 { get; set; }
-        [JsonPropertyName("11")]
+        [JsonProperty("11")]
         public Color color11 { get; set; }
     }
 

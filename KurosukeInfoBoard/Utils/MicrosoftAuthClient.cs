@@ -60,5 +60,14 @@ namespace KurosukeInfoBoard.Utils
         {
             await msalClient.RemoveAsync(account);
         }
+
+        public async Task DeleteAllCachedAccount()
+        {
+            var accounts = await msalClient.GetAccountsAsync().ConfigureAwait(false);
+            foreach (var account in accounts)
+            {
+                await msalClient.RemoveAsync(account);
+            }
+        }
     }
 }

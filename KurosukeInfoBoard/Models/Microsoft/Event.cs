@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,7 +66,7 @@ namespace KurosukeInfoBoard.Models.Microsoft
 
     public class Event : Common.EventBase
     {
-        [JsonPropertyName("@odata.etag")]
+        [JsonProperty("@odata.etag")]
         public string OdataEtag { get; set; }
         public string id { get; set; }
         public DateTime createdDateTime { get; set; }
@@ -107,9 +108,9 @@ namespace KurosukeInfoBoard.Models.Microsoft
         public List<Attendee> attendees { get; set; }
         public Organizer organizer { get; set; }
         public object onlineMeeting { get; set; }
-        [JsonPropertyName("calendar@odata.associationLink")]
+        [JsonProperty("calendar@odata.associationLink")]
         public string CalendarOdataAssociationLink { get; set; }
-        [JsonPropertyName("calendar@odata.navigationLink")]
+        [JsonProperty("calendar@odata.navigationLink")]
         public string CalendarOdataNavigationLink { get; set; }
 
 
@@ -131,7 +132,7 @@ namespace KurosukeInfoBoard.Models.Microsoft
 
     public class EventList
     {
-        [JsonPropertyName("@odata.context")]
+        [JsonProperty("@odata.context")]
         public string OdataContext { get; set; }
         public List<Event> value { get; set; }
     }

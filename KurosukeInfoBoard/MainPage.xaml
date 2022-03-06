@@ -5,7 +5,7 @@
     xmlns:local="using:KurosukeInfoBoard"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -41,5 +41,17 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups >
         </Grid>
+        <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
+            <controls:Loading.Background>
+                <SolidColorBrush Color="Black" Opacity="0.7" />
+            </controls:Loading.Background>
+            <StackPanel Orientation="Vertical">
+                <Image Source="Assets/StoreLogo.scale-400.png" MaxWidth="300"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <muxc:ProgressRing IsActive="True" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </controls:Loading>
     </Grid>
 </Page>

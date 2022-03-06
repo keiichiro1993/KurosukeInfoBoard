@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 using DebugHelper;
 using Windows.UI.ViewManagement;
+using KurosukeInfoBoard.ViewModels;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
 
@@ -32,6 +33,7 @@ namespace KurosukeInfoBoard
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        MainPageViewModel viewModel { get; set; } = new MainPageViewModel();
         public MainPage()
         {
             this.InitializeComponent();
@@ -69,6 +71,9 @@ namespace KurosukeInfoBoard
                 view.TryEnterFullScreenMode();
             }
 
+            viewModel.IsLoading = true;
+            viewModel.LoadingMessage = "Loading User Information...";
+
             if (AppGlobalVariables.Users == null)
             {
                 try
@@ -101,6 +106,8 @@ namespace KurosukeInfoBoard
                     mainNavigation.SelectedItem = mainNavigation.MenuItems[1];
                 }
             }
+
+            viewModel.IsLoading = false;
         }
     }
 }

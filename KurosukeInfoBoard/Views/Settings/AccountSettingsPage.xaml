@@ -16,12 +16,20 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="AUTO"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Margin="20" Click="Button_Click">
-                <StackPanel Orientation="Horizontal">
-                    <FontIcon Glyph="&#xE8FA;"/>
-                    <TextBlock Text="Add account" Margin="10,0"/>
-                </StackPanel>
-            </Button>
+            <StackPanel Grid.Row="0" Margin="20" Orientation="Horizontal">
+                <Button Click="Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon Glyph="&#xE8FA;"/>
+                        <TextBlock Text="Add Account" Margin="10,0"/>
+                    </StackPanel>
+                </Button>
+                <Button Click="RemoveAllAccount_Click" Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <FontIcon Glyph="&#xe75c;"/>
+                        <TextBlock Text="Remove All Accounts" Margin="10,0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
             <ListView Grid.Row="1" ItemsSource="{x:Bind viewModel.Users, Mode=OneWay}" SelectionMode="None" IsItemClickEnabled="True">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="authmodel:UserBase">
