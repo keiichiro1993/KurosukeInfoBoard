@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 using Windows.Security.Cryptography;
@@ -12,6 +11,7 @@ using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using DebugHelper;
+using Newtonsoft.Json;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -159,7 +159,7 @@ namespace KurosukeInfoBoard.Utils
                 // Sets the Authentication header of our HTTP client using the acquired access token.
                 string responseString = await response.Content.ReadAsStringAsync();
                 Debugger.WriteDebugLog("Token acquisition request finished. Request URL=" + response.RequestMessage.RequestUri.AbsoluteUri + " HTTP Status=" + response.StatusCode + ".");
-                return JsonSerializer.Deserialize<GoogleToken>(responseString);
+                return JsonConvert.DeserializeObject<GoogleToken>(responseString);
             }
         }
 

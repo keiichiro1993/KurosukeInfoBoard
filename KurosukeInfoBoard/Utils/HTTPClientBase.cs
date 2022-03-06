@@ -1,11 +1,10 @@
 ﻿using KurosukeInfoBoard.Models.Auth;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Utils
@@ -17,7 +16,7 @@ namespace KurosukeInfoBoard.Utils
         protected async Task<T> GetAsyncWithType<T>(string url)
         {
             var jsonString = await GetAsync(url);
-            return JsonSerializer.Deserialize<T>(jsonString);
+            return JsonConvert.DeserializeObject<T>(jsonString);
         }
 
         protected async Task<string> GetAsync(string url, int retry = 1)

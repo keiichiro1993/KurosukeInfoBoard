@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.Storage;
 using DebugHelper;
+using Newtonsoft.Json;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -57,7 +57,7 @@ namespace KurosukeInfoBoard.Utils
         {
             ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
             var values = roamingSettings.Values;
-            return JsonSerializer.Serialize(values);
+            return JsonConvert.SerializeObject(values);
         }
 
         #endregion

@@ -3,13 +3,12 @@ using KurosukeInfoBoard.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using DebugHelper;
+using Newtonsoft.Json;
 
 namespace KurosukeInfoBoard.ViewModels
 {
@@ -160,7 +159,7 @@ namespace KurosukeInfoBoard.ViewModels
                     var client = new NatureRemoClient(Appliance.Token);
                     var button = Appliance.settings.button == "" ? "power-off" : "";
                     var settingsString = await client.PostButton(Appliance.id, "aircon_settings", button);
-                    Appliance.settings = JsonSerializer.Deserialize<Models.NatureRemo.Settings>(settingsString);
+                    Appliance.settings = JsonConvert.DeserializeObject<Models.NatureRemo.Settings>(settingsString);
                     ((ToggleSwitch)sender).IsEnabled = true;
                 }
                 catch (Exception ex)

@@ -1,11 +1,10 @@
 ﻿using KurosukeInfoBoard.Models.Auth;
 using KurosukeInfoBoard.Models.NatureRemo;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Utils
@@ -23,7 +22,7 @@ namespace KurosukeInfoBoard.Utils
         public async Task<NatureRemoUser> GetUserDataAsync()
         {
             var jsonString = await GetAsync(userInfoEndpoint);
-            var userData = JsonSerializer.Deserialize<NatureRemoUser>(jsonString);
+            var userData = JsonConvert.DeserializeObject<NatureRemoUser>(jsonString);
             userData.UserType = UserType.NatureRemo;
             userData.Token = token;
             userData.ProfilePictureUrl = "/Assets/Icons/nature_remo_logo.png";
@@ -73,7 +72,7 @@ namespace KurosukeInfoBoard.Utils
 
             var content = new FormUrlEncodedContent(dict);
             var result = await PostAsync(endpoint + "/1/appliances/" + applianceId + "/aircon_settings", content);
-            return JsonSerializer.Deserialize<Settings>(result);
+            return JsonConvert.DeserializeObject<Settings>(result);
         }
 
         public async Task PostTvButton(string applianceId, string buttonName)

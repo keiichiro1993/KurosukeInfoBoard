@@ -7,10 +7,9 @@ using Q42.HueApi.ColorConverters.Original;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using KurosukeInfoBoard.Models.Hue.Extensions;
+using Newtonsoft.Json;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -65,7 +64,7 @@ namespace KurosukeInfoBoard.Utils
                             var match = true;
                             try
                             {
-                                var cachedLights = JsonSerializer.Deserialize<List<Models.Hue.JsonLight>>(exist.LightStateJson);
+                                var cachedLights = JsonConvert.DeserializeObject<List<Models.Hue.JsonLight>>(exist.LightStateJson);
                                 foreach (var cachedLight in cachedLights)
                                 {
                                     var light = (from item in hueDevice.Appliances
@@ -164,7 +163,7 @@ namespace KurosukeInfoBoard.Utils
                 lights.Add(new Models.Hue.JsonLight(lightItem));
             }
 
-            var lightStateJson = JsonSerializer.Serialize(lights);
+            var lightStateJson = JsonConvert.SerializeObject(lights);
 
             // Save current scene
             using (var context = new HueSelectedSceneContext())

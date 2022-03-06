@@ -2,13 +2,13 @@
 using KurosukeInfoBoard.Models.Auth;
 using KurosukeInfoBoard.Models.Common;
 using KurosukeInfoBoard.Models.Google;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Utils
@@ -45,7 +45,7 @@ namespace KurosukeInfoBoard.Utils
         public async Task<GoogleUser> GetUserDataAsync()
         {
             var jsonString = await GetAsync(userInfoEndpoint);
-            var userData = JsonSerializer.Deserialize<GoogleUser>(jsonString);
+            var userData = JsonConvert.DeserializeObject<GoogleUser>(jsonString);
             userData.UserType = UserType.Google;
             userData.Token = token;
 
@@ -77,7 +77,7 @@ namespace KurosukeInfoBoard.Utils
             }
             else
             {
-                return JsonSerializer.Deserialize<EventList>(jsonString);
+                return JsonConvert.DeserializeObject<EventList>(jsonString);
             }
         }
 
@@ -91,7 +91,7 @@ namespace KurosukeInfoBoard.Utils
             }
             else
             {
-                var events = JsonSerializer.Deserialize<EventList>(jsonString);
+                var events = JsonConvert.DeserializeObject<EventList>(jsonString);
                 foreach (var obj in events.items) { obj.OverrideColor = calendar.OverrideColor; }
                 return events;
             }
@@ -101,7 +101,7 @@ namespace KurosukeInfoBoard.Utils
         {
             var url = "https://www.googleapis.com/calendar/v3/colors";
             var jsonString = await GetAsync(url);
-            return JsonSerializer.Deserialize<Colors>(jsonString);
+            return JsonConvert.DeserializeObject<Colors>(jsonString);
         }
     }
 }

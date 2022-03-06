@@ -22,7 +22,6 @@
       すべてのアセンブリに適用されます。アスタリスクはワイルドカードではありません。
     -->
 		<Assembly Name="*Application*" Dynamic="Required All" />
-		<Namespace Name="System.Text.Json.Serialization.Converters" Browse="Required All"/>
 
 		<!--ここに、アプリケーション固有ランタイム ディレクティブを追加します。-->
 
