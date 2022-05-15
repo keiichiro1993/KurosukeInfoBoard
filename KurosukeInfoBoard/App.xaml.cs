@@ -90,7 +90,9 @@ namespace KurosukeInfoBoard
         /// <param name="e">ナビゲーション エラーの詳細</param>
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+            DebugHelper.Debugger.WriteErrorLog("Failed to load Page " + e.SourcePageType.FullName, e.Exception);
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(MainPage));
         }
 
         /// <summary>
