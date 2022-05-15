@@ -140,10 +140,10 @@
       <Version>6.2.13</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
-      <Version>6.0.2</Version>
+      <Version>6.0.4</Version>
     </PackageReference>
     <PackageReference Include="YoutubeExplode">
-      <Version>6.1.0</Version>
+      <Version>6.1.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
