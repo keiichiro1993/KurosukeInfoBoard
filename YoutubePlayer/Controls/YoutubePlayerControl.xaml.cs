@@ -121,7 +121,7 @@ namespace YoutubePlayer.Controls
             try
             {
                 viewModel.Title = video.Title;
-                viewModel.ChannelName = video.Author.Title;
+                viewModel.ChannelName = video.Author.ChannelTitle;
 
                 using (var stream = await client.GetHighestQualityVideoAsStream(video.Id, UseAV1Codec))
                 {
