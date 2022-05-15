@@ -1,4 +1,5 @@
-﻿using KurosukeInfoBoard.ViewModels;
+﻿using KurosukeInfoBoard.Utils;
+using KurosukeInfoBoard.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,6 +34,7 @@ namespace KurosukeInfoBoard.Views
         {
             base.OnNavigatedTo(e);
             viewModel.Init();
+            SettingsHelper.Settings.LastSelectedPage.SetValue("RemoteControlPage");
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)

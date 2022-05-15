@@ -1,4 +1,5 @@
-﻿using KurosukeInfoBoard.ViewModels;
+﻿using KurosukeInfoBoard.Utils;
+using KurosukeInfoBoard.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace KurosukeInfoBoard.Views
         {
             base.OnNavigatedTo(e);
             viewModel.Init(DateTime.Now);
+            SettingsHelper.Settings.LastSelectedPage.SetValue("DashboardPage");
         }
 
         private void NatureRemoDeviceControl_Clicked(object sender, RoutedEventArgs e)

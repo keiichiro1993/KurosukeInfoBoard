@@ -92,8 +92,21 @@ namespace KurosukeInfoBoard
 
             if (mainNavigation.SelectedItem == null)
             {
-                mainNavigation.SelectedItem = mainNavigation.MenuItems[0];
-                contentFrame.Navigate(typeof(DashboardPage));
+                switch (SettingsHelper.Settings.LastSelectedPage.GetValue<string>())
+                {
+                    case "DashboardPage":
+                        mainNavigation.SelectedItem = mainNavigation.MenuItems[0];
+                        contentFrame.Navigate(typeof(DashboardPage));
+                        break;
+                    case "RemoteControlPage":
+                        mainNavigation.SelectedItem = mainNavigation.MenuItems[1];
+                        contentFrame.Navigate(typeof(RemoteControlPage));
+                        break;
+                    default:
+                        mainNavigation.SelectedItem = mainNavigation.MenuItems[0];
+                        contentFrame.Navigate(typeof(DashboardPage));
+                        break;
+                }
             }
             else
             {
