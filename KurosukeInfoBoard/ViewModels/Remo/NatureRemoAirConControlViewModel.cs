@@ -31,13 +31,21 @@ namespace KurosukeInfoBoard.ViewModels
             get { return _CurrentMode; }
             set
             {
-                _CurrentMode = value;
-
-                var mode = (Mode)Appliance.aircon.range.modes.GetType().GetProperty(CurrentMode).GetValue(Appliance.aircon.range.modes);
-                InitTargetTempSlider(mode);
-
-                RaisePropertyChanged();
-                ChangeSettings();
+                if (!string.IsNullOrEmpty(value))
+                {
+                    _CurrentMode = value;
+                    var propertyInfo = Appliance.aircon.range.modes.GetType().GetProperty(CurrentMode);
+                    if (propertyInfo != null)
+                    {
+                        var mode = propertyInfo.GetValue(Appliance.aircon.range.modes) as Mode;
+                        if (mode != null)
+                        {
+                            InitTargetTempSlider(mode);
+                            RaisePropertyChanged();
+                            ChangeSettings();
+                        }
+                    }
+                }
             }
         }
 

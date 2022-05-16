@@ -88,7 +88,7 @@ namespace KurosukeInfoBoard.Models.NatureRemo
             {
                 var list = (from prop in this.GetType().GetProperties()
                             select prop.Name).ToList();
-                list.Remove("ModeList");
+                if (list.Contains("ModeList")) { list.Remove("ModeList"); };
                 return list;
             }
         }
