@@ -79,13 +79,10 @@
                 </ListView>
             </StackPanel>
         </Grid>
-        <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
-            <controls:Loading.Background>
-                <SolidColorBrush Color="Black" Opacity="0.7" />
-            </controls:Loading.Background>
+        <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}" VerticalContentAlignment="Center">
             <StackPanel Orientation="Horizontal">
-                <muxc:ProgressRing IsActive="True"/>
-                <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}"></TextBlock>
+                <muxc:ProgressRing IsActive="True" Margin="0,0,5,0"/>
+                <TextBlock Text="{x:Bind viewModel.LoadingMessage, Mode=OneWay}" VerticalAlignment="Center"/>
             </StackPanel>
         </controls:Loading>
     </Grid>

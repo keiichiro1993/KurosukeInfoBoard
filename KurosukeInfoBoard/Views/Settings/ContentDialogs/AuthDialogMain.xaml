@@ -83,13 +83,10 @@
                 </Grid>
             </Button>
         </Grid>
-        <controls:Loading x:Name="LoadingControl" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
-            <controls:Loading.Background>
-                <SolidColorBrush Color="Black" Opacity="0.7" />
-            </controls:Loading.Background>
+        <controls:Loading x:Name="LoadingControl" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}" VerticalContentAlignment="Center">
             <StackPanel Orientation="Horizontal">
-                <muxc:ProgressRing IsActive="True"/>
-                <TextBlock Text="Acquiring token..."/>
+                <muxc:ProgressRing IsActive="True" Margin="0,0,5,0"/>
+                <TextBlock Text="Acquiring token..." VerticalAlignment="Center"/>
             </StackPanel>
         </controls:Loading>
     </Grid>
