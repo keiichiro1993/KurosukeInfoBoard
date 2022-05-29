@@ -145,7 +145,20 @@ namespace KurosukeInfoBoard
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame.CanGoBack)
             {
-                rootFrame.GoBack();
+                try
+                {
+                    rootFrame.GoBack();
+                }
+                catch (OperationCanceledException ex)
+                {
+                    DebugHelper.Debugger.WriteErrorLog("Operation cancelled in App.TryGoBack.", ex);
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    DebugHelper.Debugger.WriteErrorLog("Error occurred in App.TryGoBack. Loading Main Page instead.", ex);
+                    rootFrame.Navigate(typeof(MainPage));
+                }
                 return true;
             }
             return false;
