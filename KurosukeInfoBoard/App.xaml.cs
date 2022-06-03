@@ -10,6 +10,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Windows.ApplicationModel.Resources;
+using Microsoft.EntityFrameworkCore;
 
 namespace KurosukeInfoBoard
 {
@@ -29,6 +30,12 @@ namespace KurosukeInfoBoard
 
             var resource = ResourceLoader.GetForViewIndependentUse("Keys");
             AppCenter.Start(resource.GetString("AppCenterKey"), typeof(Analytics), typeof(Crashes));
+
+
+            using (var context = new Models.SQL.CombinedControlContext())
+            {
+                context.Database.Migrate();
+            }
         }
 
         /// <summary>

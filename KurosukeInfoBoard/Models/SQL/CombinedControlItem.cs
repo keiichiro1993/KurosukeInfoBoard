@@ -25,6 +25,8 @@ namespace KurosukeInfoBoard.Models.SQL
 
         public string HueID { get; set; }
         public string HueName { get; set; }
+
+        public bool IsSynchronized { get; set; }
     }
 
     public class CombinedControlContext : DbContext
