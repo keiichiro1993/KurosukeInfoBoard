@@ -11,8 +11,8 @@
     <AssemblyName>KurosukeInfoBoard</AssemblyName>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -178,6 +178,11 @@
     <Compile Include="Controls\Weather\WeatherControl.xaml.cs">
       <DependentUpon>WeatherControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20220603135304_AddSynchronizedOption.cs" />
+    <Compile Include="Migrations\20220603135304_AddSynchronizedOption.Designer.cs">
+      <DependentUpon>20220603135304_AddSynchronizedOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\CombinedControlContextModelSnapshot.cs" />
     <Compile Include="Models\Auth\HueToken.cs" />
     <Compile Include="Models\Auth\HueUser.cs" />
     <Compile Include="Models\Auth\MicrosoftToken.cs" />
@@ -542,7 +547,12 @@
       <Version>4.5.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>3.1.18</Version>
+      <Version>3.1.25</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <Version>3.1.25</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Graph">
       <Version>4.29.0</Version>
