@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace KurosukeInfoBoard.Models.SQL
 {
@@ -54,7 +53,7 @@ namespace KurosukeInfoBoard.Models.SQL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=" + ApplicationData.Current.LocalFolder.Path + "\\" + DBFileName);
+            optionsBuilder.UseSqlite("Data Source=" + DBFileName);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace KurosukeInfoBoard.Migrations
+namespace ConsoleApp1.Migrations
 {
     [DbContext(typeof(CombinedControlContext))]
     partial class CombinedControlContextModelSnapshot : ModelSnapshot

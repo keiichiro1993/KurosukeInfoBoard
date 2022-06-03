@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KurosukeInfoBoard.Migrations
 {
     [DbContext(typeof(CombinedControlContext))]
-    [Migration("20220603135304_AddSynchronizedOption")]
-    partial class AddSynchronizedOption
+    [Migration("20220603143126_AddSynchronization")]
+    partial class AddSynchronization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,35 @@ namespace KurosukeInfoBoard.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("CombinedControl");
+                });
+
+            modelBuilder.Entity("KurosukeInfoBoard.Models.SQL.SynchronizedRemoItemEntity", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ApplianceId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CombinedControlID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CombinedControlID");
+
+                    b.ToTable("SynchronizedRemoItem");
+                });
+
+            modelBuilder.Entity("KurosukeInfoBoard.Models.SQL.SynchronizedRemoItemEntity", b =>
+                {
+                    b.HasOne("KurosukeInfoBoard.Models.SQL.CombinedControlEntity", "CombinedControl")
+                        .WithMany("SynchronizedRemoItems")
+                        .HasForeignKey("CombinedControlID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

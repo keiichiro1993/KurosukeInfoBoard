@@ -31,10 +31,21 @@ namespace KurosukeInfoBoard
             var resource = ResourceLoader.GetForViewIndependentUse("Keys");
             AppCenter.Start(resource.GetString("AppCenterKey"), typeof(Analytics), typeof(Crashes));
 
-
-            using (var context = new Models.SQL.CombinedControlContext())
+            try
             {
-                context.Database.Migrate();
+                using (var context = new Models.SQL.CombinedControlContext())
+                {
+                    context.Database.Migrate();
+                }
+            }
+            catch (Exception ex)
+            {
+                DebugHelper.Debugger.WriteErrorLog("Ignoring DB Migration error...", ex);
+                using (var context = new Models.SQL.CombinedControlContext())
+                {
+                    context.Database.EnsureDeleted();
+                    context.Database.Migrate();
+                }
             }
         }
 
