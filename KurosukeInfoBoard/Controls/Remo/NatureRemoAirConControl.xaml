@@ -67,7 +67,9 @@
                         <TextBlock Text="°" VerticalAlignment="Bottom" Margin="5,0,0,0" FontSize="20"/>
                         <TextBlock Text="{x:Bind viewModel.Appliance.aircon.tempUnit, Mode=OneWay}" VerticalAlignment="Bottom" FontSize="20"/>
                     </StackPanel>
-                    <Slider Maximum="{x:Bind viewModel.SliderMax, Mode=OneWay}" Minimum="{x:Bind viewModel.SliderMin, Mode=OneWay}" SmallChange="{x:Bind viewModel.SliderChange, Mode=OneWay}" Value="{x:Bind viewModel.CurrentDegree, Mode=TwoWay}"/>
+                    <Slider Visibility="{x:Bind viewModel.SliderVisibility, Mode=OneWay}"
+                            Maximum="{x:Bind viewModel.SliderMax, Mode=OneWay}" Minimum="{x:Bind viewModel.SliderMin, Mode=OneWay}" 
+                            SmallChange="{x:Bind viewModel.SliderChange, Mode=OneWay}" Value="{x:Bind viewModel.CurrentDegree, Mode=TwoWay}"/>
                 </StackPanel>
             </Grid>
         </Grid>

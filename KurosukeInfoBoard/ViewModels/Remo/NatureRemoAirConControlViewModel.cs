@@ -73,6 +73,14 @@ namespace KurosukeInfoBoard.ViewModels
             }
         }
 
+        private Visibility _SliderVisibility;
+        public Visibility SliderVisibility
+        {
+            get
+            {
+                return (!string.IsNullOrEmpty(SliderMin) && !string.IsNullOrEmpty(SliderMax)) && double.Parse(SliderMin) < double.Parse(SliderMax) ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
 
         private string _SliderMin;
         public string SliderMin
@@ -81,6 +89,7 @@ namespace KurosukeInfoBoard.ViewModels
             set
             {
                 _SliderMin = value;
+                RaisePropertyChanged("SliderVisibility");
                 RaisePropertyChanged();
             }
         }
@@ -92,6 +101,7 @@ namespace KurosukeInfoBoard.ViewModels
             set
             {
                 _SliderMax = value;
+                RaisePropertyChanged("SliderVisibility");
                 RaisePropertyChanged();
             }
         }
