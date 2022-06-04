@@ -51,6 +51,8 @@ namespace KurosukeInfoBoard.ViewModels.Settings.ContentDialogs
             }
         }
 
+        public bool IsSynchronized { get; set; }
+
         private IDevice _SelectedRemo;
         public IDevice SelectedRemo
         {
@@ -102,6 +104,7 @@ namespace KurosukeInfoBoard.ViewModels.Settings.ContentDialogs
                 newGroup.RemoID = ((Models.NatureRemo.Device)SelectedRemo).id;
                 newGroup.RemoName = SelectedRemo.DeviceName;
             }
+            newGroup.IsSynchronized = IsSynchronized;
 
             var dbHelper = new CombinedControlHelper();
             await dbHelper.Init();

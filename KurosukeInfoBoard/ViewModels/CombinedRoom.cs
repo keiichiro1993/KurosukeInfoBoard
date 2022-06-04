@@ -20,11 +20,12 @@ namespace KurosukeInfoBoard.ViewModels
     public class CombinedRoom : ViewModelBase, IDevice
     {
 
-        public CombinedRoom(string deviceName, Models.Hue.Group hueDevice, Models.NatureRemo.Device remoDevice)
+        public CombinedRoom(string deviceName, Models.Hue.Group hueDevice, Models.NatureRemo.Device remoDevice, bool isSynced)
         {
             Appliances = new List<IAppliance>();
             HueScenes = new List<Scene>();
             DeviceName = deviceName;
+            IsSynced = isSynced;
             if (hueDevice != null)
             {
                 HueGroup = hueDevice.HueGroup;
@@ -65,6 +66,8 @@ namespace KurosukeInfoBoard.ViewModels
         public List<Scene> HueScenes { get; set; }
 
         public string DeviceName { get; set; }
+
+        public bool IsSynced { get; set; }
 
         public string RoomTemperature { get { return RemoDevice != null ? RemoDevice.newest_events.te.val.ToString() : ""; } }
 
@@ -132,7 +135,9 @@ namespace KurosukeInfoBoard.ViewModels
             if (delay == 0 || DateTime.Now - lastCommand >= new TimeSpan(0, 0, 0, 0, delay))
             {
                 IsLoading = true;
-                var appliance = Appliances.FirstOrDefault() as Light;
+                var appliance = (from item in Appliances
+                                 where item.GetType() == typeof(Light)
+                                 select item).FirstOrDefault() as Light;
                 if (appliance != null)
                 {
                     try
@@ -145,8 +150,42 @@ namespace KurosukeInfoBoard.ViewModels
                         DebugHelper.Debugger.WriteErrorLog("Error occurred while sending group command.", ex);
                         await new MessageDialog("Error occurred while sending group command: " + ex.Message).ShowAsync();
                     }
+
+                    await SyncRemoAppliances();
                 }
                 IsLoading = false;
+            }
+        }
+
+        private async Task SyncRemoAppliances()
+        {
+            if (IsSynced)
+            {
+                var appliances = from item in Appliances
+                                     where item.GetType() == typeof(Models.NatureRemo.Appliance)
+                                     select item as Models.NatureRemo.Appliance;
+                try
+                {
+                    if (appliances.Any())
+                    {
+                        var remoClient = new NatureRemoClient(appliances.First().Token);
+                        foreach (var appliance in appliances)
+                        {
+                            var signal = (from item in appliance.signals
+                                          where item.image == (HueIsOn ? "ico_on" : "ico_off")
+                                          select item).FirstOrDefault();
+                            if (signal != null)
+                            {
+                                await remoClient.PostSignal(signal.id);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugHelper.Debugger.WriteErrorLog("Error occurred while sending remo signal as combined group.", ex);
+                    await new MessageDialog("Error occurred while sending remo signal as combined group: " + ex.Message).ShowAsync();
+                }
             }
         }
 
@@ -155,7 +194,9 @@ namespace KurosukeInfoBoard.ViewModels
             if (SelectedHueScene != null)
             {
                 IsLoading = true;
-                var appliance = Appliances.FirstOrDefault() as Light;
+                var appliance = (from item in Appliances
+                                 where item.GetType() == typeof(Light)
+                                 select item).FirstOrDefault() as Light;
                 if (appliance != null && SelectedHueScene != null)
                 {
                     try
@@ -169,6 +210,8 @@ namespace KurosukeInfoBoard.ViewModels
                         DebugHelper.Debugger.WriteErrorLog("Error occurred while sending scene command.", ex);
                         await new MessageDialog("Error occurred while sending scene command: " + ex.Message).ShowAsync();
                     }
+
+                    SyncRemoAppliances();
                 }
                 IsLoading = false;
             }

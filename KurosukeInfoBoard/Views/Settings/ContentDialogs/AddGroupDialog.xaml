@@ -24,6 +24,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.Resources>
             <Style TargetType="TextBlock">
@@ -45,5 +46,10 @@
         <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   ItemsSource="{x:Bind viewModel.HueDevices}" SelectedItem="{x:Bind viewModel.SelectedHue, Mode=TwoWay}"
                   DisplayMemberPath="DeviceName"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Sync (preview):"/>
+        <CheckBox Grid.Row="3" Grid.Column="1" Margin="0,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  Content="*this will sync turn on/off of appliances" VerticalContentAlignment="Center" FontSize="10"
+                  IsChecked="{x:Bind viewModel.IsSynchronized, Mode=TwoWay}"/>
     </Grid>
 </ContentDialog>

@@ -178,13 +178,9 @@
     <Compile Include="Controls\Weather\WeatherControl.xaml.cs">
       <DependentUpon>WeatherControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20220603141817_InitialMigration.cs" />
-    <Compile Include="Migrations\20220603141817_InitialMigration.Designer.cs">
-      <DependentUpon>20220603141817_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20220603143126_AddSynchronization.cs" />
-    <Compile Include="Migrations\20220603143126_AddSynchronization.Designer.cs">
-      <DependentUpon>20220603143126_AddSynchronization.cs</DependentUpon>
+    <Compile Include="Migrations\20220604031200_InitialMigration.cs" />
+    <Compile Include="Migrations\20220604031200_InitialMigration.Designer.cs">
+      <DependentUpon>20220604031200_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\CombinedControlContextModelSnapshot.cs" />
     <Compile Include="Models\Auth\HueToken.cs" />
