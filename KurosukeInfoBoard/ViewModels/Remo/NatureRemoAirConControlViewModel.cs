@@ -73,7 +73,6 @@ namespace KurosukeInfoBoard.ViewModels
             }
         }
 
-        private Visibility _SliderVisibility;
         public Visibility SliderVisibility
         {
             get

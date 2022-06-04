@@ -211,7 +211,7 @@ namespace KurosukeInfoBoard.ViewModels
                         await new MessageDialog("Error occurred while sending scene command: " + ex.Message).ShowAsync();
                     }
 
-                    SyncRemoAppliances();
+                    await SyncRemoAppliances();
                 }
                 IsLoading = false;
             }

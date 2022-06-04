@@ -308,6 +308,7 @@
     <Content Include="Assets\Icons\google_button.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Icons\information-hint.svg" />
     <Content Include="Assets\Icons\IRControls_black\AC.svg" />
     <Content Include="Assets\Icons\IRControls_black\Light.svg" />
     <Content Include="Assets\Icons\IRControls_black\Lightning.svg" />

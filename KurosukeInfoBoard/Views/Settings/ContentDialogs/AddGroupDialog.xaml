@@ -47,9 +47,21 @@
                   ItemsSource="{x:Bind viewModel.HueDevices}" SelectedItem="{x:Bind viewModel.SelectedHue, Mode=TwoWay}"
                   DisplayMemberPath="DeviceName"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Sync (preview):"/>
-        <CheckBox Grid.Row="3" Grid.Column="1" Margin="0,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                  Content="*this will sync turn on/off of appliances" VerticalContentAlignment="Center" FontSize="10"
-                  IsChecked="{x:Bind viewModel.IsSynchronized, Mode=TwoWay}"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Sync On/Off:"/>
+        <CheckBox Grid.Row="3" Grid.Column="1" Margin="0,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="10"
+                  IsChecked="{x:Bind viewModel.IsSynchronized, Mode=TwoWay}">
+            <CheckBox.Content>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="FontSize" Value="10"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock Text="*this will sync turn on/off of appliances"/>
+                    <TextBlock Text=" only applicable to IR and with ON/OFF icons on your Remo app"/>
+                </StackPanel>
+            </CheckBox.Content>
+        </CheckBox>
     </Grid>
 </ContentDialog>
