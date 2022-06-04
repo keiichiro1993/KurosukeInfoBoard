@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ConsoleApp1.Migrations
+namespace DBMigrationDummy.Migrations
 {
     [DbContext(typeof(CombinedControlContext))]
     partial class CombinedControlContextModelSnapshot : ModelSnapshot
@@ -26,22 +26,18 @@ namespace ConsoleApp1.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("HueID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("HueName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsSynchronized")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("RemoID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RemoName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");

@@ -2,15 +2,27 @@
 
 namespace KurosukeInfoBoard.Migrations
 {
-    public partial class AddSynchronization : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "IsSynchronized",
-                table: "CombinedControl",
-                nullable: false,
-                defaultValue: false);
+            migrationBuilder.CreateTable(
+                name: "CombinedControl",
+                columns: table => new
+                {
+                    ID = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    DeviceName = table.Column<string>(nullable: false),
+                    RemoID = table.Column<string>(nullable: true),
+                    RemoName = table.Column<string>(nullable: true),
+                    HueID = table.Column<string>(nullable: true),
+                    HueName = table.Column<string>(nullable: true),
+                    IsSynchronized = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CombinedControl", x => x.ID);
+                });
 
             migrationBuilder.CreateTable(
                 name: "SynchronizedRemoItem",
@@ -43,9 +55,8 @@ namespace KurosukeInfoBoard.Migrations
             migrationBuilder.DropTable(
                 name: "SynchronizedRemoItem");
 
-            migrationBuilder.DropColumn(
-                name: "IsSynchronized",
-                table: "CombinedControl");
+            migrationBuilder.DropTable(
+                name: "CombinedControl");
         }
     }
 }

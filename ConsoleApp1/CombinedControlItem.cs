@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace KurosukeInfoBoard.Models.SQL
 {
+
     [Table("CombinedControl")]
     public class CombinedControlEntity
     {
@@ -19,11 +20,11 @@ namespace KurosukeInfoBoard.Models.SQL
         [Required]
         public string DeviceName { get; set; }
 
-        public string RemoID { get; set; }
-        public string RemoName { get; set; }
+        public string? RemoID { get; set; }
+        public string? RemoName { get; set; }
 
-        public string HueID { get; set; }
-        public string HueName { get; set; }
+        public string? HueID { get; set; }
+        public string? HueName { get; set; }
 
         public bool IsSynchronized { get; set; }
 
@@ -64,4 +65,5 @@ namespace KurosukeInfoBoard.Models.SQL
                 .WithOne(s => s.CombinedControl);
         }
     }
+
 }
