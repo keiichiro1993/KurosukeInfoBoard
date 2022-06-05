@@ -12,7 +12,7 @@
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -198,6 +198,7 @@
     <Compile Include="Models\Hue\JsonState.cs" />
     <Compile Include="Models\SQL\CombinedControlItem.cs" />
     <Compile Include="Utils\DBHelpers\CombinedControlHelper.cs" />
+    <Compile Include="Utils\DBHelpers\StorageFolderExtention.cs" />
     <Compile Include="Utils\RemoteControlHelper.cs" />
     <Compile Include="ViewModels\CombinedRoom.cs" />
     <Compile Include="Models\Google\Colors.cs" />
@@ -541,12 +542,7 @@
       <Version>4.5.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>3.1.25</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
-      <Version>3.1.25</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
+      <Version>3.1.18</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Graph">
       <Version>4.29.0</Version>
