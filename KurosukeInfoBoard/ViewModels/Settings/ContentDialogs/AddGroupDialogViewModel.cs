@@ -17,8 +17,8 @@ namespace KurosukeInfoBoard.ViewModels.Settings.ContentDialogs
     {
         public ObservableCollection<IDevice> RemoDevices { get; set; }
         public ObservableCollection<IDevice> HueDevices { get; set; }
-        private ObservableCollection<CombinedControlEntity> combinedControls { get; set; }
-        public AddGroupDialogViewModel(ObservableCollection<IDevice> remoDevices, ObservableCollection<IDevice> hueDevices, ObservableCollection<CombinedControlEntity> combinedControls)
+        private ObservableCollection<CombinedControl> combinedControls { get; set; }
+        public AddGroupDialogViewModel(ObservableCollection<IDevice> remoDevices, ObservableCollection<IDevice> hueDevices, ObservableCollection<CombinedControl> combinedControls)
         {
             RemoDevices = remoDevices;
             HueDevices = hueDevices;
@@ -92,16 +92,16 @@ namespace KurosukeInfoBoard.ViewModels.Settings.ContentDialogs
 
         public async Task CreateGroup()
         {
-            var newGroup = new CombinedControlEntity();
+            var newGroup = new CombinedControl();
             newGroup.DeviceName = DeviceName;
             if (SelectedHue != null)
             {
-                newGroup.HueID = ((Models.Hue.Group)SelectedHue).HueGroup.Id;
+                newGroup.HueId = ((Models.Hue.Group)SelectedHue).HueGroup.Id;
                 newGroup.HueName = SelectedHue.DeviceName;
             }
             if (SelectedRemo != null)
             {
-                newGroup.RemoID = ((Models.NatureRemo.Device)SelectedRemo).id;
+                newGroup.RemoId = ((Models.NatureRemo.Device)SelectedRemo).id;
                 newGroup.RemoName = SelectedRemo.DeviceName;
             }
             newGroup.IsSynchronized = IsSynchronized;

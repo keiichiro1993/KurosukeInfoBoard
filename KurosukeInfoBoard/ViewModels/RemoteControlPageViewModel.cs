@@ -47,15 +47,15 @@ namespace KurosukeInfoBoard.ViewModels
             Devices = new ObservableCollection<IDevice>();
 
             var devices = await RemoteControlHelper.GetAllDevices();
-            var combinedControls = dbHelper.GetCombinedControls();
+            var combinedControls = await dbHelper.GetCombinedControls();
 
             foreach (var combinedControl in combinedControls)
             {
                 var remoDevice = (from device in devices
-                                  where typeof(Device) == device.GetType() && ((Device)device).id == combinedControl.RemoID
+                                  where typeof(Device) == device.GetType() && ((Device)device).id == combinedControl.RemoId
                                   select device).FirstOrDefault();
                 var hueDevice = (from device in devices
-                                 where typeof(Models.Hue.Group) == device.GetType() && ((Models.Hue.Group)device).HueGroup.Id == combinedControl.HueID
+                                 where typeof(Models.Hue.Group) == device.GetType() && ((Models.Hue.Group)device).HueGroup.Id == combinedControl.HueId
                                  select device).FirstOrDefault();
 
                 var room = new CombinedRoom(combinedControl.DeviceName, hueDevice as Models.Hue.Group, remoDevice as Device, combinedControl.IsSynchronized);

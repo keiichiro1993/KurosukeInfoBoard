@@ -45,7 +45,7 @@
                 <ListView MinWidth="250" VerticalAlignment="Stretch"
                            ItemsSource="{x:Bind viewModel.CombinedControls, Mode=OneWay}">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="models:CombinedControlEntity">
+                        <DataTemplate x:DataType="models:CombinedControl">
                             <Grid Margin="10" BorderBrush="{StaticResource TextBoxBackgroundThemeBrush}" BorderThickness="20,0,0,0" Padding="10,0,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="AUTO"/>

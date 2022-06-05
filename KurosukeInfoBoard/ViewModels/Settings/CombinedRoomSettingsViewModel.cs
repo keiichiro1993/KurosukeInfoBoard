@@ -30,20 +30,20 @@ namespace KurosukeInfoBoard.ViewModels.Settings
 
                 RemoDevices = new ObservableCollection<IDevice>(await remoTask);
                 HueDevices = new ObservableCollection<IDevice>(await hueTask);
-                CombinedControls = dbHelper.GetCombinedControls();
+                CombinedControls = await dbHelper.GetCombinedControls();
 
                 // filter out in use devices
                 var usedRemoIDs = from control in CombinedControls
-                                  where !string.IsNullOrEmpty(control.RemoID)
-                                  select control.RemoID;
+                                  where !string.IsNullOrEmpty(control.RemoId)
+                                  select control.RemoId;
                 var usedRemoDevices = (from device in RemoDevices
                                        where usedRemoIDs.Contains(((Models.NatureRemo.Device)device).id)
                                        select device).ToList();
                 foreach (var usedRemoDevice in usedRemoDevices) { RemoDevices.Remove(usedRemoDevice); }
 
                 var usedHueIDs = from control in CombinedControls
-                                 where !string.IsNullOrEmpty(control.HueID)
-                                 select control.HueID;
+                                 where !string.IsNullOrEmpty(control.HueId)
+                                 select control.HueId;
                 var usedHueDevices = (from device in HueDevices
                                       where usedHueIDs.Contains(((Models.Hue.Group)device).HueGroup.Id)
                                       select device).ToList();
@@ -57,8 +57,8 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             IsLoading = false;
         }
 
-        private ObservableCollection<CombinedControlEntity> _CombinedControls;
-        public ObservableCollection<CombinedControlEntity> CombinedControls
+        private ObservableCollection<CombinedControl> _CombinedControls;
+        public ObservableCollection<CombinedControl> CombinedControls
         {
             get { return _CombinedControls; }
             set
@@ -102,7 +102,7 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             await contentDialog.ShowAsync();
         }
 
-        public async Task RemoveGroupItem(CombinedControlEntity entity)
+        public async Task RemoveGroupItem(CombinedControl entity)
         {
             try
             {

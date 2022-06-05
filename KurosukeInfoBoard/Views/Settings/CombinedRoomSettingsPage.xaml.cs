@@ -42,7 +42,7 @@ namespace KurosukeInfoBoard.Views.Settings
         {
             var button = (Button)sender;
             button.IsEnabled = false;
-            var item = button.DataContext as CombinedControlEntity;
+            var item = button.DataContext as CombinedControl;
 
             var dialog = new MessageDialog("Are you sure to delete group: " + item.DeviceName + " ?");
             dialog.Commands.Add(new UICommand("Delete"));

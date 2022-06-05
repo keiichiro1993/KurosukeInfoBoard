@@ -1,67 +1,45 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
+using System.Collections.ObjectModel;
 
 namespace KurosukeInfoBoard.Models.SQL
 {
-    [Table("CombinedControl")]
-    public class CombinedControlEntity
+    public class CombinedControl
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public CombinedControl() { }
+        public CombinedControl(string deviceName, bool isSynchronized, string remoId, string remoName, string hueId, string hueName)
+        {
+            Id = null;
+            Order = null;
+            DeviceName = deviceName;
+            IsSynchronized = isSynchronized;
+            RemoId = remoId;
+            RemoName = remoName;
+            HueId = hueId;
+            HueName = hueName;
+            SynchronizedRemoItems = new ObservableCollection<SynchronizedRemoItem>();
+        }
 
-        [Required]
+        public Int64? Id { get; set; }
+        public Int64? Order { get; set; }
         public string DeviceName { get; set; }
-
-        public string RemoID { get; set; }
-        public string RemoName { get; set; }
-
-        public string HueID { get; set; }
-        public string HueName { get; set; }
-
         public bool IsSynchronized { get; set; }
 
-        [InverseProperty("CombinedControl")]
-        public ICollection<SynchronizedRemoItemEntity> SynchronizedRemoItems { get; set; }
+        public string RemoId { get; set; }
+        public string RemoName { get; set; }
+
+        public string HueId { get; set; }
+        public string HueName { get; set; }
+
+        public ObservableCollection<SynchronizedRemoItem> SynchronizedRemoItems { get; set; }
     }
 
-    [Table("SynchronizedRemoItem")]
-    public class SynchronizedRemoItemEntity
+    public class SynchronizedRemoItem
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
-
-        [Required]
-        public CombinedControlEntity CombinedControl { get; set; }
-
-        [Required]
         public string ApplianceId { get; set; }
-    }
 
-    public class CombinedControlContext : DbContext
-    {
-        private static string DBFileName = "combinedcontrol.db";
+        public string OnSignalId { get; set; }
 
-        public DbSet<CombinedControlEntity> CombinedControls { get; internal set; }
-        public DbSet<SynchronizedRemoItemEntity> SynchronizedRemoItems { get; internal set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=" + ApplicationData.Current.LocalFolder.Path + "\\" + DBFileName);
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // 1:n relation
-            modelBuilder.Entity<CombinedControlEntity>()
-                .HasMany(c => c.SynchronizedRemoItems)
-                .WithOne(s => s.CombinedControl);
-        }
+        public string OffSignalId { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
     public sealed partial class AddGroupDialog : ContentDialog
     {
         public AddGroupDialogViewModel viewModel;
-        public AddGroupDialog(ObservableCollection<IDevice> remoDevices, ObservableCollection<IDevice> hueDevices, ObservableCollection<CombinedControlEntity> combinedControls)
+        public AddGroupDialog(ObservableCollection<IDevice> remoDevices, ObservableCollection<IDevice> hueDevices, ObservableCollection<CombinedControl> combinedControls)
         {
             this.InitializeComponent();
             viewModel = new AddGroupDialogViewModel(remoDevices, hueDevices, combinedControls);
@@ -44,6 +44,7 @@ namespace KurosukeInfoBoard.Views.ContentDialogs
             try
             {
                 await viewModel.CreateGroup();
+                canClose = true;
                 this.Hide();
             }
             catch (Exception ex)
