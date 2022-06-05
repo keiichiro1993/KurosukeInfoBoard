@@ -13,9 +13,8 @@ namespace KurosukeInfoBoard.Models.SQL
     [Table("CombinedControl")]
     public class CombinedControlEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required]
         public string DeviceName { get; set; }
@@ -28,15 +27,15 @@ namespace KurosukeInfoBoard.Models.SQL
 
         public bool IsSynchronized { get; set; }
 
+        [InverseProperty("CombinedControl")]
         public ICollection<SynchronizedRemoItemEntity> SynchronizedRemoItems { get; set; }
     }
 
     [Table("SynchronizedRemoItem")]
     public class SynchronizedRemoItemEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required]
         public CombinedControlEntity CombinedControl { get; set; }

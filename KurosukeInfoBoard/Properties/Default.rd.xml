@@ -21,7 +21,7 @@
       Name="*Application*" のアセンブリ要素は、アプリケーション パッケージ内の
       すべてのアセンブリに適用されます。アスタリスクはワイルドカードではありません。
     -->
-		<Assembly Name="*Application*" Dynamic="Required All" />
+		<!--<Assembly Name="*Application*" Dynamic="Required All" />-->
 		<!--ここに、アプリケーション固有ランタイム ディレクティブを追加します。-->
 
 

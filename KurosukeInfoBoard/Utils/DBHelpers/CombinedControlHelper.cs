@@ -14,7 +14,16 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
         {
             using (var context = new CombinedControlContext())
             {
-                await context.Database.EnsureCreatedAsync();
+                try
+                {
+                    await context.Database.EnsureCreatedAsync();
+                }
+                catch (Exception ex)
+                {
+                    DebugHelper.Debugger.WriteErrorLog("Ingnoring DB Migration error.", ex);
+                    await context.Database.EnsureDeletedAsync();
+                    await context.Database.EnsureCreatedAsync();
+                }
             }
         }
 
@@ -36,7 +45,7 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
             using (var context = new CombinedControlContext())
             {
                 var match = from item in context.CombinedControls
-                            where item.ID == combinedControl.ID
+                            where item.Id == combinedControl.Id
                             select item;
                 if (match.Any())
                 {
