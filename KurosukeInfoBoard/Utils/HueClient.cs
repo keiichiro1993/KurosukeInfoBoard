@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using KurosukeInfoBoard.Models.Hue.Extensions;
 using Newtonsoft.Json;
+using KurosukeInfoBoard.Utils.DBHelpers;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -18,12 +19,14 @@ namespace KurosukeInfoBoard.Utils
         private LocalHueClient client;
         private Bridge bridge;
         private HueUser user;
+        private SelectedHueSceneHelper selectedHueSceneHelper;
         public HueClient(HueUser user)
         {
             this.user = user;
             bridge = user.Bridge;
             client = new LocalHueClient(bridge.Config.IpAddress);
             client.Initialize(user.Token.AccessToken);
+            selectedHueSceneHelper = new SelectedHueSceneHelper();
         }
 
         public async Task<List<IDevice>> GetHueDevicesAsync()
@@ -55,47 +58,42 @@ namespace KurosukeInfoBoard.Utils
                                                  select scene);
 
                     // check if scene matches
-                    using (var context = new HueSelectedSceneContext())
+                    HueSelectedSceneEntity exist = await selectedHueSceneHelper.GetExistingSceneEntity(bridge.Config.BridgeId, room.Id);
+                    if (exist != null)
                     {
-                        await context.Database.EnsureCreatedAsync();
-                        HueSelectedSceneEntity exist = GetExistingSceneEntity(room.Id, context);
-                        if (exist != null)
+                        var match = true;
+                        try
                         {
-                            var match = true;
-                            try
+                            var cachedLights = JsonConvert.DeserializeObject<List<Models.Hue.JsonLight>>(exist.LightStateJson);
+                            foreach (var cachedLight in cachedLights)
                             {
-                                var cachedLights = JsonConvert.DeserializeObject<List<Models.Hue.JsonLight>>(exist.LightStateJson);
-                                foreach (var cachedLight in cachedLights)
+                                var light = (from item in hueDevice.Appliances
+                                             where ((Models.Hue.Light)item).HueLight.Id == cachedLight.Id
+                                             select ((Models.Hue.Light)item).HueLight).FirstOrDefault();
+                                if (light != null)
                                 {
-                                    var light = (from item in hueDevice.Appliances
-                                                 where ((Models.Hue.Light)item).HueLight.Id == cachedLight.Id
-                                                 select ((Models.Hue.Light)item).HueLight).FirstOrDefault();
-                                    if (light != null)
+                                    if (!light.State.CheckEquals(cachedLight.State))
                                     {
-                                        if (!light.State.CheckEquals(cachedLight.State))
-                                        {
-                                            match = false;
-                                            break;
-                                        }
+                                        match = false;
+                                        break;
                                     }
                                 }
                             }
-                            catch (Exception) 
-                            {
-                                match = false;
-                            }
+                        }
+                        catch (Exception)
+                        {
+                            match = false;
+                        }
 
-                            if (match)
-                            {
-                                hueDevice.SelectedHueScene = (from item in hueDevice.HueScenes
-                                                              where item.Id == exist.SceneId
-                                                              select item).FirstOrDefault();
-                            }
-                            else
-                            {
-                                context.Remove(exist);
-                                await context.SaveChangesAsync();
-                            }
+                        if (match)
+                        {
+                            hueDevice.SelectedHueScene = (from item in hueDevice.HueScenes
+                                                          where item.Id == exist.SceneId
+                                                          select item).FirstOrDefault();
+                        }
+                        else
+                        {
+                            await selectedHueSceneHelper.RemoveSelectedHueScene(exist);
                         }
                     }
 
@@ -139,15 +137,8 @@ namespace KurosukeInfoBoard.Utils
             await client.SendGroupCommandAsync(command, group.Id);
 
             // Clear current scene
-            using (var context = new HueSelectedSceneContext())
-            {
-                HueSelectedSceneEntity exist = GetExistingSceneEntity(group.Id, context);
-                if (exist != null)
-                {
-                    context.Remove(exist);
-                    await context.SaveChangesAsync();
-                }
-            }
+            var entity = await selectedHueSceneHelper.GetExistingSceneEntity(bridge.Config.BridgeId, group.Id);
+            await selectedHueSceneHelper.RemoveSelectedHueScene(entity);
         }
 
         public async Task SendCommandAsync(Q42.HueApi.Models.Scene scene)
@@ -166,41 +157,12 @@ namespace KurosukeInfoBoard.Utils
             var lightStateJson = JsonConvert.SerializeObject(lights);
 
             // Save current scene
-            using (var context = new HueSelectedSceneContext())
-            {
-                HueSelectedSceneEntity exist = GetExistingSceneEntity(scene.Group, context);
-                if (exist != null)
-                {
-                    exist.SceneId = scene.Id;
-                    exist.LightStateJson = lightStateJson;
-                    context.Update(exist);
-                }
-                else
-                {
-                    var entity = new HueSelectedSceneEntity();
-                    entity.HueId = bridge.Config.BridgeId;
-                    entity.RoomId = scene.Group;
-                    entity.SceneId = scene.Id;
-                    entity.LightStateJson = lightStateJson;
-                    await context.HueSelectedScenes.AddAsync(entity);
-                }
-
-                await context.SaveChangesAsync();
-            }
-        }
-
-        private HueSelectedSceneEntity GetExistingSceneEntity(string groupId, HueSelectedSceneContext context)
-        {
-            var query = from item in context.HueSelectedScenes
-                        where item.HueId == bridge.Config.BridgeId && item.RoomId == groupId
-                        select item;
-
-            if (query.Count() > 1)
-            {
-                context.RemoveRange(query);
-            }
-
-            return query.FirstOrDefault();
+            var entity = new HueSelectedSceneEntity();
+            entity.HueId = bridge.Config.BridgeId;
+            entity.RoomId = scene.Group;
+            entity.SceneId = scene.Id;
+            entity.LightStateJson = lightStateJson;
+            selectedHueSceneHelper.AddUpdateSelectedHueScene(entity);
         }
     }
 }

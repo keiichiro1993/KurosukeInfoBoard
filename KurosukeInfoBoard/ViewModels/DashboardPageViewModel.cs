@@ -135,7 +135,7 @@ namespace KurosukeInfoBoard.ViewModels
                 var calendars = await msClient.GetCalendarList();
                 var calCache = new CalendarCacheHelper();
                 await calCache.Init();
-                foreach (var calendar in calendars.value) { calCache.CheckIfEnabled(calendar); }
+                foreach (var calendar in calendars.value) { await calCache.CheckIfEnabled(calendar); }
                 user.Calendars.AddRange(calendars.value);
             }
 
@@ -178,7 +178,7 @@ namespace KurosukeInfoBoard.ViewModels
 
                 var calCache = new CalendarCacheHelper();
                 await calCache.Init();
-                foreach (var calendar in calendars.items) { calCache.CheckIfEnabled(calendar); }
+                foreach (var calendar in calendars.items) { await calCache.CheckIfEnabled(calendar); }
                 user.Calendars.AddRange(calendars.items);
             }
 

@@ -197,6 +197,7 @@
     <Compile Include="Models\Hue\JsonLight.cs" />
     <Compile Include="Models\Hue\JsonState.cs" />
     <Compile Include="Models\SQL\CombinedControlItem.cs" />
+    <Compile Include="Utils\DBHelpers\SelectedHueSceneHelper.cs" />
     <Compile Include="Utils\DBHelpers\CombinedControlHelper.cs" />
     <Compile Include="Utils\DBHelpers\StorageFolderExtention.cs" />
     <Compile Include="Utils\RemoteControlHelper.cs" />
@@ -540,9 +541,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
       <Version>4.5.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite">
-      <Version>3.1.18</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Graph">
       <Version>4.29.0</Version>

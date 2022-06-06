@@ -43,10 +43,7 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
 
         public async Task<ObservableCollection<CombinedControl>> GetCombinedControls()
         {
-            if (dbItems == null)
-            {
-                await Init();
-            }
+            if (dbItems == null) { await Init(); }
             return new ObservableCollection<CombinedControl>(from item in dbItems
                                                              orderby item.Order
                                                              select item);
@@ -100,7 +97,6 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
         public async Task RemoveCombindControl(CombinedControl combinedControl)
         {
             await waitPreviousTask();
-
             AwaitingWriteTask = RemoveCombindControlInternal(combinedControl);
             await AwaitingWriteTask;
         }

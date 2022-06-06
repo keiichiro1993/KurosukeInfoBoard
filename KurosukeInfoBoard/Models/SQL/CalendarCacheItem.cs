@@ -1,45 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Windows.Storage;
-
-namespace KurosukeInfoBoard.Models.SQL
+﻿namespace KurosukeInfoBoard.Models.SQL
 {
-
-    [Table("CalendarCache")]
     public class CalendarCacheEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
-        [Required]
         public string CalendarId { get; set; }
 
-        [Required]
         public string CalendarName { get; set; }
 
-        [Required]
         public bool IsEnabled { get; set; }
 
-        [Required]
         public string AccountType { get; set; }
-
-        [Required]
+        
         public string UserId { get; set; }
 
         public string OverrideColor { get; set; }
-    }
-
-    public class CalendarCacheContext : DbContext
-    {
-        private static string DBFileName = "calendarcache.db";
-
-        public DbSet<CalendarCacheEntity> CalendarCache { get; internal set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Data Source=" + ApplicationData.Current.LocalFolder.Path + "\\" + DBFileName);
-        }
     }
 }
