@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace OpenWeatherMap.Models
 {
     public class Coord
     {
-        [JsonPropertyName("lon")]
+        [JsonProperty("lon")]
         public double Longitude { get; set; }
-        [JsonPropertyName("lat")]
+        [JsonProperty("lat")]
         public double Latitude { get; set; }
     }
 
     public class City
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public double Id { get; set; }
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonPropertyName("state")]
+        [JsonProperty("state")]
         public string State { get; set; }
-        [JsonPropertyName("country")]
+        [JsonProperty("country")]
         public string Country { get; set; }
-        [JsonPropertyName("coord")]
+        [JsonProperty("coord")]
         public Coord Coord { get; set; }
     }
 }

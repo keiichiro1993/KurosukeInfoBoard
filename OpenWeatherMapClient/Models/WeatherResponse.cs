@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,87 +11,87 @@ namespace OpenWeatherMap.Models
 {
     public class Weather
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
-        [JsonPropertyName("main")]
+        [JsonProperty("main")]
         public string Main { get; set; }
-        [JsonPropertyName("description")]
+        [JsonProperty("description")]
         public string Description { get; set; }
-        [JsonPropertyName("icon")]
+        [JsonProperty("icon")]
         public string Icon { get; set; }
     }
 
     public class Main
     {
-        [JsonPropertyName("temp")]
+        [JsonProperty("temp")]
         public double Temp { get; set; }
-        [JsonPropertyName("feels_like")]
+        [JsonProperty("feels_like")]
         public double FeelsLike { get; set; }
-        [JsonPropertyName("temp_min")]
+        [JsonProperty("temp_min")]
         public double TempMin { get; set; }
-        [JsonPropertyName("temp_max")]
+        [JsonProperty("temp_max")]
         public double TempMax { get; set; }
-        [JsonPropertyName("pressure")]
+        [JsonProperty("pressure")]
         public int Pressure { get; set; }
-        [JsonPropertyName("humidity")]
+        [JsonProperty("humidity")]
         public int Humidity { get; set; }
     }
 
     public class Wind
     {
-        [JsonPropertyName("speed")]
+        [JsonProperty("speed")]
         public double Speed { get; set; }
-        [JsonPropertyName("deg")]
+        [JsonProperty("deg")]
         public int Deg { get; set; }
     }
 
     public class Clouds
     {
-        [JsonPropertyName("all")]
+        [JsonProperty("all")]
         public int All { get; set; }
     }
 
     public class Sys
     {
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public int Type { get; set; }
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
-        [JsonPropertyName("country")]
+        [JsonProperty("country")]
         public string Country { get; set; }
-        [JsonPropertyName("sunrise")]
+        [JsonProperty("sunrise")]
         public int Sunrise { get; set; }
-        [JsonPropertyName("sunset")]
+        [JsonProperty("sunset")]
         public int Sunset { get; set; }
     }
 
     public class WeatherResponse
     {
-        [JsonPropertyName("coord")]
+        [JsonProperty("coord")]
         public Coord Coord { get; set; }
-        [JsonPropertyName("weather")]
+        [JsonProperty("weather")]
         public List<Weather> Weathers { get; set; }
-        [JsonPropertyName("base")]
+        [JsonProperty("base")]
         public string Base { get; set; }
-        [JsonPropertyName("main")]
+        [JsonProperty("main")]
         public Main Main { get; set; }
-        [JsonPropertyName("visibility")]
+        [JsonProperty("visibility")]
         public int Visibility { get; set; }
-        [JsonPropertyName("wind")]
+        [JsonProperty("wind")]
         public Wind Wind { get; set; }
-        [JsonPropertyName("clouds")]
+        [JsonProperty("clouds")]
         public Clouds Clouds { get; set; }
-        [JsonPropertyName("dt")]
+        [JsonProperty("dt")]
         public int DT { get; set; }
-        [JsonPropertyName("sys")]
+        [JsonProperty("sys")]
         public Sys Sys { get; set; }
-        [JsonPropertyName("timezone")]
+        [JsonProperty("timezone")]
         public int Timezone { get; set; }
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public int Id { get; set; }
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonPropertyName("cod")]
+        [JsonProperty("cod")]
         public int Cod { get; set; }
 
         public Weather FirstWeather { get { return Weathers.FirstOrDefault(); } }

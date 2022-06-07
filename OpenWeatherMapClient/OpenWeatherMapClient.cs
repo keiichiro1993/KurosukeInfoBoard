@@ -1,6 +1,6 @@
-﻿using OpenWeatherMap.Models;
+﻿using Newtonsoft.Json;
+using OpenWeatherMap.Models;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 
@@ -21,7 +21,9 @@ namespace OpenWeatherMap
             var url = "https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&appid=" + key + "&units=" + (units == Units.Metric ? "metric" : "imperial");
             using (var client = new HttpClient())
             {
-                return await client.GetFromJsonAsync<WeatherResponse>(url);
+                var response = await client.GetAsync(url);
+                var json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<WeatherResponse>(json);
             }
         }
     }

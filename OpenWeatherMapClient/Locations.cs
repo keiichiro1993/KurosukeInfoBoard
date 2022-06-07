@@ -1,14 +1,12 @@
-﻿using OpenWeatherMap.Models;
+﻿using Newtonsoft.Json;
+using OpenWeatherMap.Models;
 using OpenWeatherMap.Utils;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace OpenWeatherMap
 {
@@ -21,7 +19,10 @@ namespace OpenWeatherMap
                 var resourceName = "OpenWeatherMap.Assets.TextResources.country.list.json";
                 using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
                 {
-                    Cache.Countries = await JsonSerializer.DeserializeAsync<List<Country>>(resource);
+                    using (var reader = new StreamReader(resource, Encoding.UTF8))
+                    {
+                        await Task.Run(() => Cache.Countries = JsonConvert.DeserializeObject<List<Country>>(reader.ReadToEnd()));
+                    }
                 }
             }
 
@@ -53,7 +54,10 @@ namespace OpenWeatherMap
                 var resourceName = "OpenWeatherMap.Assets.TextResources.city.list.json";
                 using (var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
                 {
-                    Cache.Cities = await JsonSerializer.DeserializeAsync<List<City>>(resource);
+                    using (var reader = new StreamReader(resource, Encoding.UTF8))
+                    {
+                        await Task.Run(() => Cache.Cities = JsonConvert.DeserializeObject<List<City>>(reader.ReadToEnd()));
+                    }
                 }
             }
         }

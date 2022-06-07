@@ -1,35 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace OpenWeatherMap.Models
 {
     public class Country
     {
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonPropertyName("alpha-2")]
+        [JsonProperty("alpha-2")]
         public string Alpha2 { get; set; }
-        [JsonPropertyName("alpha-3")]
+        [JsonProperty("alpha-3")]
         public string Alpha3 { get; set; }
-        [JsonPropertyName("country-code")]
+        [JsonProperty("country-code")]
         public string CountryCode { get; set; }
-        [JsonPropertyName("iso_3166-2")]
+        [JsonProperty("iso_3166-2")]
         public string Iso31662 { get; set; }
-        [JsonPropertyName("region")]
+        [JsonProperty("region")]
         public string Region { get; set; }
-        [JsonPropertyName("sub-region")]
+        [JsonProperty("sub-region")]
         public string SubRegion { get; set; }
-        [JsonPropertyName("intermediate-region")]
+        [JsonProperty("intermediate-region")]
         public string IntermediateRegion { get; set; }
-        [JsonPropertyName("region-code")]
+        [JsonProperty("region-code")]
         public string RegionCode { get; set; }
-        [JsonPropertyName("sub-region-code")]
+        [JsonProperty("sub-region-code")]
         public string SubRegionCode { get; set; }
-        [JsonPropertyName("intermediate-region-code")]
+        [JsonProperty("intermediate-region-code")]
         public string IntermediateRegionCode { get; set; }
     }
 }
