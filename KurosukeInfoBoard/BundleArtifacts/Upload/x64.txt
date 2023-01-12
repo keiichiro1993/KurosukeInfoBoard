@@ -1,2 +1,2 @@
-MainPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\x64\Release\Upload\KurosukeInfoBoard_1.1.0.0_x64.msix
-SymbolPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\x64\Release\Upload\KurosukeInfoBoard_1.1.0.0\KurosukeInfoBoard_1.1.0.0_x64.appxsym
+MainPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\x64\Release\Upload\KurosukeInfoBoard_1.5.2.0_x64.msix
+SymbolPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\x64\Release\Upload\KurosukeInfoBoard_1.5.2.0\KurosukeInfoBoard_1.5.2.0_x64.appxsym

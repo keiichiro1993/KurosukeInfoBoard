@@ -1,5 +1,5 @@
 ﻿using DebugHelper;
-using FFmpegInterop;
+using FFmpegInteropX;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -126,10 +126,15 @@ namespace YoutubePlayer.Controls
                 using (var stream = await client.GetHighestQualityVideoAsStream(video.Id, UseAV1Codec))
                 {
                     // FFmpeg
-                    var config = new FFmpegInteropConfig();
-                    config.VideoDecoderMode = FFmpegInterop.VideoDecoderMode.Automatic;
+                    var config = new MediaSourceConfig();
+                    config.FFmpegOptions = new PropertySet {
+                        { "reconnect", 1 },
+                        { "reconnect_streamed", 1 },
+                        { "reconnect_on_network_error", 1 },
+                    };
+                    config.VideoDecoderMode = VideoDecoderMode.Automatic;
                     config.DefaultBufferTime = TimeSpan.Zero;
-                    var ffmpegStream = await FFmpegInteropMSS.CreateFromStreamAsync(stream.AsRandomAccessStream(), config);
+                    var ffmpegStream = await FFmpegMediaSource.CreateFromStreamAsync(stream.AsRandomAccessStream(), config);
 
                     // Media Player
                     using (var mediaPlayer = new MediaPlayer())
@@ -192,7 +197,7 @@ namespace YoutubePlayer.Controls
             }
         }
 
-        private void setStreamAndPlay(FFmpegInteropMSS ffmpegStream, MediaPlayer mediaPlayer, TimeSpan? position = null)
+        private void setStreamAndPlay(FFmpegMediaSource ffmpegStream, MediaPlayer mediaPlayer, TimeSpan? position = null)
         {
             mediaPlayer.Source = ffmpegStream.CreateMediaPlaybackItem();
             player.SetMediaPlayer(mediaPlayer);

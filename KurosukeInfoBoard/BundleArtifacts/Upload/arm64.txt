@@ -1,6 +1,6 @@
-MainPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.1.0.0_ARM64.msix
-SymbolPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.1.0.0\KurosukeInfoBoard_1.1.0.0_ARM64.appxsym
-ResourcePack=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.1.0.0_scale-100.msix
-ResourcePack=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.1.0.0_scale-125.msix
-ResourcePack=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.1.0.0_scale-150.msix
-ResourcePack=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.1.0.0_scale-400.msix
+MainPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.5.2.0_ARM64.msix
+SymbolPackage=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.5.2.0\KurosukeInfoBoard_1.5.2.0_ARM64.appxsym
+ResourcePack=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.5.2.0_scale-100.msix
+ResourcePack=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.5.2.0_scale-125.msix
+ResourcePack=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.5.2.0_scale-150.msix
+ResourcePack=C:\Users\Kurosuke\source\repos\KurosukeInfoBoard\KurosukeInfoBoard\bin\ARM64\Release\Upload\KurosukeInfoBoard_1.5.2.0_scale-400.msix
