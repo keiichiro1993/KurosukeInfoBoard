@@ -83,7 +83,7 @@ namespace KurosukeInfoBoard.Utils
             }
         }
 
-        private static async Task acquireAndAddUser(List<UserBase> userList, UserType type, Windows.Security.Credentials.PasswordCredential cred)
+        private static async Task acquireAndAddUser(List<UserBase> userList, UserType type, PasswordCredential cred)
         {
             var token = new TokenBase();
             token.UserType = type;

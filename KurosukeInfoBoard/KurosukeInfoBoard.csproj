@@ -197,6 +197,9 @@
     <Compile Include="Models\Hue\JsonLight.cs" />
     <Compile Include="Models\Hue\JsonState.cs" />
     <Compile Include="Models\SQL\CombinedControlItem.cs" />
+    <Compile Include="Models\SQL\HueBridgeCacheItem.cs" />
+    <Compile Include="Utils\DBHelpers\DBHelperBase.cs" />
+    <Compile Include="Utils\DBHelpers\HueBridgeCacheHelper.cs" />
     <Compile Include="Utils\DBHelpers\SelectedHueSceneHelper.cs" />
     <Compile Include="Utils\DBHelpers\CombinedControlHelper.cs" />
     <Compile Include="Utils\DBHelpers\StorageFolderExtention.cs" />

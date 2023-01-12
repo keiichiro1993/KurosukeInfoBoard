@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KurosukeInfoBoard.Models.Auth;
+using KurosukeInfoBoard.Utils.DBHelpers;
 using Q42.HueApi;
 using Q42.HueApi.Interfaces;
 using Q42.HueApi.Models.Bridge;
 using Windows.Networking.Connectivity;
+using DebugHelper;
+using Newtonsoft.Json.Linq;
 
 namespace KurosukeInfoBoard.Utils
 {
@@ -21,6 +24,23 @@ namespace KurosukeInfoBoard.Utils
 
         public static async Task<HueUser> FindHueBridge(TokenBase token)
         {
+            //check if there's cached IP address for the bridge
+            var bridgeCacheHelper = new HueBridgeCacheHelper();
+            var previousIp = await bridgeCacheHelper.GetHueBridgeCachedIp(token.Id);
+
+            if (!string.IsNullOrEmpty(previousIp))
+            {
+                try
+                {
+                    return await getBridgeById(token, previousIp);
+                }
+                catch (Exception ex)
+                {
+                    // Ignore and fail back to normal discovery
+                    Debugger.WriteErrorLog("Hue Bridge discovery with cached IP address failed.", ex);
+                }
+            }
+
             IBridgeLocator locator = new HttpBridgeLocator();
             var bridges = await locator.LocateBridgesAsync(TimeSpan.FromSeconds(5));
 
@@ -39,12 +59,29 @@ namespace KurosukeInfoBoard.Utils
                 var user = new HueUser(bridgeInfo);
                 user.Token = token;
 
+                //save if ip address renewed
+                if (string.IsNullOrEmpty(previousIp) || previousIp != user.Bridge.Config.IpAddress)
+                {
+                    await bridgeCacheHelper.SaveHueBridgeCache(token.Id, user.Bridge.Config.IpAddress);
+                }
+
                 return user;
             }
             else
             {
                 throw new InvalidOperationException("The Hue bridge with ID " + token.Id + " not found in current network.");
             }
+        }
+
+        private static async Task<HueUser> getBridgeById(TokenBase token, string ipAddress)
+        {
+            var client = new LocalHueClient(ipAddress);
+            client.Initialize(token.AccessToken);
+            var bridgeInfo = await client.GetBridgeAsync();
+
+            var user = new HueUser(bridgeInfo);
+            user.Token = token;
+            return user;
         }
 
         public static async Task<HueUser> RegisterHueBridge()
