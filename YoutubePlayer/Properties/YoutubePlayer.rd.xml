@@ -25,9 +25,8 @@
     にアクセスしてください。
 -->
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
-  <Library Name="YoutubePlayer">
-
-  	<!--ここにライブラリのディレクティブを追加する-->
-
-  </Library>
+	<Library Name="YoutubePlayer">
+		<Namespace Name="YoutubeExplode.Bridge" Serialize="Required PublicAndInternal" />
+		<!--ここにライブラリのディレクティブを追加する-->
+	</Library>
 </Directives>

@@ -31,7 +31,7 @@ namespace KurosukeInfoBoard.Utils
         public static async Task<List<IDevice>> GetRemoDevices()
         {
             var accounts = from account in AppGlobalVariables.Users
-                           where account.UserType == UserType.NatureRemo
+                           where account.UserType == UserType.NatureRemo && account.ErrorDetail == null
                            select account;
             var devices = new List<IDevice>();
             if (accounts.Any())
@@ -47,8 +47,7 @@ namespace KurosukeInfoBoard.Utils
                     }
                     catch (Exception ex)
                     {
-                        Debugger.WriteErrorLog("Error occured while retrieving remo info.", ex);
-                        await new MessageDialog(ex.Message, "Error occured while retrieving remo info.").ShowAsync();
+                        await Debugger.ShowErrorDialog("Error occured while retrieving remo info.", ex);
                     }
                 }
 
@@ -69,7 +68,7 @@ namespace KurosukeInfoBoard.Utils
         public static async Task<List<IDevice>> GetHueDevices()
         {
             var accounts = from account in AppGlobalVariables.Users
-                           where account.UserType == UserType.Hue
+                           where account.UserType == UserType.Hue && account.ErrorDetail == null
                            select account;
             var hueDevices = new List<IDevice>();
             foreach (var account in accounts)
@@ -81,8 +80,7 @@ namespace KurosukeInfoBoard.Utils
                 }
                 catch (Exception ex)
                 {
-                    Debugger.WriteErrorLog("Error occured while retrieving Hue info.", ex);
-                    await new MessageDialog(ex.Message, "Error occured while retrieving Hue info.").ShowAsync();
+                    await Debugger.ShowErrorDialog("Error occured while retrieving Hue info.", ex);
                 }
             }
 
