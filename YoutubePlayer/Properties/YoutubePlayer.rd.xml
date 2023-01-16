@@ -26,7 +26,7 @@
 -->
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
 	<Library Name="YoutubePlayer">
-		<Namespace Name="YoutubeExplode.Bridge" Serialize="Required PublicAndInternal" />
 		<!--ここにライブラリのディレクティブを追加する-->
+		<Assembly Name="YoutubeExplode" Dynamic="Required All"/>
 	</Library>
 </Directives>

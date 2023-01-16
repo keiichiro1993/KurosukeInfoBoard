@@ -29,8 +29,14 @@ namespace KurosukeInfoBoard.Controls.Calendar
 
         public ObservableCollection<UserBase> Users
         {
-            get => (ObservableCollection<UserBase>)GetValue(UsersProperty);
-            set => SetValue(UsersProperty, value);
+            get
+            {
+                var items = (ObservableCollection<UserBase>)GetValue(UsersProperty);
+                return new ObservableCollection<UserBase>(from item in items
+                                                          where item.ErrorDetail == null && (item.UserType == UserType.Google || item.UserType == UserType.Microsoft)
+                                                          select item);
+            }
+            set { SetValue(UsersProperty, value); }
         }
 
         public static readonly DependencyProperty UsersProperty =
