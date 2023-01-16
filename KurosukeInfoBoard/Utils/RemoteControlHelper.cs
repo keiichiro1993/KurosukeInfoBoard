@@ -15,10 +15,11 @@ namespace KurosukeInfoBoard.Utils
     {
         public static async Task<List<IDevice>> GetAllDevices()
         {
-            var taskList = new List<Task<List<IDevice>>>();
-
-            taskList.Add(GetRemoDevices());
-            taskList.Add(GetHueDevices());
+            var taskList = new List<Task<List<IDevice>>>
+            {
+                GetRemoDevices(),
+                GetHueDevices()
+            };
 
             var devicesList = await Task.WhenAll(taskList);
 
@@ -30,8 +31,8 @@ namespace KurosukeInfoBoard.Utils
         public static async Task<List<IDevice>> GetRemoDevices()
         {
             var accounts = from account in AppGlobalVariables.Users
-                               where account.UserType == Models.Auth.UserType.NatureRemo
-                               select account;
+                           where account.UserType == UserType.NatureRemo
+                           select account;
             var devices = new List<IDevice>();
             if (accounts.Any())
             {
@@ -68,8 +69,8 @@ namespace KurosukeInfoBoard.Utils
         public static async Task<List<IDevice>> GetHueDevices()
         {
             var accounts = from account in AppGlobalVariables.Users
-                              where account.UserType == Models.Auth.UserType.Hue
-                              select account;
+                           where account.UserType == UserType.Hue
+                           select account;
             var hueDevices = new List<IDevice>();
             foreach (var account in accounts)
             {

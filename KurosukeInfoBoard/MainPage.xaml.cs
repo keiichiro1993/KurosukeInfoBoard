@@ -79,13 +79,20 @@ namespace KurosukeInfoBoard
                 try
                 {
                     var users = await AccountManager.GetAuthorizedUserList();
+
+                    foreach (var user in users)
+                    {
+                        if (user.ErrorDetail != null)
+                        {
+                            await Debugger.ShowErrorDialog($"Failed to initialize {user.UserType} with ID '{user.UserName}'", user.ErrorDetail);
+                        }
+                    }
+
                     AppGlobalVariables.Users = new ObservableCollection<UserBase>(users);
                 }
                 catch (Exception ex)
                 {
-                    Debugger.WriteErrorLog("Error occured while getting user info on MainPage.", ex);
-                    var message = new MessageDialog(ex.Message, "Error occured while getting user info");
-                    await message.ShowAsync();
+                    await Debugger.ShowErrorDialog("Error occured while initializing user info.", ex);
                     AppGlobalVariables.Users = new ObservableCollection<UserBase>();
                 }
             }

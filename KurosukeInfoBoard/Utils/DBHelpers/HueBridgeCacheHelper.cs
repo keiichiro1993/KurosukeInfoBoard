@@ -29,6 +29,11 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
                     assetDBFile = await assetDBFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
                     var jsonString = await FileIO.ReadTextAsync(assetDBFile, Windows.Storage.Streams.UnicodeEncoding.Utf8);
                     dbContent = JsonConvert.DeserializeObject<HueBridgeCacheEntity>(jsonString);
+                    // workaround for JsonConvert returning null instead of empty array
+                    if (dbContent.HueBridgeCache == null)
+                    {
+                        dbContent.HueBridgeCache = new List<HueBridgeCacheItem>();
+                    }
                 }
             }
         }
@@ -36,6 +41,7 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
         public async Task<string> GetHueBridgeCachedIp(string bridgeId)
         {
             await Init();
+
             var hit = from item in dbContent.HueBridgeCache
                       where item.Id == bridgeId
                       select item;
