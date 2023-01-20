@@ -37,12 +37,9 @@ namespace KurosukeInfoBoard.Views.Settings
             viewModel.Init();
         }
 
-
-        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private async void CombinedControlListItem_DeleteButtonClicked(object sender, Common.Models.EventArgs.ItemDeleteButtonClickedEventArgs<CombinedControl> args)
         {
-            var button = (Button)sender;
-            button.IsEnabled = false;
-            var item = button.DataContext as CombinedControl;
+            var item = args.DeleteItem;
 
             var dialog = new MessageDialog("Are you sure to delete group: " + item.DeviceName + " ?");
             dialog.Commands.Add(new UICommand("Delete"));
@@ -55,10 +52,6 @@ namespace KurosukeInfoBoard.Views.Settings
             if (result.Label == "Delete")
             {
                 await viewModel.RemoveGroupItem(item);
-            }
-            else
-            {
-                button.IsEnabled = true;
             }
         }
     }

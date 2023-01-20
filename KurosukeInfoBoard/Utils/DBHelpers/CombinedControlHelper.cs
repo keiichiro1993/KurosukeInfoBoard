@@ -53,7 +53,7 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
         /// Add or Update Combined Control setting item
         /// </summary>
         /// <param name="combinedControl">Combined Control item newly created or retrieved from DB and updated.</param>
-        /// <returns></returns
+        /// <returns></returns>
         public async Task AddUpdateCombinedControl(CombinedControl combinedControl)
         {
             await waitPreviousTask();
@@ -111,6 +111,16 @@ namespace KurosukeInfoBoard.Utils.DBHelpers
                 dbItems.Remove(match);
             }
 
+            await SaveFile();
+        }
+
+        public async Task UpdateCombinedControlOrder(ObservableCollection<CombinedControl> combinedControls)
+        {
+            for (var index = 0; index < combinedControls.Count; index++)
+            {
+                combinedControls[index].Order = index;
+            }
+            dbItems = combinedControls.ToList();
             await SaveFile();
         }
 

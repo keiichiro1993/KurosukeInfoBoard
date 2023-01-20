@@ -1,4 +1,5 @@
 ﻿using Common.ViewModels;
+using DebugHelper;
 using KurosukeInfoBoard.Models.Common;
 using KurosukeInfoBoard.Models.SQL;
 using KurosukeInfoBoard.Utils;
@@ -6,6 +7,7 @@ using KurosukeInfoBoard.Utils.DBHelpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,10 +53,45 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             }
             catch (Exception ex)
             {
-                DebugHelper.Debugger.WriteErrorLog("Error occurred while retrieving remote control info.", ex);
-                await new MessageDialog("Error occurred while retrieving remote control info: " + ex.Message).ShowAsync();
+                await Debugger.ShowErrorDialog("Error occurred while retrieving remote control info.", ex);
             }
+
+            // watch for reorder event
+            CombinedControls.CollectionChanged += CombinedControls_CollectionChanged;
             IsLoading = false;
+        }
+
+        private CombinedControl previouslyRemovedItem = null;
+        private async void CombinedControls_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            // this is the only way to detect reorder as ListView calls Remove/Add when reordering the item.
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                previouslyRemovedItem = e.OldItems[0] as CombinedControl;
+                return;
+            }
+
+            if (e.Action != NotifyCollectionChangedAction.Add)
+            {
+                previouslyRemovedItem = null;
+                return;
+            }
+            else if (previouslyRemovedItem?.Id == (e.NewItems[0] as CombinedControl)?.Id)
+            {
+                // this should mean reordering
+                IsLoading = true;
+                try
+                {
+                    var dbHelper = new CombinedControlHelper();
+                    await dbHelper.Init();
+                    await dbHelper.UpdateCombinedControlOrder(CombinedControls);
+                }
+                catch (Exception ex)
+                {
+                    await Debugger.ShowErrorDialog("Failed to save reordered combined controls.", ex);
+                }
+                IsLoading = false;
+            }
         }
 
         private ObservableCollection<CombinedControl> _CombinedControls;
@@ -111,8 +148,7 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             }
             catch (Exception ex)
             {
-                DebugHelper.Debugger.WriteErrorLog("Error occurred while removing combined group.", ex);
-                await new MessageDialog("Error occurred while removing combined group: " + ex.Message).ShowAsync();
+                await Debugger.ShowErrorDialog("Error occurred while removing combined group.", ex);
             }
         }
     }

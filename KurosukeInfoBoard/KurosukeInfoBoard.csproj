@@ -161,6 +161,9 @@
     <Compile Include="Controls\Hue\HueLightControl.xaml.cs">
       <DependentUpon>HueLightControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ListItem\CombinedControlListItem.xaml.cs">
+      <DependentUpon>CombinedControlListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Memo\MemoControl.xaml.cs">
       <DependentUpon>MemoControl.xaml</DependentUpon>
     </Compile>
@@ -438,6 +441,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Hue\HueLightControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListItem\CombinedControlListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
