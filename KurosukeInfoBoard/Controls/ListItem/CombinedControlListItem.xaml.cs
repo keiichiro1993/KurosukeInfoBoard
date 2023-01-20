@@ -1,8 +1,10 @@
 ﻿using Common.Models.EventArgs;
 using Common.ViewModels;
+using DebugHelper;
 using KurosukeInfoBoard.Controls.Hue;
 using KurosukeInfoBoard.Models.Common;
 using KurosukeInfoBoard.Models.SQL;
+using KurosukeInfoBoard.Utils.DBHelpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,11 +57,32 @@ namespace KurosukeInfoBoard.Controls.ListItem
         {
             var button = (Button)sender;
             button.IsEnabled = false;
+            deleteItem();
+            button.IsEnabled = true;
+        }
+
+        private void FlyoutDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            deleteItem();
+        }
+
+        private void deleteItem()
+        {
             if (this.DeleteButtonClicked != null)
             {
                 this.DeleteButtonClicked(this, new ItemDeleteButtonClickedEventArgs<CombinedControl>(CombinedControl));
             }
-            button.IsEnabled = true;
+        }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.EditUIVisibility = Visibility.Visible;
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SaveChanges();
+            ViewModel.EditUIVisibility = Visibility.Collapsed;
         }
     }
 
@@ -68,7 +91,21 @@ namespace KurosukeInfoBoard.Controls.ListItem
         /// <summary>
         /// raise in progress status and save changes
         /// </summary>
-        private async void propertyChanged() { }
+        public async void SaveChanges()
+        {
+            IsLoading = true;
+            try
+            {
+                var dbHelper = new CombinedControlHelper();
+                await dbHelper.Init();
+                await dbHelper.AddUpdateCombinedControl(combinedControl);
+            }
+            catch (Exception ex)
+            {
+                await Debugger.ShowErrorDialog("Failed to update combined controls.", ex);
+            }
+            IsLoading = false;
+        }
 
         private CombinedControl combinedControl;
 
@@ -84,10 +121,10 @@ namespace KurosukeInfoBoard.Controls.ListItem
             get { return combinedControl?.IsSynchronized ?? default(bool); }
             set
             {
-                if (value != combinedControl.IsSynchronized)
+                if (combinedControl != null && value != combinedControl.IsSynchronized)
                 {
                     combinedControl.IsSynchronized = value;
-                    propertyChanged();
+                    SaveChanges();
                 }
             }
         }
@@ -97,12 +134,29 @@ namespace KurosukeInfoBoard.Controls.ListItem
             get { return combinedControl?.DeviceName; }
             set
             {
-                if (value != combinedControl.DeviceName)
+                if (combinedControl != null && value != combinedControl.DeviceName)
                 {
                     combinedControl.DeviceName = value;
-                    propertyChanged();
+                    RaisePropertyChanged();
                 }
             }
+        }
+
+        private Visibility _EditUIVisibility = Visibility.Collapsed;
+        public Visibility EditUIVisibility
+        {
+            get { return _EditUIVisibility; }
+            set
+            {
+                _EditUIVisibility = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("UIVisibility");
+            }
+        }
+
+        public Visibility UIVisibility
+        {
+            get { return _EditUIVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible; }
         }
     }
 }
