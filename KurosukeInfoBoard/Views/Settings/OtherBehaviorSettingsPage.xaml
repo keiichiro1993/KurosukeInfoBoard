@@ -8,37 +8,73 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/SettingsStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
-        <Grid Margin="20">
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Margin" Value="10,0"/>
-                </Style>
-            </Grid.Resources>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Margin="20" MaxWidth="1000">
             <Grid.RowDefinitions>
                 <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <TextBlock HorizontalAlignment="Right" Text="Auto Refresh Controls Page:" Grid.Row="0" Grid.Column="0" />
-            <ToggleSwitch IsOn="{x:Bind viewModel.IsEnabled, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-
-            <TextBlock HorizontalAlignment="Right" Text="Interval:" Grid.Row="1" Grid.Column="0" />
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                <muxc:NumberBox Value="{x:Bind viewModel.Period, Mode=TwoWay}" SpinButtonPlacementMode="Inline" IsEnabled="{x:Bind viewModel.IsEnabled, Mode=OneWay}" />
-                <TextBlock Text="min(s)" />
-            </StackPanel>
-
-            <TextBlock HorizontalAlignment="Right" Text="Full Screen:" Grid.Row="2" Grid.Column="0" />
-            <CheckBox IsChecked="{x:Bind viewModel.IsAlwaysFullScreen, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+            <TextBlock Grid.Row="0" Style="{StaticResource SettingsPageTitleTextBlockStyle}">Other Behaviors</TextBlock>
+            <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource SettingsSectionTitleTextBlockStyle}">Appearance</TextBlock>
+                        <Grid Style="{StaticResource SettingsItemGridStyle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="AUTO"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xe740;" Margin="20,0"/>
+                            <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Full Screen</TextBlock>
+                                <TextBlock>This app will always run in full screen mode if checked.</TextBlock>
+                            </StackPanel>
+                            <CheckBox Grid.Column="2" MinWidth="40" IsChecked="{x:Bind viewModel.IsAlwaysFullScreen, Mode=TwoWay}"/>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource SettingsSectionTitleTextBlockStyle}">Auto Refresh of Controls Page</TextBlock>
+                        <Grid Style="{StaticResource SettingsItemGridStyle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="AUTO"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xe7e8;" Margin="20,0"/>
+                            <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Enable Auto Refresh</TextBlock>
+                                <TextBlock>Controls page will be automatically refreshed.</TextBlock>
+                            </StackPanel>
+                            <ToggleSwitch Grid.Column="2" MinWidth="95" IsOn="{x:Bind viewModel.IsEnabled, Mode=TwoWay}"/>
+                        </Grid>
+                        <Grid Style="{StaticResource SettingsItemGridStyle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="AUTO"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xe916;" Margin="20,0"/>
+                            <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Interval</TextBlock>
+                                <TextBlock>Auto refresh happens in this time period.</TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,15">
+                                <muxc:NumberBox Value="{x:Bind viewModel.Period, Mode=TwoWay}" SpinButtonPlacementMode="Inline"  IsEnabled="{x:Bind viewModel.IsEnabled, Mode=OneWay}" />
+                                <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="min(s)" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

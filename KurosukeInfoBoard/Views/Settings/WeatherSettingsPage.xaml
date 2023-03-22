@@ -9,30 +9,58 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/SettingsStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
-        <Grid Margin="20">
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                </Style>
-            </Grid.Resources>
+        <Grid Margin="20" MaxWidth="1000">
             <Grid.RowDefinitions>
                 <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">Country:</TextBlock>
-            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{x:Bind viewModel.Countries, Mode=OneWay}" SelectedItem="{x:Bind viewModel.SelectedCountry, Mode=TwoWay}" DisplayMemberPath="Name" Margin="10"></ComboBox>
-
-            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">City:</TextBlock>
-            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{x:Bind viewModel.Cities, Mode=OneWay}" SelectedItem="{x:Bind viewModel.SelectedCity, Mode=TwoWay}" DisplayMemberPath="Name" Margin="10"></ComboBox>
-
+            <TextBlock Grid.Row="0" Style="{StaticResource SettingsPageTitleTextBlockStyle}">Weathercast Settings</TextBlock>
+            <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource SettingsSectionTitleTextBlockStyle}">Location</TextBlock>
+                        <Grid Style="{StaticResource SettingsItemGridStyle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="AUTO"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xec43;" Margin="20,0"/>
+                            <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Country</TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="20">
+                                <ComboBox ItemsSource="{x:Bind viewModel.Countries, Mode=OneWay}" SelectedItem="{x:Bind viewModel.SelectedCountry, Mode=TwoWay}" DisplayMemberPath="Name"
+                                          VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Style="{StaticResource SettingsItemGridStyle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="AUTO"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xec07;" Margin="20,0"/>
+                            <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">City</TextBlock>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="20">
+                                <ComboBox ItemsSource="{x:Bind viewModel.Cities, Mode=OneWay}" SelectedItem="{x:Bind viewModel.SelectedCity, Mode=TwoWay}" DisplayMemberPath="Name"
+                                          VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
         <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}">
             <controls:Loading.Background>

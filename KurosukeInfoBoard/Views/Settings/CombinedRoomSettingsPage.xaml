@@ -11,47 +11,68 @@
     xmlns:listItem="using:KurosukeInfoBoard.Controls.ListItem"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/SettingsStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
-        <Grid Margin="20">
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Margin" Value="10,0"/>
-                </Style>
-            </Grid.Resources>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Margin="20" MaxWidth="1000">
             <Grid.RowDefinitions>
                 <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <TextBlock HorizontalAlignment="Right" Text="Show Groups only:" HorizontalTextAlignment="Right" Grid.Row="0" Grid.Column="0" />
-            <CheckBox IsChecked="{x:Bind viewModel.ShowCombinedRoomOnly, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-
-            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,15" Text="Groups:" Grid.Row="1" Grid.Column="0" />
-            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                <Button Margin="5,10" Click="{x:Bind viewModel.AddGroupButton_Click}">
-                    <StackPanel Orientation="Horizontal">
-                        <FontIcon Glyph="&#xED0E;"/>
-                        <TextBlock Text="Add group" Margin="10,0"/>
+            <TextBlock Grid.Row="0" Style="{StaticResource SettingsPageTitleTextBlockStyle}">Remote Control Groups</TextBlock>
+            <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource SettingsSectionTitleTextBlockStyle}">Behavior</TextBlock>
+                        <Grid Style="{StaticResource SettingsItemGridStyle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="AUTO"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xe762;" Margin="20,0,20,0"/>
+                            <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Show Groups only</TextBlock>
+                                <TextBlock>By checking this, Hue/Remo appliances not being contained in the groups will disappear.</TextBlock>
+                            </StackPanel>
+                            <CheckBox Grid.Column="2" MinWidth="40" IsChecked="{x:Bind viewModel.ShowCombinedRoomOnly, Mode=TwoWay}"/>
+                        </Grid>
                     </StackPanel>
-                </Button>
-                <ListView MinWidth="250" VerticalAlignment="Stretch" CanReorderItems="True" AllowDrop="True"
-                           ItemsSource="{x:Bind viewModel.CombinedControls, Mode=OneWay}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <listItem:CombinedControlListItem CombinedControl="{Binding}" DeleteButtonClicked="CombinedControlListItem_DeleteButtonClicked"/>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Style="{StaticResource SettingsSectionTitleTextBlockStyle}">Groups</TextBlock>
+                        <Grid Style="{StaticResource SettingsListGridStyle}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="AUTO"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <Button Click="{x:Bind viewModel.AddGroupButton_Click}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xED0E;"/>
+                                        <TextBlock Text="Add group" Margin="10,0"/>
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                            <ListView Grid.Row="1" Height="500" CanReorderItems="True" AllowDrop="True"
+                                      ItemsSource="{x:Bind viewModel.CombinedControls, Mode=OneWay}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <listItem:CombinedControlListItem CombinedControl="{Binding}" DeleteButtonClicked="CombinedControlListItem_DeleteButtonClicked"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
         <controls:Loading x:Name="LoadingControl" IsEnabled="{x:Bind viewModel.IsLoading, Mode=OneWay}" IsLoading="{x:Bind viewModel.IsLoading, Mode=OneWay}" VerticalContentAlignment="Center">
             <StackPanel Orientation="Horizontal">

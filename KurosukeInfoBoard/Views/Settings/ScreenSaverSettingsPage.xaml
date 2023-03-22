@@ -8,44 +8,86 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/SettingsStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
-        <Grid Margin="20">
-            <Grid.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Margin" Value="10,0"/>
-                </Style>
-            </Grid.Resources>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Margin="20" MaxWidth="1000">
             <Grid.RowDefinitions>
                 <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
-                <RowDefinition Height="AUTO"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Style="{StaticResource SettingsPageTitleTextBlockStyle}">Screensaver</TextBlock>
+            <ScrollViewer Grid.Row="1" Margin="10" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Vertical">
+                            <Grid Style="{StaticResource SettingsItemGridStyle}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="AUTO"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="AUTO"/>
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xe7e8;" Margin="20,0"/>
+                                <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                    <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Screen Saver Enabled</TextBlock>
+                                </StackPanel>
+                                <ToggleSwitch Grid.Column="2" MinWidth="95" IsOn="{x:Bind viewModel.IsEnabled, Mode=TwoWay}"/>
+                            </Grid>
+                        </StackPanel>
 
-            <TextBlock HorizontalAlignment="Right" Text="Screen Saver Enabled:" Grid.Row="0" Grid.Column="0" />
-            <ToggleSwitch IsOn="{x:Bind viewModel.IsEnabled, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-
-            <TextBlock HorizontalAlignment="Right" Text="Interval:" Grid.Row="1" Grid.Column="0" />
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                <muxc:NumberBox Value="{x:Bind viewModel.Period, Mode=TwoWay}" SpinButtonPlacementMode="Inline" />
-                <TextBlock Text="sec(s)" />
-            </StackPanel>
-
-            <TextBlock HorizontalAlignment="Right" Text="YouTube playlist ID:" Grid.Row="2" Grid.Column="0" />
-            <TextBox Text="{x:Bind viewModel.PlaylistId, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" />
-
-            <TextBlock HorizontalAlignment="Right" Text="Use AV1 Codec:" Grid.Row="3" Grid.Column="0" />
-            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                <ToggleSwitch IsOn="{x:Bind viewModel.UseAV1Codec, Mode=TwoWay}" />
-                <TextBlock Text="*you need to install the AV1/VP9 video extensions from Microsoft Store"/>
-            </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Style="{StaticResource SettingsSectionTitleTextBlockStyle}">Settings</TextBlock>
+                            <Grid Style="{StaticResource SettingsItemGridStyle}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="AUTO"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="AUTO"/>
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xe916;" Margin="20,0"/>
+                                <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                    <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Wait Time</TextBlock>
+                                    <TextBlock>Screensaver will appear after this period.</TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,15">
+                                    <muxc:NumberBox Value="{x:Bind viewModel.Period, Mode=TwoWay}" SpinButtonPlacementMode="Inline" />
+                                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="sec(s)" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid Style="{StaticResource SettingsItemGridStyle}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="AUTO"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="AUTO"/>
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xe728;" Margin="20,0"/>
+                                <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                    <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">YouTube playlist ID</TextBlock>
+                                </StackPanel>
+                                <TextBox Grid.Column="2" MinWidth="450" Margin="20,15" Text="{x:Bind viewModel.PlaylistId, Mode=TwoWay}"/>
+                            </Grid>
+                            <Grid Style="{StaticResource SettingsItemGridStyle}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="AUTO"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="AUTO"/>
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xea0c;" Margin="20,0"/>
+                                <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                    <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Use AV1 Codec</TextBlock>
+                                    <TextBlock>*you need to install the AV1/VP9 video extensions from Microsoft Store</TextBlock>
+                                </StackPanel>
+                                <CheckBox Grid.Column="2" MinWidth="40" IsChecked="{x:Bind viewModel.UseAV1Codec, Mode=TwoWay}"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>
