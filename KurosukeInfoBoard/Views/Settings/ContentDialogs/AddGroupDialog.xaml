@@ -13,7 +13,19 @@
     IsPrimaryButtonEnabled="{x:Bind viewModel.IsPrimaryButtonEnabled, Mode=OneWay}"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
-    Closing="ContentDialog_Closing">
+    Closing="ContentDialog_Closing"
+    CornerRadius="3">
+    <ContentDialog.PrimaryButtonStyle>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource SystemControlBackgroundAccentBrush}"/>
+            <Setter Property="CornerRadius" Value="3"/>
+        </Style>
+    </ContentDialog.PrimaryButtonStyle>
+    <ContentDialog.SecondaryButtonStyle>
+        <Style TargetType="Button">
+            <Setter Property="CornerRadius" Value="3"/>
+        </Style>
+    </ContentDialog.SecondaryButtonStyle>
 
     <Grid>
         <Grid.ColumnDefinitions>
