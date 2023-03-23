@@ -5,6 +5,7 @@
     xmlns:local="using:YoutubePlayer.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -35,6 +36,14 @@
                     <TextBlock Text="-" Margin="5,0"/>
                     <TextBlock Text="{x:Bind viewModel.PlaylistName, Mode=OneWay}"/>
                 </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Visibility="{x:Bind viewModel.LoadingVisibility, Mode=OneWay}">
+                <muxc:ProgressBar Width="150" IsIndeterminate="True" ShowPaused="False" ShowError="False"
+                                  HorizontalAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Center" Margin="0,10">Caching video...</TextBlock>
             </StackPanel>
         </Grid>
     </Grid>

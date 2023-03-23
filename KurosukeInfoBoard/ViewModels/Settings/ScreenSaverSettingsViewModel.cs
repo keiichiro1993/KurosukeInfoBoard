@@ -41,6 +41,17 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             }
         }
 
+        public bool IsAudioEnabled
+        {
+            get { return SettingsHelper.Settings.IsScreenSaverAudioEnabled.GetValue<bool>(); }
+            set { SettingsHelper.Settings.IsScreenSaverAudioEnabled.SetValue(value); }
+        }
+
+        public bool IsCachingEnabled
+        {
+            get { return SettingsHelper.Settings.IsScreenSaverCachingEnabled.GetValue<bool>(); }
+            set { SettingsHelper.Settings.IsScreenSaverCachingEnabled.SetValue(value); }
+        }
 
         private void SwitchTimer()
         {

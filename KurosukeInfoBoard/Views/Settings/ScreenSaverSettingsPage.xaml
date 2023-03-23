@@ -84,6 +84,19 @@
                                 </StackPanel>
                                 <CheckBox Grid.Column="2" MinWidth="40" IsChecked="{x:Bind viewModel.UseAV1Codec, Mode=TwoWay}"/>
                             </Grid>
+                            <Grid Style="{StaticResource SettingsItemGridStyle}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="AUTO"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="AUTO"/>
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xebd3;" Margin="20,0"/>
+                                <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                    <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Enable Caching</TextBlock>
+                                    <TextBlock>Improves compatibility by downloading videos but slower to start playing. Please watch your disk space.</TextBlock>
+                                </StackPanel>
+                                <CheckBox Grid.Column="2" MinWidth="40" IsChecked="{x:Bind viewModel.IsCachingEnabled, Mode=TwoWay}"/>
+                            </Grid>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

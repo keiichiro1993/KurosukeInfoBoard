@@ -12,7 +12,11 @@
     NavigationCacheMode="Required">
 
     <Grid Tapped="Grid_Tapped">
-        <youtube:YoutubePlayerControl YouTubePlaylistId="{x:Bind PlaylistId, Mode=OneWay}" UseAV1Codec="{x:Bind UseAV1Codec, Mode=OneWay}" />
+        <youtube:YoutubePlayerControl 
+            YouTubePlaylistId="{x:Bind PlaylistId, Mode=OneWay}" 
+            UseAV1Codec="{x:Bind UseAV1Codec, Mode=OneWay}"
+            EnableAudio="{x:Bind EnableAudio, Mode=OneWay}"
+            EnableCaching="{x:Bind EnableCaching, Mode=OneWay}"/>
         <clock:ClockControl HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"/>
     </Grid>
 </Page>

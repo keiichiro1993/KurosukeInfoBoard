@@ -75,6 +75,45 @@ namespace YoutubePlayer.Controls
 
         }
 
+        public bool EnableAudio
+        {
+            get => (bool)GetValue(EnableAudioProperty);
+            set => SetValue(EnableAudioProperty, value);
+        }
+
+        public static readonly DependencyProperty EnableAudioProperty =
+          DependencyProperty.Register(nameof(EnableAudio), typeof(bool),
+            typeof(YoutubePlayerControl), new PropertyMetadata(null, new PropertyChangedCallback(OnEnableAudioChanged)));
+
+        private static void OnEnableAudioChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var youtubePlayerControl = d as YoutubePlayerControl;
+            var audioEnabled = (bool)e.NewValue;
+            if (audioEnabled)
+            {
+                youtubePlayerControl.player.ElementSoundMode = ElementSoundMode.Default;
+            }
+            else
+            {
+                youtubePlayerControl.player.ElementSoundMode = ElementSoundMode.Off;
+            }
+        }
+
+        public bool EnableCaching
+        {
+            get => (bool)GetValue(EnableCachingProperty);
+            set => SetValue(EnableCachingProperty, value);
+        }
+
+        public static readonly DependencyProperty EnableCachingProperty =
+          DependencyProperty.Register(nameof(EnableCaching), typeof(bool),
+            typeof(YoutubePlayerControl), new PropertyMetadata(null, new PropertyChangedCallback(OnEnableCachingChanged)));
+
+        private static void OnEnableCachingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+
 
         // TODO: error handling
         private void YoutubePlayerControl_Loaded(object sender, RoutedEventArgs e)
@@ -110,7 +149,7 @@ namespace YoutubePlayer.Controls
             }
             catch (Exception ex)
             {
-                Debugger.WriteErrorLog("Error occurred in YouTube Player controlk.", ex);
+                Debugger.WriteErrorLog("Error occurred in YouTube Player control.", ex);
                 await new MessageDialog("Please make sure you specified the correct playlist ID. After changing playlist ID, please restart this app. Error=" + ex.Message, "Error occurred in YouTube Player").ShowAsync();
                 isInitialized = false;
             }
@@ -123,77 +162,95 @@ namespace YoutubePlayer.Controls
                 viewModel.Title = video.Title;
                 viewModel.ChannelName = video.Author.ChannelTitle;
 
-                using (var stream = await client.GetHighestQualityVideoAsStream(video.Id, UseAV1Codec))
+                if (EnableCaching)
                 {
-                    // FFmpeg
-                    var config = new MediaSourceConfig();
-                    config.FFmpegOptions = new PropertySet {
-                        { "reconnect", 1 },
-                        { "reconnect_streamed", 1 },
-                        { "reconnect_on_network_error", 1 },
-                    };
-                    config.VideoDecoderMode = VideoDecoderMode.Automatic;
-                    config.DefaultBufferTime = TimeSpan.Zero;
-                    var ffmpegStream = await FFmpegMediaSource.CreateFromStreamAsync(stream.AsRandomAccessStream(), config);
-
-                    // Media Player
-                    using (var mediaPlayer = new MediaPlayer())
+                    viewModel.IsLoading = true;
+                    using (var stream = await client.DownloadHighestQualityVideo(video.Id, UseAV1Codec, new Progress<double>()))
                     {
-                        setStreamAndPlay(ffmpegStream, mediaPlayer, lastPosition);
-                        Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
-
-                        TimeSpan threashold = new TimeSpan(0, 0, 0, 0, 10); //threashold to detect the video play issue
-
-                        while (player.MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.None)
-                        {
-                            if (loaded)
-                            {
-                                await Task.Delay(5000);
-
-                                if (lastPosition != null && player.MediaPlayer.PlaybackSession.Position - lastPosition < threashold && player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
-                                {
-                                    Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue with Playing state. Trying to recover...");
-                                    throw new InvalidOperationException("Detected a video playback issue with Playing state");
-                                }
-
-                                lastPosition = player.MediaPlayer.PlaybackSession.Position;
-                                Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState + " Position:" + lastPosition);
-
-                                if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
-                                {
-                                    player.MediaPlayer.Play();
-                                    // PlayしたはずなのにPausedのままの場合がある。（Buffering?）
-                                    await Task.Delay(10000);
-                                    if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
-                                    {
-                                        Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue with Paused state. Trying to recover...");
-                                        throw new InvalidOperationException("Detected a video playback issue with Paused state");
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                while (!loaded)
-                                {
-                                    player.MediaPlayer.Pause();
-                                    await Task.Delay(200);
-                                }
-                                player.MediaPlayer.Play();
-                                await Task.Delay(200);
-                            }
-                        }
-                        Debugger.WriteDebugLog("3. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+                        viewModel.IsLoading = false;
+                        await InnerPlayVideo(lastPosition, stream);
+                    }
+                }
+                else
+                {
+                    using (var stream = await client.GetHighestQualityVideoAsStream(video.Id, UseAV1Codec))
+                    {
+                        await InnerPlayVideo(lastPosition, stream);
                     }
                 }
             }
             catch (Exception ex)
             {
+                viewModel.IsLoading = false;
                 Debugger.WriteErrorLog("Error occurred with video id=[" + video.Id + "] title=[" + video.Title + "]. remaining retry=" + retry + ".", ex);
                 if (retry > 0)
                 {
                     retry--;
                     await PlayVideo(video, client, retry, lastPosition);
                 }
+            }
+        }
+
+        private async Task InnerPlayVideo(TimeSpan? lastPosition, Stream stream)
+        {
+            // FFmpeg
+            var config = new MediaSourceConfig();
+            config.FFmpegOptions = new PropertySet {
+                        { "reconnect", 1 },
+                        { "reconnect_streamed", 1 },
+                        { "reconnect_on_network_error", 1 },
+                    };
+            config.VideoDecoderMode = VideoDecoderMode.Automatic;
+            config.DefaultBufferTime = TimeSpan.Zero;
+            var ffmpegStream = await FFmpegMediaSource.CreateFromStreamAsync(stream.AsRandomAccessStream(), config);
+
+            // Media Player
+            using (var mediaPlayer = new MediaPlayer())
+            {
+                setStreamAndPlay(ffmpegStream, mediaPlayer, lastPosition);
+                Debugger.WriteDebugLog("1. " + player.MediaPlayer.PlaybackSession.PlaybackState);
+
+                TimeSpan threashold = new TimeSpan(0, 0, 0, 0, 10); //threashold to detect the video play issue
+
+                while (player.MediaPlayer.PlaybackSession.PlaybackState != MediaPlaybackState.None)
+                {
+                    if (loaded)
+                    {
+                        await Task.Delay(5000);
+
+                        if (lastPosition != null && player.MediaPlayer.PlaybackSession.Position - lastPosition < threashold && player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Playing)
+                        {
+                            Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue with Playing state. Trying to recover...");
+                            throw new InvalidOperationException("Detected a video playback issue with Playing state");
+                        }
+
+                        lastPosition = player.MediaPlayer.PlaybackSession.Position;
+                        Debugger.WriteDebugLog("2. " + player.MediaPlayer.PlaybackSession.PlaybackState + " Position:" + lastPosition);
+
+                        if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
+                        {
+                            player.MediaPlayer.Play();
+                            // PlayしたはずなのにPausedのままの場合がある。（Buffering?）
+                            await Task.Delay(10000);
+                            if (player.MediaPlayer.PlaybackSession.PlaybackState == MediaPlaybackState.Paused)
+                            {
+                                Debugger.WriteDebugLog("[Auto Recovery] Detected a video playback issue with Paused state. Trying to recover...");
+                                throw new InvalidOperationException("Detected a video playback issue with Paused state");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        while (!loaded)
+                        {
+                            player.MediaPlayer.Pause();
+                            await Task.Delay(200);
+                        }
+                        player.MediaPlayer.Play();
+                        await Task.Delay(200);
+                    }
+                }
+                Debugger.WriteDebugLog("3. " + player.MediaPlayer.PlaybackSession.PlaybackState);
             }
         }
 

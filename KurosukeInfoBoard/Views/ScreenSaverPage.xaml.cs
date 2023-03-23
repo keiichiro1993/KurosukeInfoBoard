@@ -26,6 +26,8 @@ namespace KurosukeInfoBoard.Views
     {
         public string PlaylistId = SettingsHelper.Settings.YouTubePlaylistId.GetValue<string>();
         public bool UseAV1Codec = SettingsHelper.Settings.UseAV1Codec.GetValue<bool>();
+        public bool EnableAudio = SettingsHelper.Settings.IsScreenSaverAudioEnabled.GetValue<bool>();
+        public bool EnableCaching = SettingsHelper.Settings.IsScreenSaverCachingEnabled.GetValue<bool>();
 
         public ScreenSaverPage()
         {

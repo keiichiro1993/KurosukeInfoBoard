@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.UI.Xaml;
 
 namespace YoutubePlayer.ViewModels
 {
@@ -41,6 +42,23 @@ namespace YoutubePlayer.ViewModels
                 _ChannelName = value;
                 RaisePropertyChanged();
             }
+        }
+
+        private bool _IsLoading = false;
+        public new bool IsLoading
+        {
+            get { return _IsLoading; }
+            set
+            {
+                _IsLoading = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged("LoadingVisibility");
+            }
+        }
+
+        public Visibility LoadingVisibility
+        {
+            get { return IsLoading ? Visibility.Visible : Visibility.Collapsed; }
         }
     }
 }
