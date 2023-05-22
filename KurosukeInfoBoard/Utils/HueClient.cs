@@ -162,7 +162,7 @@ namespace KurosukeInfoBoard.Utils
             entity.RoomId = scene.Group;
             entity.SceneId = scene.Id;
             entity.LightStateJson = lightStateJson;
-            selectedHueSceneHelper.AddUpdateSelectedHueScene(entity);
+            await selectedHueSceneHelper.AddUpdateSelectedHueScene(entity);
         }
     }
 }
