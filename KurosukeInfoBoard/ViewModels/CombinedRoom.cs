@@ -21,13 +21,13 @@ namespace KurosukeInfoBoard.ViewModels
     public class CombinedRoom : ViewModelBase, IDevice
     {
 
-        public CombinedRoom(CombinedControl combinedControl, Models.Hue.Group hueDevice, Models.NatureRemo.Device remoDevice)
+        public CombinedRoom(CombinedControl combinedControl, Models.Hue.Group hueDevice, Models.NatureRemo.Device remoDevice, bool isHueIndivisualControlHidden)
         {
             AllAppliances = new List<IAppliance>();
             HueScenes = new List<Scene>();
             DeviceName = combinedControl.DeviceName;
             IsSynced = combinedControl.IsSynchronized;
-            IsHueIndivisualControlHidden = combinedControl.IsHueIndivisualControlHidden;
+            IsHueIndivisualControlHidden = isHueIndivisualControlHidden;
             if (hueDevice != null)
             {
                 HueGroup = hueDevice.HueGroup;
@@ -148,7 +148,7 @@ namespace KurosukeInfoBoard.ViewModels
             if (delay == 0 || DateTime.Now - lastCommand >= new TimeSpan(0, 0, 0, 0, delay))
             {
                 IsLoading = true;
-                var appliance = (from item in Appliances
+                var appliance = (from item in AllAppliances
                                  where item.GetType() == typeof(Light)
                                  select item).FirstOrDefault() as Light;
                 if (appliance != null)
@@ -207,7 +207,7 @@ namespace KurosukeInfoBoard.ViewModels
             if (SelectedHueScene != null)
             {
                 IsLoading = true;
-                var appliance = (from item in Appliances
+                var appliance = (from item in AllAppliances
                                  where item.GetType() == typeof(Light)
                                  select item).FirstOrDefault() as Light;
                 if (appliance != null && SelectedHueScene != null)

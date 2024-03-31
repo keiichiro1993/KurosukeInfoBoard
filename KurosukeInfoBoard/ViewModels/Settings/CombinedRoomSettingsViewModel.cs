@@ -133,6 +133,12 @@ namespace KurosukeInfoBoard.ViewModels.Settings
             set { SettingsHelper.Settings.ShowCombinedRoomOnly.SetValue(value); }
         }
 
+        public bool HideIndivisualHueControls
+        {
+            get { return SettingsHelper.Settings.HideIndivisualHueControls.GetValue<bool>(); }
+            set { SettingsHelper.Settings.HideIndivisualHueControls.SetValue(value); }
+        }
+
         public async void AddGroupButton_Click(object sender, RoutedEventArgs e)
         {
             var contentDialog = new Views.ContentDialogs.AddGroupDialog(RemoDevices, HueDevices, CombinedControls);

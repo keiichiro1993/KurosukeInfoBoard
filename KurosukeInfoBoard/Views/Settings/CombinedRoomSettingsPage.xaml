@@ -43,6 +43,19 @@
                             </StackPanel>
                             <CheckBox Grid.Column="2" MinWidth="40" IsChecked="{x:Bind viewModel.ShowCombinedRoomOnly, Mode=TwoWay}"/>
                         </Grid>
+                        <Grid Style="{StaticResource SettingsItemGridStyle}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="AUTO"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="AUTO"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Grid.Column="0" Style="{StaticResource SettingsItemFontIconStyle}" Glyph="&#xe762;" Margin="20,0,20,0"/>
+                            <StackPanel Grid.Column="1" Style="{StaticResource SettingsItemNameStackpanelStyle}">
+                                <TextBlock Style="{StaticResource SettingsItemTextBlockStyle}">Hide indivisual Hue controls</TextBlock>
+                                <TextBlock>Hide Hue controls and show only Remo controls as indivisual items under the Hue scene control.</TextBlock>
+                            </StackPanel>
+                            <CheckBox Grid.Column="2" MinWidth="40" IsChecked="{x:Bind viewModel.HideIndivisualHueControls, Mode=TwoWay}"/>
+                        </Grid>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical">

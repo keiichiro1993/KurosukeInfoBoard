@@ -12,31 +12,6 @@ namespace KurosukeInfoBoard.Utils
     public static class SettingsHelper
     {
         #region public methods
-        public static T LoadAppSetting<T>(string key, T defaultValue = default(T))
-        {
-            ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            try
-            {
-                return (T)roamingSettings.Values[key];
-            }
-            catch (NullReferenceException)
-            {
-                return defaultValue;
-            }
-            catch (Exception ex)
-            {
-                Debugger.WriteErrorLog("Exception in LoadAppSetting method.", ex);
-                return defaultValue;
-            }
-        }
-
-        public static void SaveAppSetting<T>(string key, T value)
-        {
-            ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values[key] = value;
-            Debugger.WriteDebugLog("Settings changed:::" + key + "=" + value + ".");
-        }
-
         /// <summary>
         /// Create or Load GUID
         /// This might be used for logging/telemetry in the future.
@@ -66,7 +41,7 @@ namespace KurosukeInfoBoard.Utils
         /// <summary>
         /// Specify list of all the settings for consistency.
         /// </summary>
-        public enum Settings { WetherUnits, CityId, IsScreenSaverEnabled, ScreenSaverPeriod, YouTubePlaylistId, IsScreenSaverAudioEnabled, IsScreenSaverCachingEnabled, AutoRefreshControls, AutoRefreshControlsInterval, UseAV1Codec, ShowCombinedRoomOnly, AlwaysFullScreen, LastSelectedPage }
+        public enum Settings { WetherUnits, CityId, IsScreenSaverEnabled, ScreenSaverPeriod, YouTubePlaylistId, IsScreenSaverAudioEnabled, IsScreenSaverCachingEnabled, AutoRefreshControls, AutoRefreshControlsInterval, UseAV1Codec, ShowCombinedRoomOnly, AlwaysFullScreen, LastSelectedPage, HideIndivisualHueControls }
 
         public static T GetValue<T>(this Settings setting)
         {
@@ -77,6 +52,32 @@ namespace KurosukeInfoBoard.Utils
         {
             SaveAppSetting(setting.ToString(), value);
         }
+
+        private static T LoadAppSetting<T>(string key, T defaultValue = default(T))
+        {
+            ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            try
+            {
+                return (T)roamingSettings.Values[key];
+            }
+            catch (NullReferenceException)
+            {
+                return defaultValue;
+            }
+            catch (Exception ex)
+            {
+                Debugger.WriteErrorLog("Exception in LoadAppSetting method.", ex);
+                return defaultValue;
+            }
+        }
+
+        private static void SaveAppSetting<T>(string key, T value)
+        {
+            ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
+            roamingSettings.Values[key] = value;
+            Debugger.WriteDebugLog("Settings changed:::" + key + "=" + value + ".");
+        }
+
         #endregion
     }
 }
