@@ -58,7 +58,7 @@ namespace KurosukeInfoBoard.ViewModels
                                  where typeof(Models.Hue.Group) == device.GetType() && ((Models.Hue.Group)device).HueGroup.Id == combinedControl.HueId
                                  select device).FirstOrDefault();
 
-                var room = new CombinedRoom(combinedControl.DeviceName, hueDevice as Models.Hue.Group, remoDevice as Device, combinedControl.IsSynchronized);
+                var room = new CombinedRoom(combinedControl, hueDevice as Models.Hue.Group, remoDevice as Device);
 
                 if (remoDevice != null) { devices.Remove(remoDevice); }
                 if (hueDevice != null) { devices.Remove(hueDevice); }

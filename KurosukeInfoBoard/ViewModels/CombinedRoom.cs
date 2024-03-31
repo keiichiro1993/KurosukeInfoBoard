@@ -1,6 +1,7 @@
 ﻿using Common.ViewModels;
 using KurosukeInfoBoard.Models.Common;
 using KurosukeInfoBoard.Models.Hue;
+using KurosukeInfoBoard.Models.SQL;
 using KurosukeInfoBoard.Utils;
 using Q42.HueApi.Models;
 using System;
@@ -20,23 +21,24 @@ namespace KurosukeInfoBoard.ViewModels
     public class CombinedRoom : ViewModelBase, IDevice
     {
 
-        public CombinedRoom(string deviceName, Models.Hue.Group hueDevice, Models.NatureRemo.Device remoDevice, bool isSynced)
+        public CombinedRoom(CombinedControl combinedControl, Models.Hue.Group hueDevice, Models.NatureRemo.Device remoDevice)
         {
-            Appliances = new List<IAppliance>();
+            AllAppliances = new List<IAppliance>();
             HueScenes = new List<Scene>();
-            DeviceName = deviceName;
-            IsSynced = isSynced;
+            DeviceName = combinedControl.DeviceName;
+            IsSynced = combinedControl.IsSynchronized;
+            IsHueIndivisualControlHidden = combinedControl.IsHueIndivisualControlHidden;
             if (hueDevice != null)
             {
                 HueGroup = hueDevice.HueGroup;
-                Appliances.AddRange(hueDevice.Appliances);
+                AllAppliances.AddRange(hueDevice.Appliances);
                 HueScenes.AddRange(hueDevice.HueScenes);
                 _SelectedHueScene = hueDevice.SelectedHueScene;
             }
             if (remoDevice != null)
             {
                 RemoDevice = remoDevice;
-                Appliances.AddRange(remoDevice.Appliances);
+                AllAppliances.AddRange(remoDevice.Appliances);
             }
         }
 
@@ -69,11 +71,22 @@ namespace KurosukeInfoBoard.ViewModels
 
         public bool IsSynced { get; set; }
 
+        public bool IsHueIndivisualControlHidden { get; set; }
+
         public string RoomTemperature { get { return RemoDevice != null ? RemoDevice.newest_events.te.val.ToString() : ""; } }
 
         public string RoomTemperatureUnit { get { return string.IsNullOrEmpty(RoomTemperature) ? "" : "℃"; } }
 
-        public List<IAppliance> Appliances { get; set; }
+        public List<IAppliance> AllAppliances { get; set; }
+        public List<IAppliance> Appliances 
+        { 
+            get {
+                return !IsHueIndivisualControlHidden ? AllAppliances : (from item in AllAppliances
+                                                                        where item.GetType() != typeof(Models.Hue.Light)
+                                                                        select item).ToList(); 
+            }
+            set { throw new InvalidOperationException("Appliances for ConbinedRoom class is readonly. Use AllAppliances member instead."); }
+        }
 
         public Visibility HeaderTemperatureVisibility { get { return RemoDevice != null ? Visibility.Visible : Visibility.Collapsed; } }
         public Visibility HeaderControlVisibility { get { return HueGroup != null ? Visibility.Visible : Visibility.Collapsed; } }
@@ -161,7 +174,7 @@ namespace KurosukeInfoBoard.ViewModels
         {
             if (IsSynced)
             {
-                var appliances = from item in Appliances
+                var appliances = from item in AllAppliances
                                      where item.GetType() == typeof(Models.NatureRemo.Appliance)
                                      select item as Models.NatureRemo.Appliance;
                 try
